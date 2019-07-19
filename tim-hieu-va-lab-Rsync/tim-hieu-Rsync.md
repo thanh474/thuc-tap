@@ -23,7 +23,7 @@ Rsync không yêu cầu quyền super-user.
 #### a. Môi trường và sơ đồ.
 
 
-Môi trường lab trên 2 máy áo Centos 7 và Ubuntu 16.04 trên nền tảng KVM.
+Môi trường lab trên 2 máy áo Centos 7 và Ubuntu 16.04 trên nền tảng KVM và đặt cấu hình kiểu kết nôi mangj là NAT.
 
 
 - Sơ đồ.
@@ -71,7 +71,7 @@ Các tham số opotion cần biết trước khi sử dụng rsync.
 Rsync file /datafel từ Rsync source đến Rsync destination ta dùng câu lệnh.
 
 ```
-mkdir /datafiel
+mkdir /datafile
 
 rsync -avz /datafile/ root@192.168.122.103:/home/buithanh
 ```
@@ -89,16 +89,16 @@ ls
 
 ![](anhrsync/anh4.png)
 
-Ta thấy có thêm file datafiel.tar đây là thư mục đã đươc nén và đồng bộ từ máy Rsync source.
+Ta thấy có thêm file datafile.tar đây là thư mục đã đươc nén và đồng bộ từ máy Rsync source.
 
 
 Copy thư mục từ Rsync destination đến Rsycn source ta dùng lệnh.
 
 ```
-rsync -avzh buithanh@192.168.122.103:/home/datafiel.tar 
+rsync -avzh buithanh@192.168.122.103:/home/datafile.tar 
 ```
 
-Lệnh trên là ta copy thư mục /home/datafiel.tar từ Rsync destination đến thư mục /home/thanhbui trên máy Rsycn source.
+Lệnh trên là ta copy thư mục /home/datafile.tar từ Rsync destination đến thư mục /home/thanhbui trên máy Rsycn source.
 
 
 ![](anhrsync/anh5.png)
