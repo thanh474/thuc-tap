@@ -1,19 +1,19 @@
 # Swap memory
 ## Swap là gì?
-    - Swap là một vùng trên ổ đĩa mà nó có thể được sử dụng để lưu trữ các dự liêu mà không được sử dụng tren bô nhớ vất lý ( RAM ). là nơi chứa tạm thời các tài nguyên đang không hoạt động trong bộ nhớ.
-    - Swap được sử dụng khi hệ thông của bạn thiếu RAM để sử dụng, khi đó  các tài nguyên và dữ liệu tạm thời không hoạt động trên bộ nhớ RAM sẽ lưu trữ vào không gian swap  để giải phóng bộ nhớ  RAM và sử dụng cho việc khác.
-    - Thời gian truy cập vào vùng swap là bằng tốc độ của ổ đĩa còn RAM lại có một tốc độ khác nhanh hơn.
-    - Swap thường được ưu tiên sử dungj cho các hệ điều hành như unix và linux.
-    - Khi cài đặt swap thì dung lượng trên ổ đĩa được sử dụng để lưu sex bị trừ đi.
-##  Cấu hình và sự dụng swap trong thực tế linux.
-- Bài lab này sử dụng trên VMware centos 7.
-- trước tiên kiểm tra ổ nhớ đĩa cứng trên máy bằng 3 câu lệnh.
-    - df -h : cách kiểm tra dung lương đĩa.
-    - lsblk: kiểm tra dung lượng đĩa theo cây.
-    - swapon -s : kiểm tra xem có phân vùng swap nào chưa. 
+- Swap là một vùng trên ổ đĩa mà nó có thể được sử dụng để lưu trữ các dự liêu mà không được sử dụng tren bô nhớ vất lý (RAM) là nơi chứa tạm thời các tài nguyên đang không hoạt động trong bộ nhớ.
+- Swap được sử dụng khi hệ thông của bạn thiếu RAM để sử dụng, khi đó  các tài nguyên và dữ liệu tạm thời không hoạt động trên bộ nhớ RAM sẽ lưu trữ vào không gian swap  để giải phóng bộ nhớ  RAM và sử dụng cho việc khác.
+- Thời gian truy cập vào vùng swap là bằng tốc độ của ổ đĩa còn RAM lại có một tốc độ khác nhanh hơn.
+- Swap thường được ưu tiên sử dungj cho các hệ điều hành như unix và linux.
+- Khi cài đặt swap thì dung lượng trên ổ đĩa được sử dụng để lưu sex bị trừ đi.
+##  Cấu hình và sự dụng swap.
+- Thực hiện trên môi trường ảo hóa VMware. Sử dụng hệ điều hành Centos 7.
+- Kiểm tra ổ nhớ đĩa cứng trên máy bằng các câu lệnh.
+    - **df -h** : Kiểm tra dung lương đĩa.
+    - **lsblk**: Kiểm tra dung lượng đĩa theo cây.
+    - **swapon -s**: Kiểm tra xem có phân vùng swap nào chưa. 
 
 ![](anhswap/anh2.png)
-- Ở đây trong máy áo đã có một phân vùng swap rồi nó sử dụng kiêu LVM và có dung lượng 1.5GB, chế độ priority là -2.
+- Ở đây đã có một phân vùng swap rồi vì khi cài máy ảo nó đã cài đặt rồi nó sử dụng kiêu LVM và có dung lượng 1.5GB, chế độ priority là -2.
 - Ta có thể tiếp tục thêm một  swap nữa sử dung lệnh.
     - sudo dd if=/dev/zero of=/swapfile bs=1024 count=1024k
 
