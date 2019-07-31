@@ -87,7 +87,7 @@ Có 3 module chính được sử dung là:
 - Connection tracking
 # 4. Sử dụng iptables trên Centos 7.
 
-Để sử dụng iptables trên centos 7 ta phải tắt firewalld 
+Để sử dụng iptables trên centos 7 ta phải tắt firewalld. 
 ```
 systemctl stop firewalld
 systemctl mask firewalld
@@ -155,18 +155,23 @@ Khi ta tạo mới một chain trong cùng 1 table để sử dụng chain đó 
 |RETURN| Packet sẽ không traverse ở chain hiện tại. Nếu nó là subchain thì nó sẽ quay lại superior chain. Nếu nó là main chain thì policy sẽ được áp dụng.|iptables -A INPUT -p tcp -j RETURN|
 |REDIRECT| Rewrite lại địa chỉ của gói tin | ptables -A INPUT -p tcp -j REDIRECT|
 
+<<<<<<< HEAD
 # 6. Các rules cơ bản trong iptables.
 ## 6.1 Mô hình.
 Tạo 3 máy ảo Centos 7 trên môi trường KVM, kiểu cấu hình mạng NAT.
+=======
+# 5. Các rules cơ bản trong iptables.
+## 5.1 Mô hình.
+>>>>>>> 7d26e98f1979617415c882e964a8e743f930c9ed
 
 ![](anhip/anh11.png)
 ## 6.2 IP planning.
 
 ![](anhip/anh6.png)
 
-Ngắt tất cả kết nói INPUT , OUTPUT, FORWARD trên iptables để kiểm tra gói tin đi qua.
-
 Các câu lệnh sau đều cấu hình trên máy Machine-1 vì đây là nơi kiểm soát tất cả các gói tin trước khi vào hay ra khỏi internet.
+
+Ngắt tất cả kết nói INPUT , OUTPUT, FORWARD trên iptables để kiểm tra gói tin đi qua.
 
 ```
 iptables -P INPUT DROP
