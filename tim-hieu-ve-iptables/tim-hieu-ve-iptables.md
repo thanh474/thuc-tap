@@ -72,7 +72,7 @@ Mỗi rule có một hành động để xử lý gói tin, các hành động n
 
 # 3. Sử dụng iptables trên Centos 7.
 
-Để sử dụng iptables trên centos 7 ta phải tắt firewalld 
+Để sử dụng iptables trên centos 7 ta phải tắt firewalld. 
 ```
 systemctl stop firewalld
 systemctl mask firewalld
@@ -142,16 +142,15 @@ Khi ta tạo mới một chain trong cùng 1 table để sử dụng chain đó 
 
 # 5. Các rules cơ bản trong iptables.
 ## 5.1 Mô hình.
-Tạo 3 máy ảo Centos 7 trên môi trường KVM, kiểu cấu hình mạng NAT.
 
 ![](anhip/anh11.png)
 ## 5.2 IP planning.
 
 ![](anhip/anh6.png)
 
-Ngắt tất cả kết nói INPUT , OUTPUT, FORWARD trên iptables để kiểm tra gói tin đi qua.
-
 Các câu lệnh sau đều cấu hình trên máy Machine-1 vì đây là nơi kiểm soát tất cả các gói tin trước khi vào hay ra khỏi internet.
+
+Ngắt tất cả kết nói INPUT , OUTPUT, FORWARD trên iptables để kiểm tra gói tin đi qua.
 
 ```
 iptables -P INPUT DROP
