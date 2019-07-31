@@ -79,7 +79,7 @@ systemctl mask firewalld
 ```
 Cài đặt gói iptables.
 ```
-
+yum install iptables-service.
 ```
 Bật và đặt iptables khởi động cùng hệ thống.
 ```
@@ -93,5 +93,88 @@ systemctl status iptables
 ![](anhip/anh1.png)
 
 Như vậy iptables đã hoạt động trên centos 7.
-# 4. Các  rule cơ bản trong iptables.
 
+# 4. Cấu trúc lệnh cơ bản.
+```
+iptables -t [table] [command] [match] [target/jump]
+```
+## 4.1 Tables.
+- Filter table.
+- NAT table.
+- Mangle table.
+- Raw table.
+
+## 4.2 Command.
+| Command | Ý nghĩa | Ví dụ| 
+|---------|--------------|---------|
+|-t, --table| Chỉ ra tên của bảng mà rule của bạn sẽ dược ghi vào, mặc định là bảng filter|itables -t |
+|-A , --append| Chèn rule vào cuối chain.| iptables -A INPUT -p tcp -j DROP|
+|-I, --insert| Chèn rule theo số thứ tự trong chain, nếu không có số thì mặc đinh là đứng đầu chain| iptables -I OUTPUT 3 -p all -j ACCEPT|
+|-D, --delete| Xóa rule trong chain theo sô thứ tự được đặt|iptables -D INPUT 1| 
+|-R, --replace| Thay thế rule vào chain theo sô thứ tự dòng| iptables -R OUTPUT 3 -p all -j DROP| 
+|-L, --list| Hiển thị toàn bộ rules ở chain| iptables -L INPUT| 
+|-F, --flush| Xóa toàn bộ rules trong chain| iptables -F INPUT| 
+|-N, --new| Tạo mới một chain| iptables -N testrule| 
+|-P, --policy| Chỉ định policy được sử dụng trong chain. Chỉ có 2 loại là ACCEPT VÀ DROP|iptables -P INPUT DROP|
+## 4.3 Match 
+
+|Match | Ý nghĩa | Ví dụ| 
+|---------|--------------|---------|
+|-p, --protocol |Sử dụng protocol nào, tcp, udp, icmp| iptables -A INPUT -p tcp -j ACCEPT|
+|-s, --source| Địa chỉ IP nguồn của gói tin đến| iptables -A INPUT -s 192.168.122.1 -j ACCEPT|
+|-d, --destination| Địa chỉ IP đích của gói tin đi| iptables -A OUTPUT -d 192.168.122.1 -j ACCEPT|
+|-i, --in-interface| Tất cả gói tin đến interface này dều được chấp nhận, thêm "!" trước interface để loại bỏ| iptables -A INPUT -i eth0 -j ACCEPT| 
+|-o, --out-interface| Tất cả gói tin đi ra khỏi interface này, sử dụng cho chain OUTPUT, PREROUTING, POSTROUTING.| iptables -A OUTPUT -o eth0 -j ACCEPT|
+|--sport, --source-port| Sử dụng port nguồn để chặn hoặc truy cập| iptables -A INPUT --sport 80 -j ACCEPT|
+|--dport, --destination-port| Sử dung port đích để chặn hoặc truy cập| iptables -A INPUT --dport 80 -j ACCEPT|
+
+## 4.4 Target và Jump.  
+### 4.4.1 Jump.
+Khi ta tạo mới một chain trong cùng 1 table để sử dụng chain đó ta phải jump vào chain đó, khi đó ta có thê traverse trong chain mới.
+### 4.4.2 Target.
+|Target  | Ý nghĩa | Ví dụ| 
+|---------|--------------|---------|
+|ACCEPT | Cho phép chain thông qua rules| iptables -A INPUT -p tcp -j ACCEPT|
+|DROP | Không cho phép chain thông qua rules| iptables -A INPUT -p tcp -j DROP|
+|REJECT | Làm việc giống DROP nhưng có gửi lại gói tin error message| iptables -A INPUT -p tcp -j REJECT| 
+|RETURN| Packet sẽ không traverse ở chain hiện tại. Nếu nó là subchain thì nó sẽ quay lại superior chain. Nếu nó là main chain thì policy sẽ được áp dụng.|iptables -A INPUT -p tcp -j RETURN|
+|REDIRECT| Rewrite lại địa chỉ của gói tin | ptables -A INPUT -p tcp -j REDIRECT|
+
+# 5. Các rules cơ bản trong iptables.
+## 5.1 Mô hình.
+Tạo 3 máy ảo Centos 7 trên môi trường KVM, kiểu cấu hình mạng NAT.
+
+![](anhip/anh11.png)
+## 5.2 IP planning.
+
+![](anhip/anh6.png)
+
+Ngắt tất cả kết nói INPUT , OUTPUT, FORWARD trên iptables để kiểm tra gói tin đi qua.
+
+Các câu lệnh sau đều cấu hình trên máy Machine-1 vì đây là nơi kiểm soát tất cả các gói tin trước khi vào hay ra khỏi internet.
+
+```
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+```
+
+Chỉ cho phép 1 kết nối qua ssh qua cổng mạng eth0 từ máy machin-1 đến machine-2
+```
+iptables -A INPUT -i eth0 -p tcp -s 192.168.122.9 -d 192.168.122.11 --dport 22 -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp -s 192.168.122.11 -d 192.168.122.9 --sport 22 -j ACCEPT
+```
+
+Chỉ cho phép kết nối icmp  từ máy machine-1 đến machine-3
+
+```
+iptables -A FORWARD -i eth0 -o ens3 -s 192.168.122.0/24 -j ACCEPT
+iptables -A FORWARD -i eth0 -o ens3 -p icmp --icmp-type any -d 192.168.12.16 -j ACCEPT
+iptables -t nat -A POSTROUTING -o ens3 -s 192.168.122.0/24 -j MASQUERADE
+iptables -t nat -A PRESROUTING -p icmp --icmp-type any -d 192.168.122.9 -j DNAT --to-destination 192.168.12.16
+```
+
+Không cho phép truy cập từ internet vào LOCAL
+```
+iptables -A INPUT -s 192.168.12.0/24 -j DROP
+```
