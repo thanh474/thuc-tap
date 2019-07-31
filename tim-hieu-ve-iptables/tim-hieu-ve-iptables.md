@@ -69,8 +69,23 @@ Mỗi rule có một hành động để xử lý gói tin, các hành động n
 - UNTRACKED: gói tin đi qua bảng raw và được xác địn là không cần theo dõi gói này trong bảng connection tracking.
 - SNAT: tráng thái được gán cho ác gói tin mà địa chỉ người đã bị NAT, dùng bởi hệ thông connection tracking để biết khi nào câng thay đổi địa chỉ gơi tin cho các gói tin trả về.
 - DNAT: trạng thái được gán cho các gói tin mà địa chỉ đích đã bị NAT, dùng bởi hệ thông connection tracking dể biết khi nào cần thay đôi địa chỉ cho gói tin gửi đi.
+# 3. Tìm hiểu netfilter.
+Netfilter là môt khung bên trong của nhân linux giúp cung cấp suwnwj linh hoat cho các hoạt động mạng khác nhau để phù hợp hơn vơi các xử lý khác nhau. Netfilter cóc các lựa chọn như packet filter, network address translation và port translation. Các phương thức của netfilter cung cấp các hướng dẫn cho cá packets đi qua mạng cũng như việc tiêns hành ngăn chặn các packet có thể bị anh hưởng trong mạng.
 
-# 3. Sử dụng iptables trên Centos 7.
+Netfilter đại diện cho tập hợp các hook trong mạng má tính (trong lập trinh hooks bao gồm nhiều ký thuật sử dụng để thay đổi hoặc tăng cường hanh vi của một hệ điều hành, các ứng dụng, hoặc các thành phần phần mềm bắng cách ngăn chặn các chức năng) do đó nó cho phép xác định các module đê đăng ký hàm call back với ngăn xếp kernel network.
+
+Kernel modules có thể đăng ký để lắng nghe các hooks. Một module mà đăng ký một function phải xác định quyên ưu tiên của functiion đó với hook, sau đó khi netfilter hook được gọi từ đoạn mã netwworking code, mỗi module đã đăng ký sẽ được gọi theo quyên ưu tiên, và được tư do thao tác vơi các packet. Module có thể thực hieenh 5 diều sau:
+- NF_ACCEPT: tiếp tục chuyển đổi như bình thường.
+- NF_DROP: xóa packets, không tiếp tục chuyển đổi.
+- NF_STOLEN: lấy gói tin đi không chuyển tiếp nữa.
+- NF_QUEUE: hàng đợi các packet (dùng cho userspace).
+- NF_REPEAT: gọi đên hook lần nữa.
+
+Có 3 module chính được sử dung là:
+- Iptables
+- NAT
+- Connection tracking
+# 4. Sử dụng iptables trên Centos 7.
 
 Để sử dụng iptables trên centos 7 ta phải tắt firewalld 
 ```
@@ -94,17 +109,17 @@ systemctl status iptables
 
 Như vậy iptables đã hoạt động trên centos 7.
 
-# 4. Cấu trúc lệnh cơ bản.
+# 5. Cấu trúc lệnh cơ bản.
 ```
 iptables -t [table] [command] [match] [target/jump]
 ```
-## 4.1 Tables.
+## 5.1 Tables.
 - Filter table.
 - NAT table.
 - Mangle table.
 - Raw table.
 
-## 4.2 Command.
+## 5.2 Command.
 | Command | Ý nghĩa | Ví dụ| 
 |---------|--------------|---------|
 |-t, --table| Chỉ ra tên của bảng mà rule của bạn sẽ dược ghi vào, mặc định là bảng filter|itables -t |
@@ -116,7 +131,7 @@ iptables -t [table] [command] [match] [target/jump]
 |-F, --flush| Xóa toàn bộ rules trong chain| iptables -F INPUT| 
 |-N, --new| Tạo mới một chain| iptables -N testrule| 
 |-P, --policy| Chỉ định policy được sử dụng trong chain. Chỉ có 2 loại là ACCEPT VÀ DROP|iptables -P INPUT DROP|
-## 4.3 Match 
+## 5.3 Match 
 
 |Match | Ý nghĩa | Ví dụ| 
 |---------|--------------|---------|
@@ -128,10 +143,10 @@ iptables -t [table] [command] [match] [target/jump]
 |--sport, --source-port| Sử dụng port nguồn để chặn hoặc truy cập| iptables -A INPUT --sport 80 -j ACCEPT|
 |--dport, --destination-port| Sử dung port đích để chặn hoặc truy cập| iptables -A INPUT --dport 80 -j ACCEPT|
 
-## 4.4 Target và Jump.  
-### 4.4.1 Jump.
+## 5.4 Target và Jump.  
+### 5.4.1 Jump.
 Khi ta tạo mới một chain trong cùng 1 table để sử dụng chain đó ta phải jump vào chain đó, khi đó ta có thê traverse trong chain mới.
-### 4.4.2 Target.
+### 5.4.2 Target.
 |Target  | Ý nghĩa | Ví dụ| 
 |---------|--------------|---------|
 |ACCEPT | Cho phép chain thông qua rules| iptables -A INPUT -p tcp -j ACCEPT|
@@ -140,12 +155,12 @@ Khi ta tạo mới một chain trong cùng 1 table để sử dụng chain đó 
 |RETURN| Packet sẽ không traverse ở chain hiện tại. Nếu nó là subchain thì nó sẽ quay lại superior chain. Nếu nó là main chain thì policy sẽ được áp dụng.|iptables -A INPUT -p tcp -j RETURN|
 |REDIRECT| Rewrite lại địa chỉ của gói tin | ptables -A INPUT -p tcp -j REDIRECT|
 
-# 5. Các rules cơ bản trong iptables.
-## 5.1 Mô hình.
+# 6. Các rules cơ bản trong iptables.
+## 6.1 Mô hình.
 Tạo 3 máy ảo Centos 7 trên môi trường KVM, kiểu cấu hình mạng NAT.
 
 ![](anhip/anh11.png)
-## 5.2 IP planning.
+## 6.2 IP planning.
 
 ![](anhip/anh6.png)
 
