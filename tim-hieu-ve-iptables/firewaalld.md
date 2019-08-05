@@ -4,4 +4,4 @@ firewalld hoat  động khác với iptables
 
 firewalld có 2 chế độ
 - runtime: khi sử dụng reboot lại câu lệnh không bị mất giống cấu hình iptables bằng sửa file( cấu hinh cứng)
-- permanent: khi reboot câu lệnh sẽ mất giống cấu hình iptables command.( cấu hinh mềm)
+- permanent: khi reboot câu lệnh sẽ mất giống cấu hình iptables command.( cấu hinh mềm)git

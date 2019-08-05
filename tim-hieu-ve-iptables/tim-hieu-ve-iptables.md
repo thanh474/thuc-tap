@@ -155,46 +155,4 @@ Khi ta tạo mới một chain trong cùng 1 table để sử dụng chain đó 
 |RETURN| Packet sẽ không traverse ở chain hiện tại. Nếu nó là subchain thì nó sẽ quay lại superior chain. Nếu nó là main chain thì policy sẽ được áp dụng.|iptables -A INPUT -p tcp -j RETURN|
 |REDIRECT| Rewrite lại địa chỉ của gói tin | ptables -A INPUT -p tcp -j REDIRECT|
 
-<<<<<<< HEAD
-# 6. Các rules cơ bản trong iptables.
-## 6.1 Mô hình.
-Tạo 3 máy ảo Centos 7 trên môi trường KVM, kiểu cấu hình mạng NAT.
-=======
-# 5. Các rules cơ bản trong iptables.
-## 5.1 Mô hình.
->>>>>>> 7d26e98f1979617415c882e964a8e743f930c9ed
-
-![](anhip/anh11.png)
-## 6.2 IP planning.
-
-![](anhip/anh6.png)
-
-Các câu lệnh sau đều cấu hình trên máy Machine-1 vì đây là nơi kiểm soát tất cả các gói tin trước khi vào hay ra khỏi internet.
-
-Ngắt tất cả kết nói INPUT , OUTPUT, FORWARD trên iptables để kiểm tra gói tin đi qua.
-
-```
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
-iptables -P OUTPUT DROP
-```
-
-Chỉ cho phép 1 kết nối qua ssh qua cổng mạng eth0 từ máy machin-1 đến machine-2
-```
-iptables -A INPUT -i eth0 -p tcp -s 192.168.122.9 -d 192.168.122.11 --dport 22 -j ACCEPT
-iptables -A OUTPUT -o eth0 -p tcp -s 192.168.122.11 -d 192.168.122.9 --sport 22 -j ACCEPT
-```
-
-Chỉ cho phép kết nối icmp  từ máy machine-1 đến machine-3
-
-```
-iptables -A FORWARD -i eth0 -o ens3 -s 192.168.122.0/24 -j ACCEPT
-iptables -A FORWARD -i eth0 -o ens3 -p icmp --icmp-type any -d 192.168.12.16 -j ACCEPT
-iptables -t nat -A POSTROUTING -o ens3 -s 192.168.122.0/24 -j MASQUERADE
-iptables -t nat -A PRESROUTING -p icmp --icmp-type any -d 192.168.122.9 -j DNAT --to-destination 192.168.12.16
-```
-
-Không cho phép truy cập từ internet vào LOCAL
-```
-iptables -A INPUT -s 192.168.12.0/24 -j DROP
-```
+#
