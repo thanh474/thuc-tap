@@ -31,7 +31,7 @@ Machine-4và Machine-5: là may tính cục bộ cho người sủ dụng như m
 ![](anhip/anh6.png)
 
 
-## Kịch bản : Kết nối 2 vùng DMZ và LOCAL.
+## Kịch bản 1 : Kết nối 2 vùng DMZ và LOCAL.
 
 Trước khi tiến hành cài đắt cấu hình trên Machine-1 thì ta cần tắt iptables hoặc tường lửa trên các Machine-2, Machine-3, Machine-4, để chứng minh gói tin đi đúng hướng.
 ```
@@ -56,8 +56,14 @@ Khi gõ lệnh xong thì 2 vùng có thể giao tiếp với nhau.
 ![](anhip/anh9-1.png)
 ![](anhip/anh9-2.png)
 
-##  Kịch bản: cho phép LOCAL và DMZ truy cập ra internet.
+Cách trên thì sau mõi lần reboot lại máy sẽ bị mất còn 1 cách khác nữa là ghi  vào trong file thì sau mỗi lần reboot sẽ không bị mất.
+```
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+```
+
+##  Kịch bản 2: cho phép LOCAL và DMZ truy cập ra internet.
 Trước khi cấu hình thì máy trong LOCAL không ping được ra  internet.
+
 ![](anhip/anh12-1.png)
 
 ```
@@ -67,26 +73,30 @@ iptables -t nat -I POSTROUTING -s 192.168.10.0/24 -o eth1 -j SNAT --to-source 19
 ```
 ![](anhip/anh13.png)
 
-## Kịch bản : Cho phép các truy cập đến Machine-1 từ vùng DMZ qua cổng 22 và hủy bỏ toàn bộ kết nối khác đến.
+## Kịch bản 3 : Cho phép các truy cập đến Machine-1 từ vùng DMZ qua cổng 22 và hủy bỏ toàn bộ kết nối khác đến.
 ```
 iptables -I INPUT -p tcp -s 192.168.10.0/24 --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 - DROP
 ```
-## Kich ban: chặn không cho Machine-5 không truy cập được nhưng Machine-4 vẫn truy cập được mysql trong Machine-2.
+## Kich ban 4 : chặn không cho Machine-5 không truy cập được nhưng Machine-4 vẫn truy cập được mysql trong Machine-2.
 
 mysql : Machine-2 --> Machine-4  , drop all.
 
 ```
 iptables -t nat -I POSTROUTING -s 192.168.20.10 -d 192.168.10.40 -p tcp --dport 3306 -j SNAT --to-source 192.168.10.254
-iptables -I FORWARD -s 192.168.20.10  -d 192.168.10.40 -p tcp --dport 3306 -j ACCEPT
-iptables -A FORWARD -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dport 3306 -j DROP
+iptables -I FORWARD -i eth2 -o eth0 -s 192.168.20.10  -d 192.168.10.40 -p tcp --dport 3306 -j ACCEPT
+iptables -A FORWARD -i eth2 -o eth0 -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dport 3306 -j DROP
 ```
 ![](anhip/anh14-1.png)
 ![](anhip/anh14-2.png)
 
-## Kịch bản: chặn moi kết nối vào vùng LOCAL.
+## Kịch bản 5 : chặn mọi kết nối ssh từ vung LOCAL đến Machine-2
+```
+iptables -t nat -I POSTROUTING -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dport 22 -j SNAT --to-source 192.168.10.254
+iptables -A FORWARD -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dport 22 -j DROP
+```
+
+## Kịch bản 6 : chặn moi kết nối vào vùng LOCAL.
 ```
 iptables -A INPUT -i eth2 -j DROP
 ```
-
-
