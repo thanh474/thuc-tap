@@ -38,23 +38,23 @@ Mỗi một table đêú có chạin của riêng nó.
 - Chain này được kết nối chuyển tiếp sang một máy chủ khác. Ta chỉ cần đinh tuyến NAT một vài kiể kết nối.
 
 ### 2.2.3. Output.
-- Chain này sẽ xử ly các kết nôis đi ra ngoài, chain này kiểm tra xem có rules nào có liên quan không trước khi quyết định cho phép ha chặn.
+- Chain này sẽ xử lý các kết nối đi ra ngoài, chain này kiểm tra xem có rules nào có liên quan không trước khi quyết định cho phép ta chặn.
 
-### 2.2.4. Prerouting
-- Header của gói tin được chỉnh sủa trước khi routing diến ra.
+### 2.2.4. Prerouting.
+- Header của gói tin được chỉnh sủa trước khi routing diễn ra.
 
-### 2.2.5. Postrouting
-- Header của gói tin được chỉnh sửa sau khi routing diễn ra
+### 2.2.5. Postrouting.
+- Header của gói tin được chỉnh sửa sau khi routing diễn ra.
 
-## 2.3. Rule 
+## 2.3. Rule.
 - Các rule là các tập điều kiện và các hành động tương ứng để xủ lý gói tin. Mỗi chain sẽ chứa rất nhiều rule, gói tin đươc sử lý trong một chain sễ được so lần lượt từng rule trong chain.
 
-- KIểm tra gói tin trên rule rất linh hoạt và có thể dễ dàng mở rộng thêm nhò các extension. Rule có thể dự trên protocol, địa chỉ IP nguồn/ đích, port nguồn/ đích, card mạng, ....
+- KIểm tra gói tin trên rule rất linh hoạt và có thể dễ dàng mở rộng thêm nhờ các extension. Rule có thể dự trên protocol, địa chỉ IP nguồn/ đích, port nguồn/ đích, card mạng, ....
 
 Mỗi rule có một hành động để xử lý gói tin, các hành động như..
 - ACCEPT: gói tin được chuyển tiếp sang bảng kết tiếp.
 - DROP: gói tin/kết nối sẽ bị hủy, hệ thông không thực thi.
-- REJECT: gói tun bị hủy, hệ thông gửi laij một gói tin ICMP
+- REJECT: gói tin bị hủy, hệ thông gửi lại  một gói tin khác trả về kết quả lỗi
 - LOG: gói tin khớp với rule sẻ được ghi lại.
 - REDIRECT: chuyển hướng gói tin sang một proxy khác.
 - MIRROR: hoán đổi địa chỉ IP nguồn/ đích của gói tin  trước khi gửi gói tin đi
