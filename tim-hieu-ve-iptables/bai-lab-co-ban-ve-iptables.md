@@ -78,13 +78,20 @@ iptables -t nat -I POSTROUTING -s 192.168.10.0/24 -o eth1 -j SNAT --to-source 19
 iptables -I INPUT -p tcp -s 192.168.10.0/24 --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 - DROP
 ```
+<<<<<<< HEAD
 Có tác dụng ở bảng FILTER , chain INPUT cho phép các gói tin đi từ địa chỉ nguồn 192.168.10.0/24 truy cập ssh vào máy cấu hình và hủy bỏ toàn bộ truy cập ssh từ nguồn khác vào máy.
 
+=======
+>>>>>>> 14bdaf656956be756ee03b0b6e314092860347f7
 ## Kich ban 4 : chặn không cho Machine-5 không truy cập được nhưng Machine-4 vẫn truy cập được mysql trong Machine-2.
 
 mysql : Machine-2 --> Machine-4  , drop all.
 
 ```
+<<<<<<< HEAD
+=======
+iptables -t nat -I POSTROUTING -s 192.168.20.10 -d 192.168.10.40 -p tcp --dport 3306 -j SNAT --to-source 192.168.10.254
+>>>>>>> 14bdaf656956be756ee03b0b6e314092860347f7
 iptables -I FORWARD -i eth2 -o eth0 -s 192.168.20.10  -d 192.168.10.40 -p tcp --dport 3306 -j ACCEPT
 iptables -A FORWARD -i eth2 -o eth0 -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dport 3306 -j DROP
 ```
@@ -99,7 +106,11 @@ iptables -t nat -I POSTROUTING -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dpor
 iptables -A FORWARD -s 192.168.20.0/24 -d 192.168.10.40 -p tcp --dport 22 -j DROP
 ```
 
+<<<<<<< HEAD
 ## Kịch bản 6 : chặn mọi kết nối vào vùng LOCAL.
+=======
+## Kịch bản 6 : chặn moi kết nối vào vùng LOCAL.
+>>>>>>> 14bdaf656956be756ee03b0b6e314092860347f7
 ```
 iptables -A INPUT -i eth2 -j DROP
 ```
