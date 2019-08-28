@@ -69,7 +69,6 @@ Trước khi cấu hình thì máy trong LOCAL không ping được ra  internet
 ```
 iptables -t nat -I POSTROUTING -s 192.168.20.0/24 -o eth1 -j SNAT --to-source 192.192.122.186
 iptables -t nat -I POSTROUTING -s 192.168.10.0/24 -o eth1 -j SNAT --to-source 192.192.122.186
-
 ```
 ![](anhip/anh13.png)
 
@@ -78,7 +77,6 @@ iptables -t nat -I POSTROUTING -s 192.168.10.0/24 -o eth1 -j SNAT --to-source 19
 iptables -I INPUT -p tcp -s 192.168.10.0/24 --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 - DROP
 ```
-<<<<<<< HEAD
 Có tác dụng ở bảng FILTER , chain INPUT cho phép các gói tin đi từ địa chỉ nguồn 192.168.10.0/24 truy cập ssh vào máy cấu hình và hủy bỏ toàn bộ truy cập ssh từ nguồn khác vào máy.
 
 ## Kich ban 4 : chặn không cho Machine-5 không truy cập được nhưng Machine-4 vẫn truy cập được mysql trong Machine-2.
