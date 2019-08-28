@@ -1,175 +1,57 @@
-# **Tìm hiều về NFS và cấu hình.**
+# Tìm hiểu về NFS.
+## 1.
+NFS (network file system) là dịch vụ hỗ trợ cơ chế chia sẻ tài nguyên giữa các hệ thống. NFS được phát triển để cho phép hệ thống nội bộ có thể truy xuất một thư mục trên hệ thống máy khác bằng cách mount nó vào hệ thống tập tin cục bộ, người quản trị trên NFS Server chỉ cần xuất (exports) các thư mục để cung cấp cho NFS Client sử dụng.
 
-## Mục lục:
+NFS cho phép chia sẻ một hệ thống tệp chung giữa nhiều người dùng và cung cấp lợi ích của việc tập trung dữ liệu để giảm thiểu lưu trữ cần thiết.
 
-[1 Giới thiệu về NFS.](#1)
+## 2. Điểm qua lịch sử về NFS.
+NFS là hệ thống chia sẻ tệp tin qua mạng đầu tiên và được xây dựng trên nền giao thức IP. NFS được phát triển phiên bản đầu tiên vào năm 1980 tại Sun microsystems.
 
-[2 Môi trường và mô hình.](#2)
-- [2.1 Môi trường](#2.1)
-- [2.2 IP planning](#2.2)
-- [2.3 Mô hình](#2.3)
+Nhờ sự phổ biến của phương pháp này nên đã được phát triển tiếp lên phiên bản NFSv2 vào tháng 3 năm 1989. Phiên bản này có thể sử dụng cả 2 giao thức TCP và UDP, có khả năng tương tác cao giữa máy khách và máy chủ khác.
 
-[3 Hướng dẫn thực hiện.](#3)
-- [3.1 Cài đặt trên máy NFS server.](#3.1)
-- [3.2 Cấu hình máy NFS Client 1.](#3.2)
-- [3.3 Cấu hình máy NFS Client 2.](#3.3)
+Phiên bản NFSv3 được quy định bởi RFC 1813 phát triển vào tháng 6 năm 1995, phiên bản này có khả năng mở rộng hơn so với phiên bản trước, hỗ trợ tệp lớn, ghi không đồng bộ và có thể triển khai trên mạng diện rộng.
 
-----
+Phiên bản NFSv4.1 được giới thiệu vào tháng 3 năm 2003, phiên bản này có bảo mật mạnh mẽ với giao thức trạng thái (các phiên bản trước không có trạng thái), bổ sung hỗ trợ giao thức đê truy cập song song trên các máy chủ phân tán ( tiện ích mở rộng pNFS).
 
-<a name="1"></a>
-## 1. Giới thiệu về NFS.
+Phiên bản NFSv4.2 được giới thiệu vòa tháng 11 năm 2016, nó giống các phiên bản trước nhưng chỉ sử dụng 1 cổng để chạy giúp đơn giản hóa việc kiểm soát trên tường lửa.
 
-- NFS -( Network file system ) đơn giản là dịch vụ chia sẻ tài nguyên 
-- NFS là một giao thức cho phép một máy tính nào đó truy cấp một đĩa hoặc một máy tính khác trong cùng một mạng ở chế độ trong suốt. 
-- NFS cho phép chia sẻ tập tin cho nhiều người  dùng trên cùng mạng và người dùng có thể thao tác  như với tập tin trên chính đĩa cứng của mình.
-- Hiện tại có 3 phiên bản NFS là NFSv2, NFSv3 và NFSv4.
-- Trên máy server sẽ  sinh ra một vùng nhớ máy client có thể mount trực tiếp đến vùng nhớ đó để sử dụng.
+## 3. Kiến trúc NFS.
 
-<a name="2"></a>
-## 2. Môi trường và mô hình.
+![](anhnfs/anh1.png)
 
-<a name="2.1"></a>
-### 2.1. Môi trường.
-Môi trường trên VMware sử dụng 3 máy ảo gồm: 2 máy ảo Centos 7 và 1 máy ảo Ubuntu. Đặt card mạng NAT.
+NFS theo mô hình client - server . Máy chủ thực hiện hệ thống tệp chia sẻ và lưu trữ mà khách hàng đính kèm. Các máy khách thực hiện giao diện người dùng với hệ thống tệp được chia sẻ, được gắn trong không gian tệp cục bộ của máy khách.
 
-<a name ="2.2"></a>
-### 2.2. IP Planning.
-|  Tên máy ảo  | Hệ điều hành    |IP address | Subnet mask |Default gateway|
-|------|------|-------|-----|-------|
-| NFS Server |  Centos 7| 192.168.106.151 | /24| 192.168.106.1|
-| NFS Client1 |  Centos 7|192.168.106.139 | /24 |192.168.106.1|
-| NFS Client2 |Ubuntu Server 16.04| 192.168.106.10 | /24 | 192.168.106.1|
-<a name="2.3"></a>
-### 2.3. Mô hình.
+![](anhnfs/anh2.png)
 
-![](anhnfs/anh21.png)
+NFS sử dụng bộ chuyển đổi tệp ảo (VFS) cung cấp phương tiên để hỗ trợ đồng thời nhiều hệ thống tệp tin. VFS xác định yêu cầu nào được lưu trữ và hệ thống nào được sử dụng để đáp ứng yêu cầu, vì lý do đó NFS có thê giao tiếp được các hệ thống tệp tin khác nhau.
 
-<a name="3"></a>
-## 3. Hướng dẫn thực hiện.
-<a name="3.1"></a>
-### 3.1 Cài đặt trên máy NFS server.
-Cài NFS trên server ta cài packet nfs-until.
- ```
-yum install nfs-utils -y
- ```
-Tạo thư mục chia sẻ tài nguyên trên server.
-```
-mkdir /nfsthanh
-```
-Sửa file /etc/exports để tạo mountpoint export.
-```
-echo "/nfsthanh 192.168.106.0/24 (rw,no_root_squash)" >> /etc/exports
-```
-Giải thích các option. 
-- **/nfsthanh**: là thư mục chia sẻ file vừa tạo ở trên.
-- **192.168.106.0/24**: là địa chỉ net của 2 máy server và client.
-- **(rw,no_root_squash)**: một số quyền của lệnh.
-- rw : đọc và ghi file .
-- no_root_squash : cho phép remote root user.
-- Có thể thêm một số option:
-    - ro: chỉ có quyền đọc.
-    - sync: đồng bộ hóa thư mục dùng chung.
-    - root_squash: ngăn remote root user.
+Khi một yêu cầu được gửi đến cho NFS, VFS sẽ chuyển nó đến NFS trong kernel. NFS diễn giải I/O yêu cầu và chuyển nó thành các thủ tục NFS như OPEN, ACCESS, CREATE, READ, CLOSE,... Các quy trình này được ghi lại trong RFC cụ thể.
 
-Khởi động NFS server.
-```
-sudo systemctl start rpcbind nfs-server
-```
+RPC bao gồm một lớp khả năng tương tác quan trọng được gọi là biểu diễn dữ liệu ngoài (XDR), đảm bảo rằng tất cả những người tham gia NFS nói cùng một ngôn ngữ khi nói đến các loại dữ liệu. XDR đảm nhiệm việc chuyển đổi các loại thành biểu diễn chung (XDR) để tất cả các kiến ​​trúc có thể tương tác và chia sẻ các hệ thống tệp.
 
-Khởi động NFS cùng server khi bật máy.
-```
-sudo  systemctl enable rpcbind nfs-server
-```
+Như vậy RPC/XDR dùng để dịch cac kiểu dữ liệu sang kiến trúc của máy chủ.
 
-Kiểm tra các port sử dụng bởi NFS.
-```
-rpcinfo -p
-```
-Tiếp đến ta cấu hình firewall để NFS client được phép truy cập.
-```
-sudo firewall-cmd --permanent --add-service=nfs
-sudo firewall-cmd --permanent --add-service=mountd
-sudo firewall-cmd --permanent --add-service=rpc-bind
-sudo firewall-cmd --permanent --add-port=2049/tcp
-sudo firewall-cmd --permanent --add-port=2049/udp
-sudo firewall-cmd --reload
-```
-![](anhnfs/anh10.png)
 
-Kiểm tra mountpoint trên server. 
-```
-showmount -e localhost
-```
-![](anhnfs/anh11.png)
+Máy chủ NFS chịu trách nhiệm đáp ứng yêu cầu. Yêu cầu được chuyển đến tiến trình nền NFS, xác định cây hệ thống tệp đích cần thiết cho yêu cầu và VFS lại được sử dụng để truy cập hệ thống tệp đó trong bộ nhớ cục bộ. 
 
-Vậy là đã vài thành công NFS trên server.
+## 4. Giao thức NFS.
 
-<a name="3.2"></a>
-### 3.2. Cấu hình máy NFS Client 1.
-Cài 2 packet nfs-utils và nfs-utils-lib.
-```
-sudo yum install nfs-utils nfs-utils-lib
-```
+Tại máy client  hoạt động đầu tiên trong NFS la mount. Mount là gắn hệ thống tệp từ xa vào không gian hệ thống tệp cục bộ. Quá trình này bắt đầu lời gọ hệ thống đến mount  rồi chuyển qua VFS đến thành phần NFS. Sau khi thiết lập số công cho mount thông qua lời gọi RPC get-port đến máy chủ. Máy khách thực hiện yêu cầu mount, mount là một tiến trính chạy ngầm kiểm tra yêu cầu của máy khác đối với danh sách các hệ thống tệp được truy xuất vào máy chủ, nếu hệ thống tệp yêu cầu tồn tại thì máy khách có quyền truy cập, RPC mount trả lời thiết lập xử lý tập tin cho hệ thống. Phía client lưu trữ thông tin gắn kết từ xa đến gắn kết cụ bộ và thiết lập khả năng thực hiện yêu cầu trao đổi lưu trữ dữ liệu.
 
-Kiểm tra mountpoint trên server từ client.
-```
-showmount -e 192.168.106.151
-```
-Tạo thư mục để mount point trên NFS server từ client.
-```
-mkdir -p /nfsclient
-```
-Mount thư mục với thư mục NFS trên server.
-- Có 2 kiểu mount là mount cứng và mount mềm:
-    - mount mềm: có thể mất sau mỗi lần reboot. 
-    ``` 
-    mount -t nfs 192.168.106.151:/nfsthanh /nfsclient
-    ```
-    - mount cứng không bị mất hoặc thay đổi sau mỗi lần reboot.
-    ```
-    echo "192.168.106.151:/nfsthanh /nfsclient nfs rw,sync,hard,intr 0 0" >> /etc/fstab
-    ```
-Sau đó ta khỏi động lại NFS.
- ```
-    systemctl restart NFS
-```
-Kiểm tra NFS có hoạt động hay không.
-- Vào NFS Server tạo 1 file *filetest.txt* trong thư mục **/nfsthanh** và ghi dữ liệu vào file đó.
-![](anhnfs/ANH12.png)
+## 5. Giới thiệu pNFS.
 
-- Chuyển sang máy client vào file **/nfsclient** xem có file *filetest.txt* không và đọc file đó.
-![](anhnfs/anh13.png)
+pNFS là một khái niệm trong phiên bản NFSv4.1, sử dụng để mở rộng và có hiệu suất cao hơn.
 
-<a name ="3.3"></a>
-### 3.3 Cấu hình máy NFS Client 2.
-cài đăt  nfs trên Ubuntu Server 16.04. ta cài 2 gói nfs-common và nfs-kernel-server
-```
-sudo apt-get install nfs-common -y
-sudo apt-get install nfs-kernel-server
-```
-Mountpoint từ client đến server.
-```
-showmount -e 192.168.106.151
-```
-![](anhnfs/anh9.png)
+NFSv4.1 thục hiện chia data/metadata thành các cụm tệp tin trên hệ thống. pNFS chia thành 3 thành phần: client, server, storage.
 
-Tạo thư mục mountpoint từ NFS client tới NFS Server.
-```
-mkdir -p /nfsclient2
-```
-Mount thư mục để thư mục NFS Server.
-```
-echo "192.168.196.151:/nfsthanh /nfsthanh2 nfs rw,sync,hard,intr 0 0" >> /etc/fstab
-```
-Kiểm tra NFS Server và NFS Client 2 có hoạt động hay không.
-Ghi thêm data vào filetext.txt
-```
-echo "nhap them dong 2" >> filetest.txt
-``` 
-Sau đó đọc file trên từ NFS Server.
-```
-cat filetext.txe
-```
-![](anhnfs/anh8.png)
+![](anhnfs/anh3.png)
 
-Như vậy NFS đã hoạt động, ta đã cài đặt NFS thành công.
+Có 2 đường dẫn: một đường dẫn cho dữ liệu và một đường dẫn cho kiểm soát.
+
+pNFS phân chia dữ liệu từ dữ liệu chính, cho phép tạo đường dẫn kép. Khi client muốn truy cập  đến 1 tệp, máy chủ sẽ phản hồi tới layout, layout sẽ ánh xạ tới storage, máy client lưu lại layout này sau đó nó co thể truy cập trực tiếp vào bộ lưu trữ storage mà không cần thông qua server dẫn đến có thể mở rộng quy mô và hiệu suất cao hơn.
+
+## 6. Các lựa chọn khác thay thế cho nfs
+Mặc dù NFS là hệ thống chia sẻ tệp qua mạng phổ biến nhất trên hệ thống linux và unix, nhưng đây không phải là lựa chịn duy nhất ta có thể sử dụng samba, iscsi, SAN, NAS, DAS, ...
+
+Một trong những hệ thống tệp phân tán mới nhất, cũng được hỗ trợ trong Linux, là Ceph. Ceph được thiết kế từ đầu như một hệ thống tệp phân tán chịu lỗi với khả năng tương thích với Hệ điều hành di động UNIX (POSIX).
+
