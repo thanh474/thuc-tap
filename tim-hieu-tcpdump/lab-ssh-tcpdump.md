@@ -23,3 +23,31 @@ ip planning
 kết quả 
 
 ![](anhtcp/anh14.png)
+
+Bài 3: bắt gói tin khi máy tính thật có 2 card mạng NAT khác nhau,
+
+![](anhtcp/anh15.png)
+
+bắt gói tin trên interface virbr0 là sử dụng interface nat default.
+```
+tcpdump -n -q -i virbr0 icmp -c 10
+```
+![](anhtcp/anh16.png)
+
+bắt gó tin  trên interface eno1 là interface ra ngoài internet.
+```
+tcpdump -n -q -i eno1 icmp -c 10
+```
+![](anhtcp/anh17.png)
+
+như vậy ta thấy từ đia chỉ 192.168.122.200 khi qua cơ chế nat thì địa chỉ trên mạng là 172.16.2.159
+
+![](anhtcp/anh18.png)
+
+
+bắt gó tin ssh trên interface virbr1 
+```
+tcpdump -n -i virbr1  port 22  -c 10 -q
+```
+
+![](anhtcp/anh19.png)
