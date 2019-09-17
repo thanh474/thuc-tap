@@ -51,3 +51,21 @@ tcpdump -n -i virbr1  port 22  -c 10 -q
 ```
 
 ![](anhtcp/anh19.png)
+
+
+Bài 4: Bắt gói tin khi 2 máy ảo sử dụng kiểu bridge 
+
+bắt gói tin ssh khi thực hiện ssh từ 2 máy ảo.
+```
+tcpdump -n -q -i thanhbc port 22 -c 10
+```
+
+![](anhtcp/anh20.png)
+
+Bắt gói tin trên interface eno1 khi ra mạng.
+
+```
+tcpdump -n -q -i eno1 icmp  -c 10
+```
+
+![](anhtcp/anh21.png)
