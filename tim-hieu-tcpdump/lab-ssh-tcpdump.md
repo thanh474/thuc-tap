@@ -55,6 +55,8 @@ tcpdump -n -i virbr1  port 22  -c 10 -q
 
 Bài 4: Bắt gói tin khi 2 máy ảo sử dụng kiểu bridge 
 
+![](anhtcp/anh22.png)
+
 bắt gói tin ssh khi thực hiện ssh từ 2 máy ảo.
 ```
 tcpdump -n -q -i thanhbc port 22 -c 10
