@@ -116,3 +116,6 @@ Do thời hạn của mỗi client khi thuê IP thường đều là có hạn (
 
 ![](anhdhcp/anh11.png)
 
+
+## Tài liệu tham khảo :
+https://github.com/hocchudong/thuctap012017/blob/master/TamNT/DHCP/T%C3%ACm%20hi%E1%BB%83u%20giao%20th%E1%BB%A9c%20DHCP.md#1.3
