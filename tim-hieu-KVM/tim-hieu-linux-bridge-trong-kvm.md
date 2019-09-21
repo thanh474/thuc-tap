@@ -48,8 +48,12 @@ FDB: forward database: chuyển tiếp gói tin theo database nâng cao hiệu s
 
 Mô hình.
 
-![](anhkvm/anh6.png)
+![](bridge/anh100.png)
 
+Kiểm tra bridge 
+```
+brctl show
+```
 Tạo linux bridge bằng lệnh:
 ```
 brctl addbr thanhbc
@@ -65,16 +69,28 @@ cấu hình dhcp cho bridge để tự động có địa chỉa IP.
 dhclient thanhbc
 ```
 
-Khi ta ở trên máy tính thật sử dụng tcpdump để bắt gói tin xem gói tin có đi qua bridge thanhhbc hay không.
-```
-tcpdump -nni thanhbc icmp -c 10
-```
-
-![](anhkvm/anh5.png)
-
-ta thấy có địa chỉ nguồn là 172.16.2.197 là địa chỉ của máy tính kvm  đi qua bridge thanhbc đến mạng 8.8.8.8
+![](bridge/anh3.png)
 
 
+Kiểm tra network trên 2 máy áo KVM1 và KVM2.
+![](bridge/anh7.png)
 
 
+Khi ta bật 2 máy ảo lên kiểm tra thì thấy nó sẽ tự tạo nên 2 interface mới là vnet1 và vnet2.
+![](bridge/anh6.png)
+
+Kiểm tra network trên máy thật.
+![](bridge/anh5.png)
+
+ta thấy trên interface vnet1 có địa chỉ **fe:54:00:82:7f:da**
+giống với địa chỉ MAC trên máy ảo KVM1 **fe:54:00:82:7f:da**. Vậy máy ảo sưr dụng tap có tên là vnet1 để kết nối với linux bridge.
+
+Ta thầy điều tương tự với interface vnet0.
+
+Kiểm tra tiến hành bắt gói tin icmp trên bridge thanhbc trong khi 2 máy ảo đồng thời ping  đến internet
+![](bridge/anh8.png).
+
+
+kiểm tra thiết bị.
+![](bridge/anh9.png)
 
