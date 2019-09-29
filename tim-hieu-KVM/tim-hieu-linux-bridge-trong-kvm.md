@@ -48,17 +48,13 @@ FDB: forward database: chuyển tiếp gói tin theo database nâng cao hiệu s
 
 Mô hình.
 
-<<<<<<< HEAD
-![](anhkvm/anh6.png)
-
-=======
 ![](bridge/anh100.png)
 
 Kiểm tra bridge 
 ```
 brctl show
 ```
->>>>>>> linux bridge
+
 Tạo linux bridge bằng lệnh:
 ```
 brctl addbr thanhbc
@@ -73,7 +69,7 @@ cấu hình dhcp cho bridge để tự động có địa chỉa IP.
 ```
 dhclient thanhbc
 ```
-<<<<<<< HEAD
+
 
 Khi ta ở trên máy tính thật sử dụng tcpdump để bắt gói tin xem gói tin có đi qua bridge thanhhbc hay không.
 ```
@@ -105,13 +101,11 @@ Ta thầy điều tương tự với interface vnet0.
 
 Kiểm tra tiến hành bắt gói tin icmp trên bridge thanhbc trong khi 2 máy ảo đồng thời ping  đến internet
 ![](bridge/anh8.png).
->>>>>>> linux bridge
 
 
 
 
-<<<<<<< HEAD
-=======
+
 kiểm tra thiết bị.
 ![](bridge/anh9.png)
->>>>>>> linux bridge
+
