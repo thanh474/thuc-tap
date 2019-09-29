@@ -68,8 +68,9 @@ cấu hình dhcp cho bridge để tự động có địa chỉa IP.
 ```
 dhclient thanhbc
 ```
-
 ![](bridge/anh3.png)
+
+
 
 
 Kiểm tra network trên 2 máy áo KVM1 và KVM2.
@@ -88,7 +89,7 @@ giống với địa chỉ MAC trên máy ảo KVM1 **fe:54:00:82:7f:da**. Vậy
 Ta thầy điều tương tự với interface vnet0.
 
 Kiểm tra tiến hành bắt gói tin icmp trên bridge thanhbc trong khi 2 máy ảo đồng thời ping  đến internet
-![](bridge/anh8.png).
+![](bridge/anh8.png)
 
 
 kiểm tra thiết bị.
