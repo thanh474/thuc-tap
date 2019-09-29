@@ -48,12 +48,13 @@ FDB: forward database: chuyển tiếp gói tin theo database nâng cao hiệu s
 
 Mô hình.
 
-![](bridge/anh100.png)
+![](anhkvm/anh12.png).png)
 
 Kiểm tra bridge 
 ```
 brctl show
 ```
+
 Tạo linux bridge bằng lệnh:
 ```
 brctl addbr thanhbc
@@ -73,25 +74,43 @@ dhclient thanhbc
 
 
 
-Kiểm tra network trên 2 máy áo KVM1 và KVM2.
-![](bridge/anh7.png)
+Kiểm tra địa chỉ IP trên 2 máy áo KVM1 và KVM2.
+![](anhkvm/anh7.png)
 
 
 Khi ta bật 2 máy ảo lên kiểm tra thì thấy nó sẽ tự tạo nên 2 interface mới là vnet1 và vnet2.
 ![](bridge/anh6.png)
 
-Kiểm tra network trên máy thật.
+Kiểm tra  trên máy vật lý bằng câu lệnh **ip a**:
+
 ![](bridge/anh5.png)
 
-ta thấy trên interface vnet1 có địa chỉ **fe:54:00:82:7f:da**
-giống với địa chỉ MAC trên máy ảo KVM1 **fe:54:00:82:7f:da**. Vậy máy ảo sưr dụng tap có tên là vnet1 để kết nối với linux bridge.
+Ta thấy trên interface vnet1 có địa chỉ MAC là **fe:54:00:82:7f:da**
+giống với địa chỉ MAC trên máy KVM1 **fe:54:00:82:7f:da**. Vậy máy ảo sử dụng tap có tên là vnet1 để kết nối với linux bridge.
 
 Ta thầy điều tương tự với interface vnet0.
 
-Kiểm tra tiến hành bắt gói tin icmp trên bridge thanhbc trong khi 2 máy ảo đồng thời ping  đến internet
-![](bridge/anh8.png)
+Tiến hành kiểm tra đường đi của mạng bằng cách bắt các gói tin trên các điểm: eno1, thanhbc, vnet1, vnet0. Bằng phần mềm wireshark.
 
+Thực hiện trên máy ảo KVM1 ping đến internet
+```
+ping 8.8.8.8 -c 1
+```
+Thực hiện bắt gói tin trên máy vật lý bằng wireshark.
 
-kiểm tra thiết bị.
-![](bridge/anh9.png)
+Bắt gói tin trên điểm vnet1: đây là tap interface kết nốt từ máy ảo đến bridge thanhbc.
+![](anhkvm/anh21.png)
+Ta bắt được 2 gói tin là request va reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 sử dụng interface vnet1 để đi đến bridge.
+
+Băt gói tin trên điểm vnet0: đây là tap interface kết nốt từ máy ảo đến bridge thanhbc.
+![](anhkvm/anh19.png)
+Ta không bắt được gói tin nào. Vậy máy ảo KVM1 không sử dụng vnet1 để đi đến bridge.
+
+Bắt gói tin trên điểm thanhbc: đây là bridge được tạo.
+![](anhkvm/anh20.png)
+Ta bắt được 2 gói tin request và reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 có đi qua bridge thanhbc.
+
+Bắt gói tin trên điểm eno1: đây là interface mà máy vật lý sử dụng để đi ra internet.
+![](anhkvm/anh22.png)
+Ta bắt được 2 gói tin request và reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 có đi qua interface eno1 để ra ngoài internet.
 
