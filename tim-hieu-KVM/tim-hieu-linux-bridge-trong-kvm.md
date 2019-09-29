@@ -48,12 +48,13 @@ FDB: forward database: chuyển tiếp gói tin theo database nâng cao hiệu s
 
 Mô hình.
 
-![](bridge/anh100.png)
+![](anhkvm/anh12.png).png)
 
 Kiểm tra bridge 
 ```
 brctl show
 ```
+
 Tạo linux bridge bằng lệnh:
 ```
 brctl addbr thanhbc
