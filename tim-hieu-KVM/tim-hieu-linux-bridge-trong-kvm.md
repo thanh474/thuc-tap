@@ -98,19 +98,20 @@ ping 8.8.8.8 -c 1
 ```
 Thực hiện bắt gói tin trên máy vật lý bằng wireshark.
 
-Bắt gói tin trên điểm vnet1: đây là tap interface kết nốt từ máy ảo đến bridge thanhbc.
+Bắt gói tin trên điểm vnet1.
 ![](anhkvm/anh21.png)
 Ta bắt được 2 gói tin là request va reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 sử dụng interface vnet1 để đi đến bridge.
 
-Băt gói tin trên điểm vnet0: đây là tap interface kết nốt từ máy ảo đến bridge thanhbc.
+Băt gói tin trên điểm vnet0.
 ![](anhkvm/anh19.png)
 Ta không bắt được gói tin nào. Vậy máy ảo KVM1 không sử dụng vnet1 để đi đến bridge.
 
-Bắt gói tin trên điểm thanhbc: đây là bridge được tạo.
+Bắt gói tin trên điểm thanhbc.
 ![](anhkvm/anh20.png)
 Ta bắt được 2 gói tin request và reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 có đi qua bridge thanhbc.
 
-Bắt gói tin trên điểm eno1: đây là interface mà máy vật lý sử dụng để đi ra internet.
+Bắt gói tin trên điểm eno1.
 ![](anhkvm/anh22.png)
 Ta bắt được 2 gói tin request và reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 có đi qua interface eno1 để ra ngoài internet.
 
+Vậy kết luân lại gói tin sẽ đi từ máy ảo KVM1 qua interface vnet1 đến bridge thanhbc  rồi đi tiếp qua đường uplink đên interface eno1 của máy vật lý rôif đi đến internet.
