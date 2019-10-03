@@ -1,8 +1,52 @@
+
 # KVM Storage.
+
+Mục lục 
+[1. Tổng quan về lưu trữ trong KVM](#1).
+
+[2. Tìm hiểu 2 định dạng file images là raw và Qcow2.](#2)
+
+[2.1. File định dạng raw.](#2.1)
+
+[2.2 File định dang Qcow2.](#2.2)
+
+[2.3  So sánh Qcow2 và Raw.](#2.3)
+
+[3. Tìm hiểu file XML trong KVM.](#3)
+
+[3.1 File XML là file gì ?](#3.1)
+
+[3.2 Các thành phần củ file XML.](#3.2)
+
+[3.3. Phân tích tác dụng của các thẻ.](#3.3)
+
+[3.3.1. Khối domain.](#3.3.1)
+
+[3.3.2 Khối OS.](#3.3.2)
+
+[3.3.3 Khối device.](#3.3.3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===========
+<a name="1."></a>
 ## 1. Tổng quan về lưu trữ trong KVM
 Máy ảo trong KVM có 2 thành phần là VM definition được lưu dưới dạng file XML mặc định lưu trong thư mục **/etc/libvirt/qemu** và VM storage lưu dưới dạng file image mặc định được lưu trong **/var/lib/libvirt/images/**
 
+<a name="2."></a>
 ## 2. Tìm hiểu 2 định dạng file images là raw và Qcow2.
+<a name="2.1."></a>
 ### 2.1. File định dạng raw.
 
 Raw có ưu điểm là đơn giản, có thể sử dụng linh hoạt giữa các trình giả lập khác nhau.
@@ -14,7 +58,9 @@ Khi người dùng tạo mới một máy ảo có disk format là raw thì dung
 Định dạng raw là hình ảnh theo dạng nhị phân (bit by bit) của ổ đĩa.
 
 Mặc định khi tạo máy ảo với virt-manager hoặc không khai báo khi tạo VM bằng virt-install thì định dạng ổ đĩa sẽ là raw. Hay nói cách khác, raw chính là định dạng mặc định của QEMU.
-### 2.2 File định dang Qcow2.
+
+<a name="2.2."></a>
+### 2.2. File định dang Qcow2.
 
 Copy-on-write ( COW ) đôi khi được gọi là chia sẻ tiềm ẩn, là một kỹ thuật quản lý tài nguyên được sử dụng trong lập trình máy tính để thực hiện có hiệu quả thao tác “nhân bản” hoặc “sao chép” trên các tài nguyên có thể thay đổi. Nếu một tài nguyên được nhân đôi nhưng không bị sửa đổi, không cần thiết phải tạo một tài nguyên mới. Tài nguyên có thể được chia sẻ giữa bản sao và bản gốc. Sửa đổi vẫn phải tạo ra một bản sao, do đó kỹ thuật các hoạt động sao chép được hoãn đến việc viết đầu tiên. Bằng cách chia sẻ tài nguyên theo cách này, có thể làm giảm đáng kể lượng tiêu thụ tài nguyên của các bản sao chưa sửa đổi.
 
@@ -25,14 +71,15 @@ Qcow2 là một phiên bản cập nhật của định dạng qcow, nhằm đ�
 Qcow2 hỗ trợ copy-on-write với những tính năng đặc biệt như snapshot, mã hóa ,nén dữ liệu.
 
 Qcow2 hỗ trợ việc tăng bộ nhớ bằng cơ chế Thin Provisioning (Máy ảo dùng bao nhiêu file có dung lượng bấy nhiêu.
-
-### 2.3  So sánh Qcow2 và Raw.
+<a name="2.3."></a>
+### 2.3. So sánh Qcow2 và Raw.
 ![](anhkvm/anh50.png))
 
 
 
-
+<a name="3."></a>
 ## 3. Tìm hiểu file XML trong KVM.
+<a name="3.1."></a>
 ### 3.1 File XML là file gì ?
 
 XML (viết tắt từ tiếng Anh: eXtensible Markup Language, tức “Ngôn ngữ đánh dấu mở rộng”) là ngôn ngữ đánh dấu với mục đích chung do W3C đề nghị, để tạo ra các ngôn ngữ đánh dấu khác. Đây là một tập con đơn giản của SGML, có khả năng mô tả nhiều loại dữ liệu khác nhau. 
@@ -48,16 +95,19 @@ Ta sử dụng câu lệnh để xem trong file xml ghi những thốngz tin gì
 ```
 cat /etc/libvirt/qemu/<tên máy ảo>
 ```
-### 3.2 Các thành phần củ file XML.
+<a name="3.2."></a>
+### 3.2. Các thành phần củ file XML.
 Khi mở file XML ta thấy cấu trúc của file được lưu theo các khối lệnh. Có nhiều khối lệnh trong cùng 1 khối lệnh tổng quan.
 
 Cú pháp giống với HTML có các thẻ đóng và thẻ mở.
 
 Thẻ domain là thẻ chính tròng file. Trong thẻ domain có chứa các thẻ khác như os, cpu, device, ...
 
+<a name="3.3"></a>
 ### 3.3. Phân tích tác dụng của các thẻ.
 ![](anhkvm/anh44.png)
 
+<a name="3.3.1"></a>
 #### 3.3.1. Khối domain.
 Khối này bao quát tổng thể toàn bộ hệ thống lưu trữ các thẻ trong XML.
 
@@ -103,7 +153,8 @@ Khối này bao quát tổng thể toàn bộ hệ thống lưu trữ các thẻ
 
     - placement : vị trí của cpu, giá trị bao gồm static và dynamic, trong đó static là giá trị mặc định.
 
-#### 3.3.2 Khối OS.
+<a name="3.3.2 "></a>
+#### 3.3.2. Khối OS.
 
 Khối os nằm trong khối domain. Nó khai báo các thành phần của OS guest.
 
@@ -161,7 +212,8 @@ Khối os nằm trong khối domain. Nó khai báo các thành phần của OS g
       <timer name='hpet' present='no'/>
     </clock>
   ```
-#### 3.3.3 Khối device.
+<a name="3.3.3"></a>
+#### 3.3.3. Khối device.
 Khối device nằm trong khối domain. Nó hai bao thông tin vè thành phàn của guest host như như disk, network,  I/O . . .
 
 ![](anhkvm/anh46.png)
