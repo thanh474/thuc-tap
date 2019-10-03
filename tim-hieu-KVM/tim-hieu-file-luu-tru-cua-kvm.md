@@ -1,11 +1,7 @@
 # KVM Storage.
 ## Tổng quan.
-<<<<<<< HEAD
 Máy ảo trong KVM có 2 thành phần là VM definition được lưu dưới dạng file XML mặc định lưu trong thư mục **/etc/libvirt/qemu** và VM storage lưu dưới dạng file image mặc định được lưu trong **/var/lib/libvirt/images/**
 
-=======
-Máy ảo trong KVM có 2 thành phần là VM definition được lưu dưới dạng file XML mặc định lưu trong thư mục **/etc/libvirt/qemu** và VM storage lưu dưới dạng file image.
->>>>>>> 9d5ec628b18062f189a5ef7b0c2eb180a4ff0cd6
 ## Timh hiểu 2 đinh dang file image là Raw và qcow2.
 ### File định dang raw.
 Khi tạo may ảo thì Raw là định dạng mặc định.
@@ -22,19 +18,6 @@ Mặc định khi tạo máy ảo với virt-manager hoặc không khai báo khi
 ### File định dang Qcow2.
 Copy-on-write ( COW ), đôi khi được gọi là chia sẻ tiềm ẩn, là một kỹ thuật quản lý tài nguyên được sử dụng trong lập trình máy tính để thực hiện có hiệu quả thao tác “nhân bản” hoặc “sao chép” trên các tài nguyên có thể thay đổi. Nếu một tài nguyên được nhân đôi nhưng không bị sửa đổi, không cần thiết phải tạo một tài nguyên mới; Tài nguyên có thể được chia sẻ giữa bản sao và bản gốc. Sửa đổi vẫn phải tạo ra một bản sao, do đó kỹ thuật: các hoạt động sao chép được hoãn đến việc viết đầu tiên. Bằng cách chia sẻ tài nguyên theo cách này, có thể làm giảm đáng kể lượng tiêu thụ tài nguyên của các bản sao chưa sửa đổi.
 
-<<<<<<< HEAD
-qcow là một định dạng tập tin cho đĩa hình ảnh các tập tin được sử dụng bởi QEMU, hypervisor. Nó viết tắt của “QEMU Copy On Write ” và sử dụng một chiến lược tối ưu hóa lưu trữ đĩa để trì hoãn phân bổ dung lượng lưu trữ cho đến khi nó thực sự cần thiết.
-
-Qcow2 là một phiên bản cập nhật của định dạng qcow, nhằm để thay thế nó. Khác biệt với bản gốc là qcow2 hỗ trợ nhiều snapshots thông qua một mô hình mới, linh hoạt để lưu trữ snapshot images. Khi khởi tạo máy ảo mới sẽ dựa vào disk này rồi snapshot thành một máy mới.
-
-Qcow2 hỗ trợ copy-on-write với những tính năng đặc biệt như snapshot, mã hóa ,nén dữ liệu. . . 
-
-Qcow2 hỗ trợ việc giảm sử dụng bộ nhớ bằng cơ chế Thin Provisioning (Máy ảo dùng bao nhiêu file có dung lượng bấy nhiêu.
-
-### So sánh Qcow2 và Raw.
-![](anhkvm/anh50.png))
- 
-=======
 qcow là một định dạng tập tin cho đĩa hình ảnh các tập tin được sử dụng bởi QEMU , một tổ chức màn hình máy ảo . Nó viết tắt của “QEMU Copy On Write ” và sử dụng một chiến lược tối ưu hóa lưu trữ đĩa để trì hoãn phân bổ dung lượng lưu trữ cho đến khi nó thực sự cần thiết.
 
 Qcow2 là một phiên bản cập nhật của định dạng qcow, nhằm để thay thế nó. Khác biệt với bản gốc là qcow2 hỗ trợ nhiều snapshots thông qua một mô hình mới, linh hoạt để lưu trữ ảnh chụp nhanh. Khi khởi tạo máy ảo mới sẽ dựa vào disk này rồi snapshot thành một máy mới.
@@ -46,8 +29,7 @@ Qcow2 hỗ trợ việc tăng bộ nhớ bằng cơ chế Thin Provisioning (Má
 ### So sánh Qcow2 và Raw.
 ![](anhkvm/anh50.png))
 
-#### Hiệu năng 
->>>>>>> 9d5ec628b18062f189a5ef7b0c2eb180a4ff0cd6
+
 
 
 ## Tìm hiểu file XML trong KVM.
