@@ -78,6 +78,7 @@ Sau khi xóa 2 rule đầu của chain FORWARD.
 
 Kiểm tra ping từ máy tính KVM1 đên internet.
 ![](anhkvm/anh42.png)
+
 Ta thấy là không ping được.
 
 Khi ta xóa bỏ các rule này thì các máy ảo sẽ không kết nối được với internet nữa.

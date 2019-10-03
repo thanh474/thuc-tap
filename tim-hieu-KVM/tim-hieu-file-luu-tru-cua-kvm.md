@@ -1,6 +1,35 @@
 # KVM Storage.
 ## Tổng quan.
-Máy ảo trong KVM có 2 thành phần là VM definition được lưu dưới dạng file XML mặc định lưu trong thư mục **/etc/libvirt/qemu** và VM storage lưu dưới dạng file image.
+Máy ảo trong KVM có 2 thành phần là VM definition được lưu dưới dạng file XML mặc định lưu trong thư mục **/etc/libvirt/qemu** và VM storage lưu dưới dạng file image mặc định được lưu trong **/var/lib/libvirt/images/**
+
+## Timh hiểu 2 đinh dang file image là Raw và qcow2.
+### File định dang raw.
+Khi tạo may ảo thì Raw là định dạng mặc định.
+
+Raw có ưu điểm là đơn giản, có thể sử dụng linh hoạt giữa các trình giả lập khác nhau.
+
+Là định dạng file image phi cấu trúc.
+
+Khi người dùng tạo mới một máy ảo có disk format là raw thì dung lượng của file disk sẽ đúng bằng dung lượng của ổ đĩa máy ảo bạn đã tạo.
+
+Định dạng raw là hình ảnh theo dạng nhị phân (bit by bit) của ổ đĩa.
+
+Mặc định khi tạo máy ảo với virt-manager hoặc không khai báo khi tạo VM bằng virt-install thì định dạng ổ đĩa sẽ là raw. Hay nói cách khác, raw chính là định dạng mặc định của QEMU.
+### File định dang Qcow2.
+Copy-on-write ( COW ), đôi khi được gọi là chia sẻ tiềm ẩn, là một kỹ thuật quản lý tài nguyên được sử dụng trong lập trình máy tính để thực hiện có hiệu quả thao tác “nhân bản” hoặc “sao chép” trên các tài nguyên có thể thay đổi. Nếu một tài nguyên được nhân đôi nhưng không bị sửa đổi, không cần thiết phải tạo một tài nguyên mới; Tài nguyên có thể được chia sẻ giữa bản sao và bản gốc. Sửa đổi vẫn phải tạo ra một bản sao, do đó kỹ thuật: các hoạt động sao chép được hoãn đến việc viết đầu tiên. Bằng cách chia sẻ tài nguyên theo cách này, có thể làm giảm đáng kể lượng tiêu thụ tài nguyên của các bản sao chưa sửa đổi.
+
+qcow là một định dạng tập tin cho đĩa hình ảnh các tập tin được sử dụng bởi QEMU, hypervisor. Nó viết tắt của “QEMU Copy On Write ” và sử dụng một chiến lược tối ưu hóa lưu trữ đĩa để trì hoãn phân bổ dung lượng lưu trữ cho đến khi nó thực sự cần thiết.
+
+Qcow2 là một phiên bản cập nhật của định dạng qcow, nhằm để thay thế nó. Khác biệt với bản gốc là qcow2 hỗ trợ nhiều snapshots thông qua một mô hình mới, linh hoạt để lưu trữ snapshot images. Khi khởi tạo máy ảo mới sẽ dựa vào disk này rồi snapshot thành một máy mới.
+
+Qcow2 hỗ trợ copy-on-write với những tính năng đặc biệt như snapshot, mã hóa ,nén dữ liệu. . . 
+
+Qcow2 hỗ trợ việc giảm sử dụng bộ nhớ bằng cơ chế Thin Provisioning (Máy ảo dùng bao nhiêu file có dung lượng bấy nhiêu.
+
+### So sánh Qcow2 và Raw.
+![](anhkvm/anh50.png))
+ 
+
 
 ## Tìm hiểu file XML trong KVM.
 ### FIle XML làm gì.
@@ -11,7 +40,7 @@ Mục đích chính của XML là đơn giản hóa việc chia sẻ dữ liệu
 
 File XML chứa những thông tin về thành phần của máy ảo như CPU, RAM. các thiết lập I/O devices, network và storage .
 
-libvirt dùng những thông số này đẻ khởi chạy tiến trình QEMU/KVM tạo ra máy ảo.
+Libvirt dùng những thông số này đẻ khởi chạy tiến trình QEMU/KVM tạo ra máy ảo.
 
 
 Ta sử dụng câu lệnh để xem trong file xml ghi những thốngz tin gì.
@@ -155,6 +184,11 @@ Khối **device**: Khai bao thông tin vè thành phàn của máy ảo như dis
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
 ```
+- Thẻ Controler
+![](anhkvm/anh51.png)
+
+Tùy thuộc vào cấu trúc của máy ảo mà nó có thể có các thiết bị ảo đi kèm, mỗi cái lại đi theo một bộ điều khiển. Thường thì libvirt sẽ tự động chỉ ra mà không cần khai báo qua file xml.
+Mỗi bộ điều khiển có một tham số bắt buộc là type và index, các giá trị có thể chọn của type là: ‘ide’, ‘fdc’, ‘scsi’, ‘sata’, ‘usb’, ‘ccid’, ‘virtio-serial’ hoặc ‘pci’. Trong khi đó index sẽ chỉ ra thứ tự ưu tiên.
 
 - Thẻ **interface** Khai báo thông tin về network.
 ```
@@ -172,3 +206,19 @@ Khối **device**: Khai bao thông tin vè thành phàn của máy ảo như dis
     - mode type: kiểu card mạng sử dụng là virtio.
     - link state : trạng thái.
     - address type: kiểu địa chỉ.
+
+- Thẻ Controler
+![](anhkvm/anh51.png)
+
+Tùy thuộc vào cấu trúc của máy ảo mà nó có thể có các thiết bị ảo đi kèm, mỗi cái lại đi theo một bộ điều khiển. Thường thì libvirt sẽ tự động chỉ ra mà không cần khai báo qua file xml.
+Mỗi bộ điều khiển có một tham số bắt buộc là type và index, các giá trị có thể chọn của type là: ‘ide’, ‘fdc’, ‘scsi’, ‘sata’, ‘usb’, ‘ccid’, ‘virtio-serial’ hoặc ‘pci’. Trong khi đó index sẽ chỉ ra thứ tự ưu tiên.
+
+- Thẻ **input**
+![](anhkvm/anh52.png)
+
+Chỉ có 1 tham số bắt buộc đó là type, các giá trị có thể chọn là ‘mouse’, ‘tablet’, ‘keyboard’ hoặc ‘passthrough’. Tham số bus để xác định chính xác thiết bị, các giá trị có thể chọn là “xen” (paravirtualized), “ps2”, “usb” và “virtio”.
+
+- Thẻ **graphic**
+![](anhkvm/anh53.png)
+
+Thuộc tính bắc buộc là type, các giá trị có thể chọn : “sdl”, “vnc”, “spice”, “rdp” và “desktop”. Đối với mỗi loại sẽ có thêm những tham số được thêm vào.
