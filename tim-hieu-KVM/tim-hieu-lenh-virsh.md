@@ -90,3 +90,32 @@ rm -rf /var/kvm/images/thanhbc-clone.img
 ```
 
 ![](anhkvm/anh48.png)
+
+### 10. Các câu lệnh Snapshot
+Ta sử dụng câu lệnh để xem các option.
+```
+virsh --help | grep snapshot
+```
+![](anhkvm/anh54.png)
+
+Tạo mới một snapshot
+```
+virsh snapshot-create-as --domain centos7.0 --name snp-centos7.0 --decription "ban snapshot"
+```
+```
+root@iou:/var/lib/libvirt/images# virsh snapshot-create-as --domain centos7.0  --name snp-centost7.0  --description "bản snapshot"
+Domain snapshot snp-centost7.0 created
+```
+Kiểm tra xem đã taoj thành công chưa.
+```
+virsh snapshot-list centos7.0
+```
+![](anhkvm/anh55.png)
+
+### 11. Sửa thông tin CPU hoặc  memory.
+Để sử thông tin cpu hoặc memoru ta sử dụng lệnh
+```
+virsh edit centos7.0
+```
+
+
