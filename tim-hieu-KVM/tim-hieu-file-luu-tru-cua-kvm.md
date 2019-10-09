@@ -27,7 +27,8 @@ Mục lục.
 
 [3.3.3 Khối device.](#3.3.3)
 
-===========
+
+
 
 <a name="1"></a>
 ## 1. Tổng quan về lưu trữ trong KVM
@@ -71,10 +72,15 @@ Qcow2 hỗ trợ việc tăng bộ nhớ bằng cơ chế Thin Provisioning (Má
 | Ưu điểm| Nhanh, dễ cài đặt, sử dụng, chia sẻ| Hỗ trợ nén, mã hóa, snapshot, có cơ chế thin, hỗ trợ cow|
 | Nhược điểm|   |  |
 
+
 Hiệu năng là khả năng hoạt động của 2 định dạng trên các môi trường khác nhau như ssh hay hdd. (chưa kiểm chứng trên thực tế.)
+
 HIệu suất là khả năng tránh lãng phí tài nguyên phần cứng, thời gian sử lý. Ở đây Raw chiếm nhiều không gian phần cứng hơn nên có hiệu suất thấp hơn sơ vơi qcow2 thì sử dụng dữ liệu đến đâu thì sẽ ghi đến đó tiết kiệm không gian hơn nên hiệu suất thấp hơn.
 
-Tốc độ ở  đây được hiềủ là tốc độ đọc ghi dữ liệu của 2 định dạng raw và qcow2 trên cùng 1 phần cứng.
+Tốc độ ở  đây được hiềủ là tốc độ đọc ghi dữ liệu của 2 định dạng raw và qcow2 trên cùng 1 phần cứng. Trên lý thuyết thí đing dang Raw sẽ nhanh hơn qcow2 nhưng trong thực tế thì chưa chắc raw dã nhanh hơn qcow2.
+- Trong thực nghiệm trên 2 Máy ảo có các thông sô cấu hình như nhau nhưng định dạng của 2 máy là khác nhau một máy là Qcow2 máy còn lại là Raw. Ta dử dụng lệnh **dd if=/dev/zero of=/root/testfile bs=1G count= 1 oflag=direct**
+thì máy có định dạng qcow lại có tốc độ nhanh hơn.
+
 <a name="3"></a>
 ## 3. Tìm hiểu file XML trong KVM.
 <a name="3.1"></a>

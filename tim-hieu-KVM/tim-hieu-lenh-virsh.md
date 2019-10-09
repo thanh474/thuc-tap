@@ -62,13 +62,15 @@ Security model: apparmor
 Security DOI:   0
 Security label: libvirt-072ebbd2-85c9-40ac-92a2-41d8251e033b (enforcing)
 ```
-### 7. CHỉnh sưả mốt số thông số trong của máy ảo
+### 7. CHỉnh sưả thông số  của máy ảo
 
 ```
 virsh edit <ten may ao>
 ```
 
 ![](anhkvm/anh47.png)
+
+Ta co thể chỉnh sưar thông số cpu, ram, network.
 
 ### 8. Clone 1 máy ảo mới
 ```
@@ -112,10 +114,41 @@ virsh snapshot-list centos7.0
 ```
 ![](anhkvm/anh55.png)
 
-### 11. Sửa thông tin CPU hoặc  memory.
-Để sử thông tin cpu hoặc memoru ta sử dụng lệnh
+### 11. Khởi tạo một máy ảo mới 
+
+Ta sử dụng câu lệnh có các option cơ bản.
 ```
-virsh edit centos7.0
+root@iou:/home/buithanh/Documents/he_dieu_hanh# virt-install --name=Centos7-test --vcpus=1 --memory=1024 --cdrom=centos7-64.iso --disk=/var/lib/libvirt/images/centos7-test.qcow2,size=10 --os-variant=rhel7 --network bridge=virbr1
+```
+Trong đó:
+
+- --name đặt tên cho máy ảo 
+- --vcpus là tổng số CPU tạo cho máy ảo
+- --memory chỉ ra dung lượng RAM cho máy ảo (tính bằng MB)
+- --cdrom chỉ ra đường dẫn đến file ISO. Nếu muốn boot bằng cách khác ta dùng option --locaion sau đó chỉ ra đường dẫn đến file (có thể là đường dẫn trên internet).
+- --disk chỉ ra vị trí lưu disk của máy ảo. size chỉ ra dung lượng disk của máy ảo(tính bằng GB)
+- --os-variant chỉ ra kiểu của HĐH của máy ảo đang tạo. Option này có thể chỉ ra hoặc không nhưng nên sử dụng nó vì nó sẽ cải thiện hiệu năng của máy ảo. Nếu bạn không biết HĐH hành của mình thuộc loại nào bạn có thể tìm kiếm thông tin bằng cách dùng lệnh osinfo-query os
+- --network chỉ ra cách kết nối mạng của máy ảo. Trên đây là một số option cơ bản để tạo máy ảo. Bạn có thể tìm hiểu thêm bằng cách sử dụng lệnh virt-install --help
+
+### 12. Một số lệnh xem các thông số của VM.
+Câu lệnh xem thông tin về file disk của VM.
+```
+qemu-img info /var/lib/libvirt/images/centos7-test.qcow2
 ```
 
+![](anhkvm/anh57.png)
+
+Câu lệnh cem thông tin cơ bản của VM.
+```
+virsh dominfo centos7-test
+```
+
+![](anhkvm/anh58.png)
+
+Câu lệnh kiểm tra các cổng của 1 VM.
+```
+virsh domiflist Centos7-test
+```
+
+![](anhkvm/anh59.png)
 
