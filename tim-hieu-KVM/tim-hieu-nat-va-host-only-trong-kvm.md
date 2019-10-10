@@ -1,18 +1,26 @@
 # Tìm hiểu NAT và Host-only trong kvm.
 
-## Cơ chế NAT trong linux bridge.
+Mục Lục.
+
+[1. Cơ chế NAT trong linux bridge.](#1)
+
+[2. Cách hoạt động NAT.](#2)
+
+---
+<a name="1"></a>
+## 1. Cơ chế NAT trong linux bridge.
 Máy vậy lý sẽ tạo ra một virtual router được vận hành dưới chế độ NAT.
 
 Sử dụng các rule trong  bảng NAT của máy tính vật lý đề định tuyến cho các máy ảo.
-
 
 Điều này có nghĩa là bất kì máy ảo nào được kết nối tới nó, sử sử dụng địa chỉ IP của máy host để liên lạc ra bên ngoài. Các máy ở mạng ngoài không thể liên lạc với máy guest ở bên trong khi router ảo hoạt dộng trong chế độ NAT.
 
 Chế độ NAT network coi libvirt server như là một router, các lưu lượng của máy ảo xuất hiện từ địa chỉ của server để ra ngoài.
 
-Hạn chế: Virtual network mặc định hoạt động ở chế độ NAT-baased. Không may, nó thường tự động thêm các rule iptable cho dù bạn có muốn hay không
+Hạn chế: Virtual network mặc định hoạt động ở chế độ NAT-baased. Không may, nó thường tự động thêm các rule iptable cho dù bạn có muốn hay không.
 
-### Cách hoạt động NAT.
+<a name="2"></a>
+### 2. Cách hoạt động NAT.
 Trên phần mềm Virtual Machine Manager tiến hành tạo dải mạng NAT để sử dụng.
 mở phần mềm chọn theo đường dẫn **Edit/ Connection Details** sẽ hiển thị ra của sổ.
 Đặt tên cho mạng ảo.
