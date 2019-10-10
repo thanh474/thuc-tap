@@ -10,6 +10,8 @@
 
 [5. Sử dụng virt-install](#5)
 
+---
+
 <a name="1"></a>
 ## 1. Virsh là gì.
 Libvirt là một bộ các phần mềm mà cung cấp các cách thuận tiện để quản lý máy ảo và các chức năng của ảo hóa. Những phần mềm này bao gồm một thư viện API daemon (libvirtd) và các gói tiện tích giao diện dòng lệnh (virsh).
