@@ -176,7 +176,14 @@ virsh domiflist Centos7-test
 
 Ta sử dụng câu lệnh có các option cơ bản.
 ```
-root@iou:/home/buithanh/Documents/he_dieu_hanh# virt-install --name=Centos7-test --vcpus=1 --memory=1024 --cdrom=centos7-64.iso --disk=/var/lib/libvirt/images/centos7-test.qcow2,size=10 --os-variant=rhel7 --network bridge=virbr1
+root@iou:/home/buithanh/Documents/he_dieu_hanh# virt-install \
+--name=Centos7-test \
+--vcpus=1 \
+--memory=1024 \
+--cdrom=centos7-64.iso \
+--disk=/var/lib/libvirt/images/centos7-test.qcow2,size=10 \
+--os-variant=rhel7 \
+--network bridge=virbr1
 ```
 Trong đó:
 
@@ -187,6 +194,10 @@ Trong đó:
 - --disk chỉ ra vị trí lưu disk của máy ảo. size chỉ ra dung lượng disk của máy ảo(tính bằng GB)
 - --os-variant chỉ ra kiểu của HĐH của máy ảo đang tạo. Option này có thể chỉ ra hoặc không nhưng nên sử dụng nó vì nó sẽ cải thiện hiệu năng của máy ảo. Nếu bạn không biết HĐH hành của mình thuộc loại nào bạn có thể tìm kiếm thông tin bằng cách dùng lệnh osinfo-query os
 - --network chỉ ra cách kết nối mạng của máy ảo. Trên đây là một số option cơ bản để tạo máy ảo. Bạn có thể tìm hiểu thêm bằng cách sử dụng lệnh virt-install --help
+
+
+
+## 6. Thêm ổ đĩa vào máy ảo.
 
 
 
