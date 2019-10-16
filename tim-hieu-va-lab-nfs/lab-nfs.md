@@ -102,7 +102,7 @@ showmount -e localhost
 ```
 ![](anhnfs/anh11.png)
 
-Vậy là đã vài thành công NFS trên server.
+Vậy là đã cài thành công NFS trên server.
 
 <a name="3.2"></a>
 ### 3.2. Cấu hình máy NFS Client 1.
