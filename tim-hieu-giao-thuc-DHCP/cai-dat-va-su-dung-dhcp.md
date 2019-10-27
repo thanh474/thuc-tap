@@ -29,7 +29,7 @@ IP planning.
 
 ![](anhdhcp/anh25.png)
 
-<a name ="2.1"></a>
+<a name ="2"></a>
 ## 2. Cài đặt môi trường.
 
 Bài viết này tôi lab trên KVM. Trong KVM tạo 2 máy ảo hệ điệù hành centos7. MỘt máy sử dungj làm DHCP-server máy còn lại sử dụng làm DHCP-client đề nhận địa chỉ IP.
