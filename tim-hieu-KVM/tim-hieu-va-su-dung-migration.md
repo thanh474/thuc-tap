@@ -184,7 +184,7 @@ virsh migrate --live <tên guest muốn migrate> qemu+ssh://<hostnam của đíc
 ```
 Chuyển VM centos7-migrate từ KVM2 sang KVM1.
 ```
-[root@vm2 haha]# virsh migrate --live centos7-migrate qemu+tcp://192.122.10.101/system --persistent
+[root@vm2 haha]# virsh migrate --live centos7-migrate qemu+tcp://192.168.90.11/system --persistent
 ```
 Khi đó quan sát trên virt-manager sẽ thấy VM: centos7-migratem  trên VM2 sẽ di chuyển sang VM1 mà vẫn đang ở trạng thái hoạt động.
 
