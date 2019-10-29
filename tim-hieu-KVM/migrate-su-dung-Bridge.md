@@ -1,4 +1,4 @@
-# sử dụng live migrate.
+# Sử dụng live migrate.
 
 ## 1. Sử dụng storage migrate với bridge.
 
