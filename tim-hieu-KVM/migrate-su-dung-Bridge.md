@@ -1,9 +1,23 @@
 # Sử dụng live migrate.
 
+Mục Lục.
+
+[1. Sử dụng storage migrate với bridge.](#1)
+
+[1.1 Mô hình và IP Planning.](#1.1)
+
+[1.2 Cài đặt storage migrate.](#1.2)
+
+[1.3. Tiến hành live storage migrate.](#1.3)
+
+---
+<a name ="1"></a>
 ## 1. Sử dụng storage migrate với bridge.
 
 
 Trong bài viết này tôi sẽ storage migrate vm Centos-mgr từ KVM2 sang KVM1.
+
+<a name ="1.1"></a>
 ### 1.1 Mô hình và IP Planning.
 Mô hình.
 
@@ -15,9 +29,8 @@ Mô hình.
 |KVM1| Centos7|192.168.1.103| /24| 192.168.1.1|
 |KVM2| Centos7| 192.168.1.102| /24|192.168.1.1|
 
-<a name ="4.2"></a>
-
-### 1,2 Cài đặt storage migrate.
+<a name ="1.2"></a>
+### 1.2 Cài đặt storage migrate.
 
 #### Cấu hình phân giải tên miền.
 
@@ -118,6 +131,7 @@ qemu-img create -f qcow2 /var/kvm/images/centos7-mgr.qcow2 10739318784
 
 Vì file disk chưa được lưu gì nên nó có dung lượng sử dụng là **197120 MiB**.
 
+<a name ="1.3"></a>
 ### 1.3. Tiến hành live storage migrate.
 
 Khởi động VM centos7-mgr trên KVM2.
@@ -150,3 +164,5 @@ Quá trình copy đã xong.
 ![](anhcentos8/anh37.png)
 
 Ta thấy VM trên KVM2 có trạng thái shutoff và VM trên KVM1 đã có trang thái running.  Kiểm tra lại các dịch vụ vẫn hoạt động bình thường.
+
+Vậy ta đã tiến hành live migrate thành công VM từ KVM2 sang KVM1.
