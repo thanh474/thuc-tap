@@ -302,3 +302,10 @@ Khối device nằm trong khối domain. Nó hai bao thông tin vè thành phàn
 1. https://github.com/domanhduy/ghichep/blob/master/DuyDM/KVM/docs/Phan-biet-raw-qcow-iso-cua-image.md
 2. https://github.com/domanhduy/ghichep/blob/master/DuyDM/KVM/docs/T%C3%ACm%20hi%E1%BB%83u%20v%E1%BB%81%20file%20XML.md
 3. https://github.com/nhanhoadocs/thuctapsinh/blob/master/NiemDT/KVM/docs/File-xml.md
+
+|   |  Raw  | Qcow2|
+|------|-------|------|
+|Cách ghi dữ liệu| Ghi trực tiếp vào bộ nhớ|Ghi vào bộ nhớ thông qua các lệnh tham chiếu|
+| Tốc độ| Nhanh hơn| Chậm hơn|
+|Không gian lưu trữ | Nhiều hơn| Ít hơn|
+| Ưu điểm| Nhanh, dễ cài đặt, sử dụng, migration| Hỗ trợ nén, mã hóa, snapshot, có cơ chế thin, hỗ trợ cow, migration . . . . |
