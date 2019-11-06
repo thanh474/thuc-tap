@@ -69,9 +69,8 @@ Qcow2 hỗ trợ việc tăng bộ nhớ bằng cơ chế Thin Provisioning (Má
 |------|-------|------|
 |Cách ghi dữ liệu| Ghi trực tiếp vào bộ nhớ|Ghi vào bộ nhớ thông qua các lệnh tham chiếu|
 | Tốc độ| Nhanh hơn| Chậm hơn|
-| Hiệu năng| Nhanh hơn| Chậm hơn|
-| Hiệu suất| Thấp hơn| Cao hơn|
-| Ưu điểm| Nhanh, dễ cài đặt, sử dụng, chia sẻ| Hỗ trợ nén, mã hóa, snapshot, có cơ chế thin, hỗ trợ cow, . . . . |
+|Không gian lưu trữ | Nhiều hơn| Ít hơn|
+| Ưu điểm| Nhanh, dễ cài đặt, sử dụng, migration| Hỗ trợ nén, mã hóa, snapshot, có cơ chế thin, hỗ trợ cow, migration . . . . |
 
 
 
@@ -80,11 +79,15 @@ Hiệu năng là khả năng hoạt động của 2 định dạng trên các m�
 HIệu suất là khả năng tránh lãng phí tài nguyên phần cứng, thời gian sử lý. Ở đây Raw chiếm nhiều không gian phần cứng hơn nên có hiệu suất thấp hơn sơ vơi qcow2 thì sử dụng dữ liệu đến đâu thì sẽ ghi đến đó tiết kiệm không gian hơn nên hiệu suất thấp hơn.
 
 Tốc độ ở  đây được hiềủ là tốc độ đọc ghi dữ liệu của 2 định dạng raw và qcow2 trên cùng 1 phần cứng. Trên lý thuyết thí đing dang Raw sẽ nhanh hơn qcow2 nhưng trong thực tế thì chưa chắc raw dã nhanh hơn qcow2.
-- Trong thực nghiệm trên 2 Máy ảo có các thông sô cấu hình như nhau nhưng định dạng của 2 máy là khác nhau một máy là Qcow2 máy còn lại là Raw. Ta dử dụng lệnh **dd if=/dev/zero of=/root/testfile bs=1G count= 1 oflag=direct**
-thì máy có định dạng qcow lại có tốc độ nhanh hơn.
-![](anhkvm/speed.png)
+Sử dụng lệnh ```dd if=/dev/zero of=root/test.txt bs=512 count=1000```
+ta thù được kết quả trên máy có định dạng Raw.
 
-<a name="2.4"></a>
+![](anhkvm/speed2.png)
+
+Trên máy VM được lưu định dạng Qcow2.
+
+![](anhkvm/speed3.png)
+
 ### 2.4. Chuyển đổi định dạng qcow2 và raw
 
 Chuyển đổi giữa qcow2 thành raw. Ta sử dụng lệnh.
@@ -303,9 +306,3 @@ Khối device nằm trong khối domain. Nó hai bao thông tin vè thành phàn
 2. https://github.com/domanhduy/ghichep/blob/master/DuyDM/KVM/docs/T%C3%ACm%20hi%E1%BB%83u%20v%E1%BB%81%20file%20XML.md
 3. https://github.com/nhanhoadocs/thuctapsinh/blob/master/NiemDT/KVM/docs/File-xml.md
 
-|   |  Raw  | Qcow2|
-|------|-------|------|
-|Cách ghi dữ liệu| Ghi trực tiếp vào bộ nhớ|Ghi vào bộ nhớ thông qua các lệnh tham chiếu|
-| Tốc độ| Nhanh hơn| Chậm hơn|
-|Không gian lưu trữ | Nhiều hơn| Ít hơn|
-| Ưu điểm| Nhanh, dễ cài đặt, sử dụng, migration| Hỗ trợ nén, mã hóa, snapshot, có cơ chế thin, hỗ trợ cow, migration . . . . |
