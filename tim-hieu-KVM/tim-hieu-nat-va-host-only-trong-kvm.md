@@ -6,6 +6,8 @@ Mục Lục.
 
 [2. Cách hoạt động NAT.](#2)
 
+- [2.1 Mô hình](#2.1)
+
 ---
 <a name="1"></a>
 ## 1. Cơ chế NAT trong linux bridge.
@@ -36,7 +38,8 @@ Kiểm tra các đia chỉ trên máy vật lý bằng lệnh **ip a**.
 ![](anhkvm/anh36.png)
 Ta thấy có xuất hiện 1 interface là **virbr0** đây tương tự là như tạo ra một virtual route.
 
-Mô hình.
+<a name="2.1"></a>
+### 2.1 Mô hình.
 
 ![](anhkvm/anh32.png)
 
@@ -92,11 +95,4 @@ Ta thấy là không ping được.
 Khi ta xóa bỏ các rule này thì các máy ảo sẽ không kết nối được với internet nữa.
 
 
-## Host-only trong KVM
-Cấu trúc và cách hoat động tương tự như Linux bridge nhưng không có đường uplink kết nối ra interface của máy vật lý.
 
-Việc cấu hình và tạo mạng isolate sẽ tự tạo thêm bridge ảo mới cho mạng. không cần tạo trước như mạng bridge network.
-
-các máy ảo kết nối tới switch ảo có thể liên lạc với nhau và với host, nhưng lưu lượng của chúng sẽ không được đi ra ngoài host – cũng như không thể nhận các kết nối từ bên ngoài vào.
-
-![](anhkvm/anh13.png)

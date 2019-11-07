@@ -11,6 +11,8 @@ Mục Lục.
 
 [5. Mô hình lab.](#5)
 
+[6. Host only](#6)
+
 ---
 
 <a name="1"></a>
@@ -133,3 +135,14 @@ Bắt gói tin trên điểm eno1.
 Ta bắt được 2 gói tin request và reply từ địa chỉ máy ảo 192.168.1.111 đến địa chỉ 8.8.8.8. Vậy máy ảo KVM1 có đi qua interface eno1 để ra ngoài internet.
 
 Vậy kết luân lại gói tin sẽ đi từ máy ảo KVM1 qua interface vnet1 đến bridge thanhbc  rồi đi tiếp qua đường uplink đên interface eno1 của máy vật lý rôif đi đến internet.
+
+
+<a name="6"></a>
+## 6. Host-only trong KVM
+Cấu trúc và cách hoat động tương tự như Linux bridge nhưng không có đường uplink kết nối ra interface của máy vật lý. Mô hình này tạo thành một mạng LAN.
+
+Việc cấu hình và tạo mạng isolate sẽ tự tạo thêm bridge ảo mới cho mạng. không cần tạo trước như mạng bridge network.
+
+Các máy ảo kết nối tới switch ảo có thể liên lạc với nhau và với host, nhưng lưu lượng của chúng sẽ không được đi ra ngoài host – cũng như không thể nhận các kết nối từ bên ngoài vào.
+
+![](anhkvm/anh13.png)
