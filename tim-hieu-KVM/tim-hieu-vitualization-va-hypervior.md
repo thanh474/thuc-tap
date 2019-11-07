@@ -21,8 +21,6 @@ Muc Lục.
 ---- 
 <a name="1"></a>
 ## 1. Kiến trúc X86.
-
-Intel đưa ra kiến trúc x86 đây là kiến trúc tập lệnh sử dụng vi sử lý 8086. thế hệ này chỉ hỗ trợ 2^32 = 4G RAM. Sau này được phát triển lên X86-64 sử dụng 64 bit.
  
 Trong kiến trúc X86 có 1 có cơ chế hoạt động là **Ring**. Đây là cơ chế bảo vệ dữ liệu và chức năng 1 một chương trình tránh khả năng nguy có bị lỗi hoặc truy cập trái phép bởi các chương trình khác. Phân quyền sử dụng cho từng ring khác nhau.
 
@@ -43,16 +41,22 @@ Ring 3 : Hệ điều hành.
 Hầu hết các hệ điều hành chỉ có quyền sử dụng 2 Ring. VD : Window chỉ sử dụng 2 mức là Ring 0 và Ring 3.
 
 Trong kiến trúc x86 và cơ chê hoạt động của Ring có 3 chế độ làm việc là:
-- User mode: Đây là chế đọ của người dùng. Thường chạy từ các ring 3 đên các ring có số lớn hơn.
+- User mode: Đây là chế đọ của người dùng. Thường chạy từ các ring 3. Chế độ này muốn sử dụng phần cứng thì phải đi qua từng ring 2, ring 1 rồi với đến rinh 0 đê yêu cầu sử dungj phần cứng. để đi qua các ring thì nó phải sử dụng đến các lời gọi hệ thống là "system call".
 
-- kernel mode: Đây là chế độ kernel. Được chạy trên ring 0 và có đặc quyền cao nhất có thể truy cập trực tiếp đên phần cứng.
-
-- quest mode: 
+- kernel mode: Đây là chế độ kernel. Được chạy trên ring 0 và có đặc quyền cao nhất có thể truy cập trực tiếp đên phần cứng và có toàn quyền với hệ thống. 
 
 <a name="2"></a>
 ## 2. Virtualization là gì?
 
-Ảo hóa là một khái niệm vô cùng rộng lớn trong thức tế nó là một cái gì đó không có thật. Trong ngành khoa học máy tính thì ảo hóa là sử dụng một môi trường phần cứng không có thật. Công nghệ ảo hóa trên phần cứng được chạy trên 1 phần mềm ảo hóa gọi là hypervisor.
+Trong triết học, ảo có nghĩa là "một cái gì đó không có thật".
+
+Trong khoa học máy tính, ảo có nghĩa là "một môi trường phần cứng không có thật".
+
+Ảo hóa là một công nghệ được thiết kế để tạo ra tầng trung gian giữa hệ thống phần cứng máy tính và phần mềm chạy trên nó. 
+
+Tầng trung gian sẽ sử dụng Kỹ thuật áo hóa là trưu tượng hóa các phần cứng nhứ cpu memory, disk, nic.
+
+Ý tưởng của công nghệ ảo hóa máy chủ là từ một máy vật lý có thể tạo thành nhiều máy ảo độc lập. Mỗi một máy ảo đều có một thiết lập hệ thống riêng, hệ điều hành riêng và các ứng dụng riêng.
 
 Nói một cách đơn giản, ảo hóa là quá trình ảo hóa một cái gì đó như phần cứng,
 network, storage, application, ....
@@ -111,7 +115,7 @@ Xen
 <a name="3"></a>
 ## 3.Hypervisor là gì.
 
-Hypervisor được sử dụng để cung cấp một lớp trừu tượng để tách các máy ảo khỏi phần cứng hệ thống. Điều này cho phép cài đặt một máy ảo với bất kỳ hệ điều hành nào mà không phải lo lắng về việc có trình điều khiển thiết bị phù hợp cho nền tảng phần cứng . Trình ảo hóa cũng phân tách các máy ảo với nhau. Vì vậy, nếu một máy ảo gặp sự cố, nó không ảnh hưởng đến hoạt động của các máy ảo khác. Có hai loại hypervisor: Loại 1 và Loại 2.
+Hypervisor là một lớp trừu tượng để tách các máy ảo khỏi phần cứng hệ thống. Nó là một lớp trung gian nằm giữa hệ thống phần cứng bên dươi và các ứng dụng nằm bên trên. Điều này cho phép cài đặt một máy ảo với bất kỳ hệ điều hành nào mà không phải lo lắng về việc có trình điều khiển thiết bị phù hợp cho nền tảng phần cứng . Trình ảo hóa cũng phân tách các máy ảo với nhau. Vì vậy, nếu một máy ảo gặp sự cố, nó không ảnh hưởng đến hoạt động của các máy ảo khác. Có hai loại hypervisor: Loại 1 và Loại 2.
 
 <a name="3.1"></a>
 ### 3.1 Hypervisor loại 1.
