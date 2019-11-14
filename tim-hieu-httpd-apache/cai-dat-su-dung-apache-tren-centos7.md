@@ -240,7 +240,7 @@ Kiểm tra lại xem hosts trên tên miền mới đã hoạt động chưa.
 
 Như vậy ta đã thành công trong việc tạo và sử dụng virtual host.
 
-<a name ="3.2"></a>
+<a name ="3.4"></a>
 ### 3.4  Basic authentication.
 
 Ta có thể cài đặt tài khoản và mật khẩu cho mỗi người dùng truy cập vào máy.
