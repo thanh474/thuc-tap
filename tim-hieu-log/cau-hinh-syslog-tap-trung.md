@@ -19,6 +19,8 @@
 
 - [4.2 Đẩy log từ web-server về rsyslog-server](#4.2)
 
+- [4.3 Đẩy log từ database về rsyslog-server](#4.3)
+
 
 ---
 <a name ="1"></a>
