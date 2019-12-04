@@ -285,12 +285,12 @@ Cấu hình apache sử dụng virtualhost .
 
 Tạo file lưu virtualhost. 
 ```
-touch /etc/httpd/conf.d/congthanhchien.xyz
+touch /etc/httpd/conf.d/congthanhxxxx.xxx.conf
 ```
 Thêm các dòng sau vào file.
 ```
 <VirtualHost *:80>
-    ServerName congthanhchien.xyz
+    ServerName congthanhxxxx.xxx
     DocumentRoot "/var/www/html/wordpress/"
     <Directory "/var/www/html/wordpress">
        DirectoryIndex index.php
