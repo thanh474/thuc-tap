@@ -12,7 +12,9 @@
 - [2.5. Cài và cấu hình wordpress.](#2.5)
 
 [3. Cấu hình thêm tên miền](#3)
-
+- [3.1 Cài đặt tên miền](#3.1)
+- [3.2 Cấu hình apache ](#3.2)
+- [3.3 Cấu hình wordpress](#3.3)
 --------
 <a name="1"></a>
 ##  1. Wordpress là gì.
@@ -258,7 +260,9 @@ Tiếp theo cài đặt theo hướng dẫn để tạo 1 trang blog wordpress.
 
 Vậy  là ta đã cài đặt thành công wordpress trên centos 7.
 
+<a name="3"></a>
 ## 3. Cài đặt tên miền cho trang wordpress
+
 ### 3.1 Cài đặt tên miền.
 Mua tên miền và trỏ tên miền về địa chỉ host
 
@@ -301,7 +305,7 @@ Lưu lại và khởi động lại apache.
 ```
 systemctl restart httpd
 ```
-### 3.3 Cấu hình sửa đổi trên wordpress
+### 3.3 Cấu hình wordpress
 Sau đó mở trình duyệt web lên và gõ đường dẫn. ``http://192.168.122.40/wordpress/wp-admin``
 
 Tiếp đến sửa đổi tên đường dẫn của wordpress để sử dụng tên miền.
