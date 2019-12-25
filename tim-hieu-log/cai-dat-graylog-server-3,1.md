@@ -38,11 +38,11 @@ Thông số các máy sử dụng trong mô hình lab.
 ### 2.1 Cài đặt môi trường và các gói phụ trợ
 
 ```
-yum install java-1.8.0-openjdk-headless.x86_64
+yum install java-1.8.0-openjdk-headless.x86_64 -y
 yum install epel-release -y
 yum install pwgen -y
 ```
-Vì là môi trường lab nên tôi tắt hết firewall và SELinux/
+Vì là môi trường lab nên tôi tắt hết firewall và SELinux
 ```
 systemctl stop firewalld
 setenforce 0
@@ -70,8 +70,10 @@ Cài đặt Mongodb
 ```
 yum install mongodb-org -y
 ``` 
+
 Khởi động monodb và cho nó chạy cùng hệ thống.
 ```
+chkconfig --add mongod
 systemctl daemon-reload
 systemctl enable mongod.service
 systemctl start mongod.service
@@ -182,3 +184,5 @@ Mở trình duyệt web với địa chỉ ```http://192.168.110.154:9000``` và
 
 
 Như vậy là ta đã cài đặt và cấu hình thành công graylog-server trên centos7 với mô hình  All-in-one.
+
+
