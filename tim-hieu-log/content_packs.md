@@ -67,3 +67,9 @@ Cuối cùng có 2 lựa chọn:
 
 **Choose file** chọn file JSON đã tải về.
 
+
+Hoặc có thể install các content pack tải về từ các content pack có sẵn trên mạng để sử dụng.
+
+![](anhlog/cont7.png)
+
+Tải thêm các content packs khác về từ **https://marketplace.graylog.org/**
