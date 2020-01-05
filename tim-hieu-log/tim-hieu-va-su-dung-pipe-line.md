@@ -1,3 +1,4 @@
 # Tìm hiểu và sử dụng pipe line trong graylog
 
 ## Pipe line 
+bùi công thành
