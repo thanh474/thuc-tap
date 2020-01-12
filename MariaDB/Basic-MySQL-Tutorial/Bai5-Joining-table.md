@@ -12,6 +12,7 @@
 [5. RIGHT JOIN](#5)
 
 [6. CROSS JOIN](#6)
+
 ---
 
 <a name ="1"></a>
