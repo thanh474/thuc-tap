@@ -18,8 +18,9 @@ Mục lục
 
 [8. LIMIT](#8)
 
-[9. Toán tử NOT NULL](#9)
----
+[9. Toán tử IS NULL](#9)
+
+----
 
 <a name ="1"></a>
 ## 1. Mệnh đề where
@@ -430,4 +431,68 @@ LIMIT 5, 10;
 
 Ta thấy Cột customerNumber bắt đầu từ 465 đên 198.
 
+<a name ="9"></a>
+## 9. Toán tử IS NULL
 
+Để kiểm tra xem giá trị có phải là NULL hay không, bạn sử dụng toán tử IS NULL . Đây là cú pháp cơ bản của toán tử IS NULL :
+```
+value IS NULL
+```
+Giá trị trả về của NULL là true hoặc false nên IS NULL sử dụng kiểu dữ liệu TINYINT(1) 
+
+
+Để kiểm tra giá trị không phải là NULL thì sử dụng IS NOT NULL. Cú pháp cơ bản.
+```
+value IS NOT NULL
+```
+
+**Ví dụ 1:** Sử dụng IS NULL cơ bản.
+Truy vấn sau đây sử dụng toán tử IS NULL để tìm các khách hàng không có đại diện bán hàng:
+```
+ SELECT  
+    customerName, 
+    country, 
+    salesrepemployeenumber
+ FROM 
+    customers
+ WHERE 
+    salesrepemployeenumber  IS   NULL 
+ ORDER BY  
+    customerName; 
+```
+![](sql/anh66.png)
+
+**Ví dụ 2:** Sử dụng IS NOT NULL cơ bản.
+
+Sử dụng toán tuer IS NOT NULL để tìm khách hàng có đại diện bán hàng.
+```
+ SELECT  
+    customerName, 
+    country, 
+    salesrepemployeenumber
+ FROM 
+    customers
+ WHERE 
+    salesrepemployeenumber  IS   NOT NULL 
+ ORDER BY  
+   customerName;
+```
+![](sql/anh67.png)
+
+Ta có thể sử dụng IS NULL với các mệnh đề khác nhau.
+
+**Ví dụ 3:** Sử dụng IS NULL với WHERE.
+
+```
+ SELECT  
+    customerNumber, 
+    salesRepEmployeeNumber
+ FROM 
+    customers
+ WHERE 
+    salesRepEmployeeNumber  IS   NULL ;
+```
+
+Chọn cột customerNumber, salesRepEmployeeNumber từ bảng customers nơi có cột salesRepEmployeeNumber là giá trị NULL.
+
+![](sql/anh68.png)
