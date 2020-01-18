@@ -195,7 +195,7 @@ WHERE
 
 ![](sql/anh73.png)
 
-Sử dung truy vấn toán tử IN vói truy vấn bằng cách sử dung lệnh EXOLAIN.
+Sử dung truy vấn toán tử IN vói truy vấn bằng cách sử dung lệnh EXPLAIN.
 ```
 EXPLAIN SELECT 
     customerNumber, 
