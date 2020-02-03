@@ -1,0 +1,207 @@
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+body{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background-size: cover;
+	background-color: black;
+}
+.header{
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-left: 5px;
+    overflow: auto;   
+}
+.name {
+	background-color: #323232;
+	border:1px solid #B5B5B5;
+	padding: 0px;
+	margin: 0px;
+	overflow: auto;  
+}
+
+.name i {
+	margin-top: 10px;
+	font-size: 30px;
+	margin-left: 15px;
+	color: turquoise;
+	float: left;
+}
+.nav-menu i{
+	color: whitesmoke;
+}
+.name p {
+	
+	width: 75%;height: 70%;
+	float: left;
+	margin: 10px;
+	color: white;
+	font-size: 30px;
+}
+.menu {
+	float: right;
+	margin: 0px;
+
+}
+.nav-menu ul{
+	list-style: none;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.nav-menu ul li{
+	
+	font-size: 25px;
+}
+.nav-menu ul li i{
+	margin-left: 0px;
+	margin-bottom: 0px;
+	margin-top: 3px;
+	margin-right: 9px;
+	font-size: 25px;
+	padding: 0;
+}
+.nav-menu ul li a{
+	padding-left: 10px;
+	padding-right: 10px;
+	
+	text-decoration: none;
+
+	color: white;
+	display: block;
+}
+.nav-menu ul li a:hover{
+	background-color:  #666666;
+	border-radius: 5px;
+}
+.all{
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	
+}
+.all .left{
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+	float: left;
+	width: 15%;
+	height: 30%;
+
+}
+.all .total{
+	margin: 0px;
+	background-color: #323232;
+	width: 100%;
+	height: 30%;
+	border: 1px solid #B5B5B5;
+}
+
+.all .detail{
+	margin-top: 5px;
+	float: left;
+	background-color: #323232;
+	width: 100%;
+	height: 60%;
+	border: 1px solid #B5B5B5;
+}
+.all .total #num{
+	margin: 5%;
+	color: #FF0000;
+	text-align: center;
+	font-size: 50px;
+}
+.all .total #tong{
+	
+	color: white;
+	text-align: center;
+	font-size: 24px;
+}
+.all .map{
+	float: left;
+	margin-top: 0px;
+	margin-left: 2.5px;
+	margin-right: 2.5px;
+	width: 62%;
+	height: 660px;
+	border: 1px solid #B5B5B5;
+}
+#googleMap{
+	width:100%;
+	height:660px;
+	float: left;
+}
+
+#map {
+	height: 100%;
+  }
+  /* Optional: Makes the sample page fill the window. */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+.map #lala{
+	margin-top: 5px;
+	background-color: #323232;
+	width: 100%;
+
+	border: 1px solid #B5B5B5;
+	color: white;
+}
+.all .right{
+	float: left;
+	width: 22%;
+	
+}
+.right .deaths{
+	float: left;
+	margin-right: 2.5px;
+	background-color: #323232;
+	width: 49%;
+	border: 1px solid #B5B5B5;
+}
+.right .recovered{
+	margin: 0px;
+	float: right;
+	background-color: #323232;
+	width: 49%;
+	border: 1px solid #B5B5B5;
+}
+
+#Deaths{
+	color: #F40606;
+	font-size: 20px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+#Rec{
+	color: #2EE711;
+	font-size: 20px;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+#to{
+	text-align: center;
+	color: #2EE711;
+	font-size: 50px;
+	margin: 0px;
+}
+.table{
+	background-color:  #323232;
+	height:600px;
+	width: 100%;
+	overflow-y: scroll;
+}
+.table ul{
+	color: white;
+	font-size: 18px;
+	padding-left: 10px;
+	margin: 2px;
+	text-align: left;
+	border-bottom: 0.5px solid  wheat;
+}
