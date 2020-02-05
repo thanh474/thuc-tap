@@ -12,7 +12,7 @@
 
 [5. Prepared Statement](#5)
 
----
+-----
 
 <a name ="1"></a>
 ## 1. INSERT
