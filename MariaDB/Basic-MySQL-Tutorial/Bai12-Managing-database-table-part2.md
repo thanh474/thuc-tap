@@ -1,4 +1,4 @@
-#  # Managing MySQL databases and tables part 2
+#  Managing MySQL databases and tables part 2
 
 
 
