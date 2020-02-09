@@ -2,21 +2,21 @@
 
 
 
-[1.ALTER TABLE ](#2)
+[1.ALTER TABLE ](#1)
 
-[2.Renaming table](#3)
+[2.Renaming table](#2)
 
-[3.Removing a column from a table](#4)
+[3.Removing a column from a table](#3)
 
-[4.Adding a new column to a table](#5)
+[4.Adding a new column to a table](#4)
 
-[5.DROP TABLE](#6)
+[5.DROP TABLE](#5)
 
-[6.Temporary tables](#7)
+[6.Temporary tables](#6)
 
-[7.TRUNCATE TABLE](#8)
+[7.TRUNCATE TABLE](#7)
 
-[8.Generated columns](#9)
+
 
 
 ------
