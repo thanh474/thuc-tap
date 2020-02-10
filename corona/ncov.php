@@ -3,37 +3,35 @@
 <head>
 	<title>Crona Virus 2020</title>
 	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" type="text/css" href="cssmain.css">
-	<link rel="stylesheet" type="text/css" href="/var/www/html/fonticon/css/all.css">
-	<div class="header">
-		<div class="name">
-			<i class="fas fa-pills"></i>
-			<p>Wuhan Coronavirus (2019-nCoV) Global Cases </p>
-			<div class="menu">
-				<div class="nav-menu">
-					<ul>
-						<li><a href=""><i class="fas fa-bars"></i>Menu</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>		
-	</div>
 </head>
 <body>
-	
+	<header>
+		<div class="header">
+			<div class="name">
+				<i class="fas fa-pills"></i>
+				<p>Wuhan Coronavirus (2019-nCoV) Global Cases </p>
+				<div class="menu">
+					<div class="nav-menu">
+						<ul>
+							<li><a href=""><i class="fas fa-bars"></i>Menu</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>		
+		</div>	
+	</header>
 	<div class="all">
 		<div class="left">
 			<div class="total">
-				<h1 id="tong">
-					Tổng người nhiễm 
-				</h1>
+				<h1 id="tong">Tổng người nhiễm </h1>
 				<p id="num1">
-				<?php
-				require("solieu.php");
-				echo "$tata";
-				?>
+					<?php
+					require("solieu.php");
+					echo "$tata";
+					?>
 				</p>
 			</div>
 			<div class="detail">
@@ -41,27 +39,23 @@
 				<div class="table1">
 					<?php
                         require("solieu.php");
-
                         // Create connection
                         $conn = new mysqli($servername, $username, $password, $dbname);
 						$confir = mysqli_query($conn, "SELECT ProvinceState, Confirmed FROM hienthi where hienthi.Confirmed is not null  ORDER BY hienthi.Confirmed  DESC");
-						$ind=0;
-						while ($row = @mysqli_fetch_assoc($confir))
+						
+						while ($row = mysqli_fetch_assoc($confir))
 						{
 							$prepend = "<span id='color1'>";
 							$append  = '</span>';
 							
 							echo "<ul>
 									<div >
-										
 										<p> $row[ProvinceState] $prepend $row[Confirmed] $append </p>
 									</div>
-								</ul>";
-
-                            $ind = $ind + 1;
+								</ul>";  
 						}
 	 				?>
-				
+
 				</div>
 			</div>
 		</div>
@@ -70,17 +64,13 @@
 			<div id="map">
 				<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 				<script type="text/javascript">
-					var customLabel = {
-						Hubei: {
-						label: 'Hubei'
-						},
-						
-					};
-						function initMap() {
-						var map = new google.maps.Map(document.getElementById('map'), {
-						center: new google.maps.LatLng(30.737812, 112.238403),
-						zoom:5.5
+					function initMap() {
+						var map = new google.maps.Map(document.getElementById('map'),
+						{
+							center: new google.maps.LatLng(30.737812, 112.238403),
+							zoom:5.5
 						});
+
 						var infoWindow = new google.maps.InfoWindow;
 				
 						// Change this depending on the name of your PHP or XML file
@@ -96,12 +86,12 @@
 				
 							var infowincontent = document.createElement('div');
 							var strong = document.createElement('strong');
-							strong.textContent = ProvinceState
+							strong.textContent = ProvinceState;
 							infowincontent.appendChild(strong);
 							infowincontent.appendChild(document.createElement('br'));
 				
 							var text = document.createElement('text');
-							text.textContent = Confirmed
+							text.textContent = Confirmed;
 							infowincontent.appendChild(text);
 							var icon = customLabel[ProvinceState] || {};
 							
@@ -110,7 +100,7 @@
 								position: point,
 								icon: {
 							path: google.maps.SymbolPath.CIRCLE,
-							scale: Confirmed* 0.003,
+							scale: Confirmed* 0.004,
 							fillColor: '#f00',
 							fillOpacity: 0.55,
 							strokeWeight: 0
@@ -137,7 +127,7 @@
 				
 							var infowincontent = document.createElement('div');
 							var strong = document.createElement('strong');
-							strong.textContent = ProvinceState
+							strong.textContent = ProvinceState;
 							infowincontent.appendChild(strong);
 							infowincontent.appendChild(document.createElement('br'));
 				
@@ -170,44 +160,43 @@
 							var xml = data.responseXML;
 							var markers = xml.documentElement.getElementsByTagName('marker');
 							Array.prototype.forEach.call(markers, function(markerElem) {
-							var ProvinceState = markerElem.getAttribute('ProvinceState');
-							var Confirmed = markerElem.getAttribute('Confirmed');
-							var point = new google.maps.LatLng(
-								parseFloat(markerElem.getAttribute('lat')),
-								parseFloat(markerElem.getAttribute('lng')));
-				
-							var infowincontent = document.createElement('div');
-							var strong = document.createElement('strong');
-							strong.textContent = ProvinceState
-							infowincontent.appendChild(strong);
-							infowincontent.appendChild(document.createElement('br'));
-				
-							var text = document.createElement('text');
-							text.textContent = Confirmed
-							infowincontent.appendChild(text);
-							var icon = customLabel[ProvinceState] || {};
+								var ProvinceState = markerElem.getAttribute('ProvinceState');
+								var Confirmed = markerElem.getAttribute('Confirmed');
+								var point = new google.maps.LatLng(
+									parseFloat(markerElem.getAttribute('lat')),
+									parseFloat(markerElem.getAttribute('lng')));
+					
+								var infowincontent = document.createElement('div');
+								var strong = document.createElement('strong');
+								strong.textContent = ProvinceState;
+								infowincontent.appendChild(strong);
+								infowincontent.appendChild(document.createElement('br'));
+					
+								var text = document.createElement('text');
+								text.textContent = Confirmed
+								infowincontent.appendChild(text);
+								var icon = customLabel[ProvinceState] || {};
 
-							var marker = new google.maps.Marker({
-								map: map,
-								position: point,
-								icon: {
-							path: google.maps.SymbolPath.CIRCLE,
-							scale: Confirmed* 0.6,
-							fillColor: '#f00',
-							fillOpacity: 0.55,
-							strokeWeight: 0
-							},
-				
-								label: icon.label
-							});
-							
-							marker.addListener('click', function() {
-								infoWindow.setContent(infowincontent);
-								infoWindow.open(map, marker);
-							});
+								var marker = new google.maps.Marker({
+									map: map,
+									position: point,
+									icon: {
+										path: google.maps.SymbolPath.CIRCLE,
+										scale: Confirmed* 0.6,
+										fillColor: '#f00',
+										fillOpacity: 0.55,
+										strokeWeight: 0
+									},
+									label: icon.label
+								});
+								
+								marker.addListener('click', function() {
+									infoWindow.setContent(infowincontent);
+									infoWindow.open(map, marker);
+								});
 							});
 						});
-						}
+					}
 				
 					function downloadUrl(url, callback) {
 						var request = window.ActiveXObject ?
@@ -226,7 +215,8 @@
 						request.open('GET', url, true);
 						request.send(null);
 					}
-				
+					var customLabel = {	
+					};
 					function doNothing() {}
 				</script>
 				<script async defer
@@ -238,21 +228,17 @@
 		<div class="chartright">
 			<div class="right">
 				<div class="deaths">
-					<h1 id="Deaths">
-						Tổng chết
-					</h1>
+					<h1 id="Deaths">Tổng chết</h1>
 					<p id="ta">
-					<?php
-					require("solieu.php");
-					echo "$totaldeath";				
-					?>
+						<?php
+						require("solieu.php");
+						echo "$totaldeath";				
+						?>
 					</p>
 					
 					<div class="table">
-					<?php
-							
+						<?php
 							require("solieu.php");
-
 							// Create connection
 							$conn = new mysqli($servername, $username, $password, $dbname);
 							$death = mysqli_query($conn, "SELECT ProvinceState, Deaths FROM hienthi where hienthi.Deaths != 0 ORDER BY hienthi.Deaths  DESC");
@@ -269,25 +255,19 @@
 								$ind = $ind + 1;
 							}
 						?>
-					
 					</div>
-					
-				</div>
+				</div>	
 				<div class="recovered">
-					<h1 id="Rec">
-						Tổng hồi phục
-					</h1>
+					<h1 id="Rec">Tổng hồi phục</h1>
 					<p id="to">
-					<?php
-					require("solieu.php");
-					echo "$totalrec";				
-					?>
+						<?php
+						require("solieu.php");
+						echo "$totalrec";				
+						?>
 					</p>
 					<div class="table">
-					<?php
-							
+						<?php
 							require("solieu.php");
-
 							// Create connection
 							$conn = new mysqli($servername, $username, $password, $dbname);
 							$revc= mysqli_query($conn, "SELECT ProvinceState, Recovered FROM hienthi where hienthi.Recovered != 0 ORDER BY hienthi.Recovered  DESC");
@@ -304,20 +284,15 @@
 								$ind = $ind + 1;
 							}
 						?>
-					
 					</div>
-			
-					
 				</div>
 			</div>
+
 			<div class="chart">
 				<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 				<script type="text/javascript">
-		
 					google.charts.load('current', {'packages':['corechart']});
 					google.charts.setOnLoadCallback(drawChart);
-					
-					
 					function drawChart() {
 						$cof0 = <?php include "loop.php";echo $cof[0];?>;
 						$cof1 = <?php include "loop.php";echo $cof[1];?>;
@@ -365,9 +340,7 @@
 						$ref13 = <?php include "loop.php";echo $ref[13];?>;
 						$ref14 = <?php include "loop.php";echo $ref[14];?>;
 
-        
-          
-						var data = google.visualization.arrayToDataTable([
+					var data = google.visualization.arrayToDataTable([
 							['Time', 'Confirmed', 'Deaths', 'Recovered'],
 							['Jan 26', $cof0,   $def0,  $ref0],
 							['Jan 27', $cof1,   $def1,  $ref1],
@@ -386,25 +359,25 @@
 							['Feb 9' ,  $cof14,   $def14,  $ref14],
 
 						]);
-						var options = {
-							curveType: 'function',
-							legend: { position: 'bottom',textStyle: {color: 'white'} },
-							pointSize: 10,
-							backgroundColor: '#272626',
-							colors:['#FFFF00', 'red', '#2EE711' ], 
-							pointsVisible: true,
-								vAxis: {
-									title: 'Total confermed case',
-									format: 'short',
-									textStyle: {
+					var options = {
+						curveType: 'function',
+						legend: { position: 'bottom',textStyle: {color: 'white'} },
+						pointSize: 10,
+						backgroundColor: '#272626',
+						colors:['#FFFF00', 'red', '#2EE711' ], 
+						pointsVisible: true,
+							vAxis: {
+								title: 'Total confermed case',
+								format: 'short',
+								textStyle: {
 									color: 'white',
 									fontSize: 10,    
-									},
-							titleTextStyle: {
+								},
+								titleTextStyle: {
 									color: 'white',
 									fontSize: 10,
 									}
-								}, 
+							}, 
 							hAxis: {
 								textStyle: {
 								color: 'white',
