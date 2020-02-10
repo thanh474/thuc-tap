@@ -13,7 +13,7 @@ body{
     overflow: auto;   
 }
 .name {
-	background-color: #323232;
+	background-color: #272626;
 	border:1px solid #B5B5B5;
 	padding: 0px;
 	margin: 0px;
@@ -93,7 +93,7 @@ body{
 }
 .all .total{
 	margin: 0px;
-	background-color: #323232;
+	background-color: #272626;
 	width: 100%;
 	height: 30%;
 	border: 1px solid #B5B5B5;
@@ -102,14 +102,20 @@ body{
 .all .detail{
 	margin-top: 5px;
 	float: left;
-	background-color: #323232;
+	background-color: #272626;
 	width: 100%;
 	height: 60%;
 	border: 1px solid #B5B5B5;
 }
 .all .total #num{
 	margin: 5%;
-	color: #FF0000;
+	color: white;
+	text-align: center;
+	font-size: 50px;
+}
+.all .total #num1{
+	margin: 5%;
+	color: #FFFF00;
 	text-align: center;
 	font-size: 50px;
 }
@@ -123,9 +129,9 @@ body{
 	float: left;
 	margin-top: 0px;
 	margin-left: 2.5px;
-	margin-right: 2.5px;
-	width: 62%;
-	height: 660px;
+	margin-right: 5px;
+	width: 58%;
+	height: 900px;
 	border: 1px solid #B5B5B5;
 }
 #googleMap{
@@ -137,7 +143,7 @@ body{
 #map {
 	height: 100%;
   }
-  /* Optional: Makes the sample page fill the window. */
+
 html, body {
 	height: 100%;
 	margin: 0;
@@ -145,28 +151,65 @@ html, body {
 }
 .map #lala{
 	margin-top: 5px;
-	background-color: #323232;
+	background-color: #272626;
 	width: 100%;
 
 	border: 1px solid #B5B5B5;
 	color: white;
 }
-.all .right{
-	float: left;
-	width: 22%;
-	
+.table1{
+	background-color:  #272626;
+	height:600px;
+	width: 100%;
+	overflow-y: scroll;
 }
-.right .deaths{
+.table1 ul{
+	color: white;
+	font-size: 15px;
+	padding-left: 10px;
+	margin: 2px;
+	text-align: left;
+	border-bottom: 0.5px solid  rgb(156, 156, 155);
+}
+
+.table1 p{
+	margin: 1px;
+	font-size: 18px;
+}
+.table1 #color1{
+	color: #FFFF00;
+}
+
+.all .chartright{
+	float: left;
+	width: 26%;
+}
+.chartright .chart{
+	color: white;
+	float: left;
+	border: 1px solid wheat;
+	height: 345px;
+	width: 100%;
+	margin-top: 5px;
+	background-color: #272626;
+}
+.detail #ConfirmedCases{
+	color: white;
+	text-align: center;
+	margin: 3px;
+	font-size: 20px;
+}
+.chartright .right .deaths{
 	float: left;
 	margin-right: 2.5px;
-	background-color: #323232;
+	background-color: #272626;
 	width: 49%;
 	border: 1px solid #B5B5B5;
 }
-.right .recovered{
+.chartright .right .recovered{
 	margin: 0px;
 	float: right;
-	background-color: #323232;
+	background-color: #272626;
 	width: 49%;
 	border: 1px solid #B5B5B5;
 }
@@ -191,17 +234,44 @@ html, body {
 	font-size: 50px;
 	margin: 0px;
 }
+#ta{
+	text-align: center;
+	color: red;
+	font-size: 50px;
+	margin: 0px;
+}
 .table{
-	background-color:  #323232;
-	height:600px;
+	background-color:  #272626;
+	height:450px;
 	width: 100%;
 	overflow-y: scroll;
 }
+
 .table ul{
 	color: white;
-	font-size: 18px;
+	font-size: 15px;
 	padding-left: 10px;
 	margin: 2px;
 	text-align: left;
 	border-bottom: 0.5px solid  wheat;
+}
+.table h3{
+	margin: 2px;
+}
+.table p{
+	margin: 1px;
+	font-size: 15px;
+}
+.table #color1{
+	color: red;
+	
+}.table #color2{
+	color: greenyellow;
+	
+}
+
+#curve_chart{
+	width: 100%; 
+	height: 100%;
+	text-decoration: red;
 }

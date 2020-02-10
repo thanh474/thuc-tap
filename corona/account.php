@@ -19,7 +19,7 @@ $pass = $_POST['pass'];
 $sql = "SELECT * FROM acount where user ='$user' and pass = '$pass'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-    include "login2.php";
+    include "ncov.php";
 }
 else{
     include "acou.php";  

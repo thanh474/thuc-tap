@@ -25,7 +25,7 @@ if (!$db_selected) {
 }
 
 // Select all the rows in the markers table
-$query = "SELECT * FROM markers INNER JOIN data USING(ProvinceState)";
+$query = "SELECT * FROM location INNER JOIN hienthi USING(ProvinceState) WHERE hienthi.Confirmed <20";
 $result = mysqli_query($connection, $query);
 //$result =  sprintf("SELECT * FROM markers WHERE 1");
 if (!$result) {
