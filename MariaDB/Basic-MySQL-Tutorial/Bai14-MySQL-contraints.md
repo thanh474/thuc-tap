@@ -159,14 +159,225 @@ MySQL có năm tùy chọn tham chiếu: CASCADE , SET NULL , NO ACTION , RESTRI
 - RESTRICT : nếu một hàng từ bảng cha có một hàng khớp trong bảng con, MySQL sẽ từ chối xóa hoặc cập nhật các hàng trong bảng cha.
 - NO ACTION : giống như RESTRICT .
 - SET DEFAULT : được công nhận bởi trình phân tích cú pháp MySQL. Tuy nhiên, hành động này bị từ chối bởi cả hai bảng InnoDB và NDB. 
+
+Sử dụng khóa ngoại trong MySQL.
+Trong bài này sử dụng một cơ sở dũ liệu mới. Trong cở sở dữ liệu mới có 2 bảng.
+```
+ CREATE   DATABASE  fkdemo;
+ USE  fkdemo;
+  CREATE   TABLE  categories(
+    categoryId  INT   AUTO_INCREMENT   PRIMARY KEY ,
+    categoryName  VARCHAR (100)  NOT NULL 
+)  ENGINE = INNODB ;
+ 
+ CREATE   TABLE  products(
+    productId  INT   AUTO_INCREMENT   PRIMARY KEY ,
+    productName  varchar (100)  not null ,
+    categoryId  INT ,
+     CONSTRAINT  fk_category
+     FOREIGN KEY  (categoryId) 
+         REFERENCES  categories(categoryId)
+)  ENGINE = INNODB ;
+```
+Sau khi thực hiện ta có 1 database mới.
+![](sql/anh112.png)
+
+### Restrict và NO ACTION.
+Cột categoryId trong bảng products là cột khóa ngoài tham chiếu đến cột categoryId trong bảng categories .
+
+Vì  tôi không chỉ định bất kỳ mệnh đề ON UPDATE và ON DELETE , nên hành động mặc định là RESTRICT cho cả thao tác cập nhật và xóa. 
+Để xem cách thực hiện của hành động RESTRCT tôi làm ví dụ sau;
+```
+#chèn dữ liệu vào bảng categories
+ INSERT   INTO  categories(categoryName)
+ VALUES 
+    ( 'Smartphone' ),
+    ( 'Smartwatch' );
+#xem tất cả dữ liệu trong bảng categories
+ SELECT  *  FROM  categories;
+ ```
+![](sql/anh112.png)
+Tiếp đến chèn cột mới vào bảng Products:
+```
+ INSERT   INTO  products(productName, categoryId)
+ VALUES ( 'iPhone' ,1);
+```
+Câu lệnh này sẽ hoạt động vị trong bảng categories đẽ tồn tại giá trị "categoryId =1".
+
+Nếu ta chèn một cột mới mà ko có sô categoryId có trong trong bảng categories thì sẽ bị lỗi.
+```
+ INSERT   INTO  products(productName, categoryId)
+ VALUES ( 'iPad' ,3);
+```
+Lập tưc nó sẽ bị lỗi và không thể thêm được.
+
+Tùy chọn RESTRICT , bạn không thể xóa hoặc cập nhật categoryId 1 vì nó được tham chiếu bởi products 1 trong bảng products 
+
+### CASCADE
+
+Hoạt động ON UPDATE CASCADE và ON DELETE CASCADE của CASCADE.
+```
+#xóa bản products để tạo một khóa ngoại mới.
+DROP   TABLE  products;
+
+#tạo bảng product mới sử dụng khóa ngoại mới.
+ CREATE   TABLE  products(
+    productId  INT   AUTO_INCREMENT   PRIMARY KEY ,
+    productName  varchar (100)  not null ,
+    categoryId  INT   NOT NULL ,
+     CONSTRAINT  fk_category
+     FOREIGN KEY  (categoryId) 
+     REFERENCES  categories(categoryId)
+         ON UPDATE   CASCADE 
+         ON DELETE   CASCADE 
+)  ENGINE = INNODB ;
+```
+![](sql/anh114.png)
+
+Thêm dữ liệu mới vào products
+```
+ INSERT   INTO  products(productName, categoryId)
+ VALUES 
+    ( 'iPhone' , 1), 
+    ( 'Galaxy Note' ,1),
+    ( 'Apple Watch' ,2),
+    ( 'Samsung Galary Watch' ,2);
+
+#kiểm tra dữ liệu 
+ SELECT  *  FROM  products;
+```
+![](sql/anh115.png)
+
+Cập nhập dữ liệu trong bảng categories
+```
+ UPDATE  categories
+ SET  categoryId = 100
+ WHERE  categoryId = 1;
+# kiểm tra
+SELECT  *  FROM  categories;
+```
+
+Lấy dữ liệu từ bảng products;
+```
+ SELECT  *  FROM  products;
+```
+Như ta thầy hành động cập nhật từ bảng catagories có ảnh huwognf đến bảng product vì chúng ta đang sử dụng khóa ngoại kiểu CASCADE.
+![](sql/anh116.png)
+
+Hành động này xẩy ra tương tự với hành đông xóa bảng.
+
+khi xóa thì các trường liên kết bằng khóa ngoại của bảng kia cũng bị xóa.
+
+
+
 <a name ="4"></a>
 ## 4.Disable foreign key checks
+Thêm dữ liệu vào các bảng cha và con theo bất kỳ thứ tự nào lúc đó nó sẽ kiểm tra ràng buộc khóa ngoài nếu bị rang buộc thì ko thêm được. Lúc đó cần vô hiệu hóa khóa ngoại để thêm dữ liễu.
+Để tắt kiểm tra khóa ngoại, bạn đặt biến foreign_key_checks về 0 như sau:
+
+```
+	
+ SET  foreign_key_checks = 0;
+```
+
+Để bật lại kiểm tra ràng buộc khóa ngoại, bạn đặt giá trị của foreign_key_checks thành 1:
+```	
+ SET  foreign_key_checks = 1;
+```
 
 <a name ="5"></a>
 ## 5.UNIQUE constraint
+Ràng buộc UNIQUE này là một ràng buộc cột. Và bạn có thể sử dụng nó để thực thi quy tắc duy nhất cho một cột.
+
+Để xác định ràng buộc UNIQUE cho hai hoặc nhiều cột, bạn sử dụng cú pháp sau:
+```
+ CREATE   TABLE  table_name(
+   ...
+   column_name1 column_definition,
+   column_name2 column_definition,
+   ...,
+    UNIQUE (column_name1,column_name2)
+);
+```
+
+Trong cú pháp này, bạn thêm danh sách các cột được phân tách bằng dấu phẩy trong ngoặc đơn sau từ khóa UNIQUE . MySQL sử dụng kết hợp các giá trị trong cả cột column_name1 và column_name2 để đánh giá tính duy nhất.
+
+Ví dụ sử dụng MySQL UNIQUE.
+tạo một bảng mới có tên các suppliers với hai ràng buộc UNIQUE :
+```
+ CREATE   TABLE  suppliers (
+    supplier_id  INT   AUTO_INCREMENT ,
+    name  VARCHAR (255)  NOT NULL ,
+    phone  VARCHAR (15)  NOT NULL   UNIQUE ,
+    address  VARCHAR (255)  NOT NULL ,
+     PRIMARY KEY  (supplier_id),
+     CONSTRAINT  uc_name_address  UNIQUE  (name , address)
+);
+```
+
+Ràng buộc UNIQUE đầu tiên được xác định cho cột "phone"
+
+Ràng buộc thứ hai dành cho both cột tên và cột address.
+
+Chèn thêm giá trị vào bảng:
+```
+ INSERT   INTO  suppliers(name, phone, address) 
+ VALUES (  'ABC Inc' , 
+        '(408)-908-2476' ,
+        '4000 North 1st Street' );
+```
+![](sql/anh116.png)
+
+Chèn một nhà cung cấp khác nhưng có số điện thoại đã tồn tại trong bảng suppliers. Lúc này nó sẽ bị lỗi vì hàng "phone" đã đặt là UNIQUE rồi nên ko thê thêm giá trị giốn như nó vào được.
+
+Điều này cũng tương tự khi ta thêm 2 giá trị giốn nhau của hàng name , address. vì 2 hàng này cũng được đặt là UNIQUE.
+
+
 
 <a name ="6"></a>
 ## 6.CHECK constraint
+ràng buộc CHECK MySQL để đảm bảo rằng các giá trị được lưu trữ trong một cột hoặc nhóm cột thỏa mãn biểu thức Boolean.
+
+Kể từ MySQL 8.0.16, CREATE TABLE hỗ trợ các tính năng thiết yếu của các ràng buộc CHECK bảng và cột cho tất cả các công cụ lưu trữ
+Đây là cú pháp:
+```
+[ CONSTRAINT  [constraint_name]]  CHECK  (expression) [[ NOT ] ENFORCED] .
+```
+Trong đó:
+- constraint_name : tên cho ràng buộc kiểm tra mà bạn muốn tạo
+- expression Boolean phải ước tính thành TRUE hoặc UNKNOWN cho mỗi hàng của bảng. Nếu biểu thức ước lượng thành FALSE , các giá trị vi phạm ràng buộc hoặc vi phạm ràng buộc xảy ra.
+- NOT , ENFORCED: tùy chọn chỉ định điều khoản thi hành để cho biết liệu ràng buộc kiểm tra có được thi hành hay không:
+   - Sử dụng ENFORCED hoặc chỉ bỏ qua mệnh đề ENFORCED để tạo và thực thi các ràng buộc.
+   - Sử dụng NOT ENFORCED để tạo ra các ràng buộc nhưng không thực thi nó. 
+
+Ví dụ sử dụng CHECK Mysql.
+```
+ CREATE   TABLE  parts (
+    part_no  VARCHAR (18)  PRIMARY KEY ,
+    description  VARCHAR (40),
+    cost  DECIMAL (10,2 )  NOT NULL   CHECK  (cost  > = 0),
+    price  DECIMAL (10,2)  NOT NULL   CHECK  (price  > = 0)
+);
+```
+Trong câu lệnh trên có 2 hàng CHECK: một là cột chi phí và một cột giá.
 
 <a name ="7"></a>
 ## 7.CHECK constraint emulation
+
+Sử dụng mô phỏng các ràng buộc CHECK trong MySQL bằng cách sử dụng trigger hoặc chế độ xem view
+
+### Giả lập các ràng buộc CHECK bằng cách sử dụng kích hoạt
+
+Để mô phỏng các ràng buộc CHECK trong MySQL, bạn có thể sử dụng hai trình kích hoạt : BEFORE INSERT và BEFORE UPDATE.
+
+Tạo một Storage engin để kiểm tra các giá trị trong cột
+
+Sau đó tạo BEFORE INSERT BEFORE UPDATE . Bên trong các trình kích hoạt vừa tạo. 
+
+Tiếp đến chèn 1 hàng thỏa mãn đầu đủ điều kiện trong storage engin
+
+Tiếp đến thử thêm các giá trị  vị phạm điều kiên với stogare thì nó sẽ không thực hiện được.
+
+### Giả lập các ràng buộc CHECK bằng cách sử dụng các khung nhìn
+
+Tạo ra một khung nhìn WITH CHECK OPTION dựa trên bảng bên dưới. Trong SELECT của định nghĩa khung nhìn, chúng tôi chỉ chọn các hàng hợp lệ thỏa mãn các điều kiện CHECK . Bất kỳ chèn hoặc cập nhật nào đối với chế độ xem sẽ bị từ chối nếu nó khiến hàng mới không xuất hiện trong chế độ xem

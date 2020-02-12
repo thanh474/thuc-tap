@@ -47,7 +47,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   echo 'lat="' . $row['lat'] . '" ';
   echo 'lng="' . $row['lng'] . '" ';
   echo 'CountryRegion="' . parseToXML($row['CountryRegion']) . '" ';
-  echo 'LastUpdate="' . parseToXML($row['LastUpdate']) . '" ';
+  
   echo 'Confirmed="' . $row['Confirmed'] . '" ';
   echo 'Deaths="' . $row['Deaths'] . '" ';
   echo 'Recovered="' . $row['Recovered'] . '" ';
@@ -56,4 +56,5 @@ while ($row = @mysqli_fetch_assoc($result)){
 }
 // End XML file
 echo '</markers>';
+
 ?>
