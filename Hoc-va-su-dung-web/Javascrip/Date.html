@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Cách sửa dụng Date</h2>
+
+<span>Tháng và năm</span>
+<p id="demo"></p>
+
+<span>Chỉ năm </span>
+<p id="demo1"></p>
+
+<span> Ngày chỉ định</span>
+<p id="demo2"></p>
+
+<span> Ngày chỉ định rút gọn</span>
+<p id="demo3"></p>
+
+<span> đếm ngày rồi đổi ra giây</span>
+<p id="demo4"></p>
+
+<span> Dổi giây ra ngày</span>
+<p id="demo5"></p>
+<script>
+
+var d = new Date("2015-03"); //tháng và năm
+document.getElementById("demo").innerHTML =d;
+
+var d1 = new Date("2000");   //Mỗi năm
+document.getElementById("demo1").innerHTML =d1;
+
+var d2 = new Date("2015-03-25T12:00:00Z");
+document.getElementById("demo2").innerHTML =d2;
+
+var d3 = new Date("03/25/2015");
+document.getElementById("demo3").innerHTML = d3;
+
+//tinh ngày theo giây bắt đầu tính từ ngày 1 tháng 1 1970
+var d4 = Date.parse("March 21, 2012");
+document.getElementById("demo4").innerHTML = d4;
+
+//Đổi ngược từ giây ra ngày hôm nay.
+var msec = Date.parse("March 21, 2012");
+var d5 = new Date(msec);
+document.getElementById("demo5").innerHTML = d5;
+</script>
+
+</body>
+</html>
