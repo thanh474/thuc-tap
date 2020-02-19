@@ -34,6 +34,17 @@
 </script>
 
 <p id="demo1">array</p>
+
+<div>
+  <p id="demo2"> </p>
+  <p id="demo3"> </p>
+  <p id="demo4"> </p>
+  <p id="demo5"> </p>
+  <p id="demo6"> </p>
+  <p id="demo7"> </p>  
+  <p id="demo8"> </p> 
+  <p id="demo9"> </p> 
+</div>
 <script>
 /*cu phap khai bao array.
 var name_array = [element,element,element,element];
@@ -65,6 +76,45 @@ var newspaper= {
   moviesWriters: ['Rogert Ebert', 'Andrew Sarris', 'Wesley Morris']
 }
 console.log(newspaper.sportsWriters[1]);
+
+//chuyen doi vaf hien thi tuf array thanh string/
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+document.getElementById("demo2").innerHTML = fruits.toString();
+
+//Popping là lấy ra phần tử cưới của mảng
+//dong này thực thiện lấy phần tử ra 
+document.getElementById("demo3").innerHTML = fruits;
+fruits.pop();
+//dòng này in ra mảng  sau khi đã lấy phần tử ra.
+document.getElementById("demo3").innerHTML = fruits;
+
+//Pushing là thêm phần tử cuối cùng vào mảng.
+//thực hiện thêm vào 
+document.getElementById("demo4").innerHTML = fruits.push("Kiwi");
+//hiện thị ra màn hình.
+  document.getElementById("demo4").innerHTML = fruits;
+
+
+//Shifting là lấy ra phần tử đầu tiên trong mảng.
+document.getElementById("demo5").innerHTML = fruits.shift();
+
+//Unshifting trrar về chiều dài của mảng bao gồm các thần mới thêm vào cả có hoặc ko có.
+document.getElementById("demo6").innerHTML = fruits.unshift("Lemon");
+
+//thêm thanh phần vào mảng tại vị trị chỉ định.
+//Thêm tại phần tử thứ 3.
+//Xóa 0 phân tử tiếp theo.
+fruits.splice(3, 0, "Lemon", "Kiwi");
+// Hiên thị mảng mới.
+document.getElementById("demo7").innerHTML = "New Array:<br>" + fruits;
+
+
+//Gộp 2 chuỗi hay nối 2 mảng lại sử dingj Concat.
+var myGirls = ["Cecilie", "Lone"];
+var myBoys = ["Emil", "Tobias", "Linus"];
+var myChildren = myGirls.concat(myBoys);
+document.getElementById("demo8").innerHTML =myChildren ;
+
 </script>
 </body>
 </html>

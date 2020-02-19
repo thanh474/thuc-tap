@@ -8,23 +8,26 @@
 
 <h2>Cách sửa dụng Date</h2>
 
-<p>Tháng và năm</p>
-<p id="demo"></p>
+<div>
+	<p>Tháng và năm</p>
+	<p id="demo"></p>
 
-<p>Chỉ năm </p>
-<p id="demo1"></p>
+	<p>Chỉ năm </p>
+	<p id="demo1"></p>
 
-<p> Ngày chỉ định</p>
-<p id="demo2"></p>
+	<p> Ngày chỉ định</p>
+	<p id="demo2"></p>
 
-<p> Ngày chỉ định rút gọn</p>
-<p id="demo3"></p>
+	<p> Ngày chỉ định rút gọn</p>
+	<p id="demo3"></p>
 
-<p> đếm ngày rồi đổi ra giây</p>
-<p id="demo4"></p>
+	<p> đếm ngày rồi đổi ra giây</p>
+	<p id="demo4"></p>
 
-<p> Dổi giây ra ngày</p>
-<p id="demo5"></p>
+	<p> Dổi giây ra ngày</p>
+	<p id="demo5"></p>
+</div>
+
 <script>
 
 var d = new Date("2015-03"); //tháng và năm
@@ -47,6 +50,10 @@ document.getElementById("demo4").innerHTML = d4;
 var msec = Date.parse("March 21, 2012");
 var d5 = new Date(msec);
 document.getElementById("demo5").innerHTML = d5;
+
+/*Ta có thể sử dụng các phươn thức để gọi các thông tin từ date object.
+vđ: getFullYear() chỉ lấy giá trị có đinh dạng YYYY là năm.
+getDay() : lấy các giá trị trong tuần.
 </script>
 
 </body>
