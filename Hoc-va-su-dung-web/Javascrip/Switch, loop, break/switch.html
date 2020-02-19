@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+    <meta charset="utf-8">
+</head>
+
+<p> Switch Statement</p>
+
+<p>Su dụng để chọn một trong các khối code khi có case được gọi.</p>
+
+<p id="demo"></p>
+<script>
+	var day;
+	switch (new Date().getDay()) {
+	  case 0:
+	    day = "Sunday";k
+	    break;
+	  case 1:
+	    day = "Monday";
+	    break;
+	  case 2:
+	    day = "Tuesday";
+	    break;
+	  case 3:
+	    day = "Wednesday";
+	    break;
+	  case 4:
+	    day = "Thursday";
+	    break;
+	  case 5:
+	    day = "Friday";
+	    break;
+	  case  6:
+	    day = "Saturday";
+	}
+	document.getElementById("demo").innerHTML = "Today is " + day;
+</script>
+
+</body>
+
+</html>

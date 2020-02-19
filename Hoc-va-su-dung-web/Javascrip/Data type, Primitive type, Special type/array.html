@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+    <meta charset="utf-8">
+</head>
+
+<p id="demo"></p>
+<p id="demo1"></p>
+<p id="demo2"></p>
+<p id="demo3"></p>
+<p id="demo4"></p>
+<p id="demo5"></p>
+<p id="demo6"></p>
+<p id="demo7"></p>
+<script>
+// Create and display an array:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+//Sắp xếp mảng string bảng chữ cái a->z
+fruits.sort();
+document.getElementById("demo").innerHTML = fruits;
+
+//Sắp xếp từ z-a.
+fruits.reverse()
+document.getElementById("demo1").innerHTML = fruits;
+
+//đối vói kiểu number thì khác.
+var points = [-99,40, 100, 1, 5, 25, 10];
+points.sort();
+document.getElementById("demo2").innerHTML = points;
+//Kết quả {1,10,100,25,40,5} lúc này nó sẽ so sánh các giá giá trị đầu cử số uốn ra kết quả đụng pahir thêm 1 hamg so sánh.
+//
+//so sánh rồi sắp xếp tifhapa đên cáo.
+points.sort(function(a, b){return a - b}); 
+document.getElementById("demo3").innerHTML = points;
+
+//
+//so sánh rồi sắp xếp cao đén thấp
+points.sort(function(a, b){return b-a}); 
+document.getElementById("demo4").innerHTML = points;
+
+//in ra giá trị lớn nhất trong mảng.
+var max = Math.max.apply(null, points);
+document.getElementById("demo5").innerHTML = max ;
+
+//in ra giá trị nhỏ nhất trong mảng.
+var max = Math.min.apply(null, points);
+document.getElementById("demo6").innerHTML = max ;
+
+//sử dụng sorting với Object.
+// tạo object
+var cars = [
+  {type:"Volvo", year:2016},
+  {type:"Saab", year:2014},
+  {type:"BMW", year:2010}
+];
+
+//Gọi ham fhieenj thị e
+myFunction() ;
+displayCars();
+
+//hàm sắp xếp se theo năm tăng dần
+function myFunction() {
+  cars.sort(function(a, b){return a.year - b.year});
+  displayCars();
+}
+
+//hiện thị xe
+function displayCars() {
+  document.getElementById("demo7").innerHTML =
+  cars[0].type + " " + cars[0].year + "<br>" +
+  cars[1].type + " " + cars[1].year + "<br>" +
+  cars[2].type + " " + cars[2].year;
+}
+</script>
+
+
+<h1>Array Iteration</h1>
+
+<p id="demo8"></p>
+<p id="demo9"></p>
+<p id="demo10"></p>
+<p id="demo11"></p>
+<p id="demo12"></p>
+<p id="demo13"></p>
+<script>
+// array.forEach là duyệt từng thành phần trong mangh cho đển hkhi hết.
+var txt = "";
+var numbers = [-99, 45, 4, 9, 16, 25];
+//var numbers1 = [45, 4, 9, 16, 25];
+numbers.forEach(myFunction8);
+document.getElementById("demo8").innerHTML = txt;
+
+function myFunction8(value) {
+  txt = txt + value + "<br>"; 
+}
+
+//Phương thức filter () tạo ra một mảng mới với các phần tử mảng vượt qua một điều kiện.
+
+//in ra các phân tứ lớn hơn 18
+
+var over18 = numbers.filter(myFunction9);
+document.getElementById("demo9").innerHTML = over18;
+function myFunction9(value, index, array) {
+  return value > 18;
+} 
+//Phương thức reduce() chạy một hàm trên mỗi phần tử mảng để tạo (giảm nó thành) một giá trị.
+
+var sum = numbers.reduce(myFunction10);
+document.getElementById("demo10").innerHTML = "The sum is " + sum;
+function myFunction10(total, value, index, array) {
+  return total + value;
+}
+
+//Phương thức every () kiểm tra xem tất cả các giá trị mảng có vượt qua kiểm tra hay không.
+var allOver18 = numbers.every(myFunction11);
+document.getElementById("demo11").innerHTML = allOver18;
+function myFunction11(value, index, array) {
+  return value > 18;
+} 
+
+//Phương thức indexOf () tìm kiếm một mảng cho một giá trị phần tử và trả về vị trí của nó.
+var fruits = ["Apple", "Orange", "Apple", "Mango"];
+var a = fruits.indexOf("Apple");
+document.getElementById("demo12").innerHTML = "Apple is found in position " + a;
+
+
+//Phương thức find () trả về giá trị của phần tử mảng đầu tiên vượt qua hàm kiểm tra.
+var first = numbers.find(myFunction);
+
+document.getElementById("demo13").innerHTML = "First number over -100 is " + first;
+
+function myFunction(value, index, array) {
+  return value > -100;
+}
+
+</script>
+</body>
+</html>

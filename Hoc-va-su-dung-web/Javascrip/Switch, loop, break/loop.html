@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<body>
+<head>
+    <meta charset="utf-8">
+</head>
+
+<p> Loop in javascript</p>
+
+<p>Su dụng để thực hieẹn mội khôi lệnh lặp đi lặp lại đến khi vi phạm điều kiện sẽ dừng lại</p>
+
+<p id="demo"></p>
+
+<p id="demo1"></p>
+<p id="demo4"></p>
+
+<p id="demo5"></p><br>
+<p id="demo3"></p><br>
+<p id="demo6"></p><br>
+<!-- 
+ ví dụ :var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+ trong mảng này nếu ột phần tử ra thì sẽ dùng:
+  text += cars[0] + "<br>"; 
+  nếu uốn lấy nhiêu phần tử thì lặp lại câu lệnh trên nhiêu lần. Có cachs khacsk là sử dụng vòng lặp.
+
+-->
+<script>
+/* for loop
+cú pháp:
+for (statement 1; statement 2; statement 3) {
+  // code block to be executed
+}
+
+Trong đó:
+	- Câu lệnh 1 được thực thi (một lần) trước khi thực thi khối mã.
+
+	- lệnh 2 định nghĩa điều kiện để thực thi khối mã.
+
+	-Câu lệnh 3 được thực thi  sau khi khối mã được thực thi. điều kiện.
+*/
+var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+var text = "";
+var i;
+for (i = 0; i < cars.length; i++) {
+  text += cars[i] + "<br>";
+} 
+document.getElementById("demo").innerHTML = text;
+
+
+/* sử dụng for và in trong vòng lặp.
+for/in lặp thông qua các tính chất của một đối tượng.
+*/
+var txt = "";
+var person = {fname:"John", lname:"Doe", age:25}; 
+var x;
+for (x in person) {
+  txt += person[x] + " ";
+}
+document.getElementById("demo1").innerHTML = txt;
+
+
+/*Sử dụng for và of lặp trong đối tượng. of có thể lặp qua các cấu trúc dữ liệu có thể lặp lại như mảng, chuỗi, map, nodelLIst
+*/
+// sử dụng for/of với mảng.
+
+var x;
+
+for (x of cars) {
+  document.write(x + "<br >");
+}
+// sử dụng for/of với string
+var name ='Bùi Công Thành';
+for (x of name) {
+  document.write(x + " ");
+}
+
+
+
+
+/* Ngoài vòng lặp for trong java ta cong mộn vòng lặp nữa là while
+Vòng lặp whil sẽ lặp khi có điều kiên trả về là đúng và dừng lại khi điều kiện trả về là sai.
+
+ cú pháp:
+while (condition) {
+  // code block to be executed
+}
+*/
+
+//kiểm tra xong với thực hiện 
+var text = "";
+var text1 = "";
+var i = 0;
+while (i < 10) {
+  text += "<br>The number is " + i;
+  i++;
+}
+document.getElementById("demo4").innerHTML = text;
+
+
+/* Vòng lặp do/while :Vòng lặp sẽ luôn được thực thi ít nhất một lần, ngay cả khi điều kiện sai, bởi vì khối mã được thực thi trước khi điều kiện được kiểm tra:
+*/
+
+//Thực hiện trong mới kiêmr tra.
+do {
+  text += "<br>The number is " + i;
+  i++;
+}
+while (i < 10);  
+
+document.getElementById("demo5").innerHTML = text; 
+
+
+
+//break dược dụng dụng để ngắt vòng lặp, nhảy ra khỏi vòng lặp.
+//Vời vòn lặp nà nếu gí trị băng 3 thì sẽ kết thục
+for (i = 0; i < 10; i++) {
+  if (i === 3) { break; }
+  text1 += "The number is " + i + "<br>";
+}
+document.getElementById("demo3").innerHTML = text1;
+
+
+/*Câu lệnh continue phá vỡ một lần lặp (trong vòng lặp), nếu một điều kiện được chỉ định xảy ra và tiếp tục với lần lặp tiếp theo trong vòng lặp.*/
+
+
+//Với câu lênh continue sẽ phá vỡ vòn lặp khi i nhỏ hơn 6 và lớn 3 và tiếp tục khi không gặp phải điêu kiên nữa.
+
+var text2 = "";
+var i;
+for (i = 0; i < 10; i++) {
+  if (i >=3 && i <=6) { continue; }
+  text2 += "The number is " + i + "<br>";
+}
+document.getElementById("demo6").innerHTML = text2;
+</script>
+
+</body>
+
+</html>
