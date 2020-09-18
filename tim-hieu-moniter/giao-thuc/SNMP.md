@@ -368,7 +368,7 @@ Khi manager gửi không đúng community hoặc khi OID cần lấy lại khôn
 SNMP ACL là một danh sách các địa chỉ IP được phép quản lý/giám sát agent, nó chỉ áp dụng riêng cho giao thức SNMP và được cài trên agent. Nếu một manager có IP không được phép trong ACL gửi request thì agent sẽ không xử lý, dù request có community string là đúng.
 
 Đa số các thiết bị tương thích SNMP đều cho phép thiết lập SNMP ACL.
-<a name="1"></a>
+<a name="7"></a>
 ### 7. Cấu trúc bản tin SNMP 
 SNMP chạy trên nền UDP. Cấu trúc của một bản tin SNMP bao gồm : version, community và data.
 
