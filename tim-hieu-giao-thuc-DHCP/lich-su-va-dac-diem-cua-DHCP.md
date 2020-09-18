@@ -81,5 +81,6 @@ DHCP ngày nay là giao thức cấu hình host được sử dụng ở hầu k
 
 DHCP hoạt động theo mô hình client- server
 
-DHCP server lăng nghe trên công 67. DHCP client lắng nghe trên cổng 68.
+## DHCP server lăng nghe trên công 67. 
+## DHCP client lắng nghe trên cổng 68.
 

@@ -51,13 +51,10 @@ Có 2 đường dẫn: một đường dẫn cho dữ liệu và một đường
 pNFS phân chia dữ liệu từ dữ liệu chính, cho phép tạo đường dẫn kép. Khi client muốn truy cập  đến 1 tệp, máy chủ sẽ phản hồi tới layout, layout sẽ ánh xạ tới storage, máy client lưu lại layout này sau đó nó co thể truy cập trực tiếp vào bộ lưu trữ storage mà không cần thông qua server dẫn đến có thể mở rộng quy mô và hiệu suất cao hơn.
 
 ## 6. Các lựa chọn khác thay thế cho nfs
-<<<<<<< HEAD
 Mặc dù NFS là hệ thống chia sẻ tệp qua mạng phổ biến nhất trên hệ thống linux và unix, nhưng đây không phải là lựa chọn duy nhất ta có thể sử dụng: ceph, samba, iscsi, SAN, NAS, DAS, ...
 
 Một trong những hệ thống tệp phân tán mới nhất, cũng được hỗ trợ trong Linux, là Ceph. Ceph được thiết kế từ đầu như một hệ thống tệp phân tán chịu lỗi, chịu tải cao với khả năng tương thích với Hệ điều hành di động UNIX (POSIX).
-=======
 Mặc dù NFS là hệ thống chia sẻ tệp qua mạng phổ biến nhất trên hệ thống linux và unix, nhưng đây không phải là lựa chịn duy nhất ta có thể sử dụng samba, iscsi, SAN, NAS, DAS, ...
 
 Một trong những hệ thống tệp phân tán mới nhất, cũng được hỗ trợ trong Linux, là Ceph. Ceph được thiết kế từ đầu như một hệ thống tệp phân tán chịu lỗi với khả năng tương thích với Hệ điều hành di động UNIX (POSIX).
->>>>>>> 0ac0c329b9a2595b9a879ff1a65382a18a0b4cca
 

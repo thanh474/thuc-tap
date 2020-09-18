@@ -1,10 +1,12 @@
 # tìm hiểu địa chỉ IPv4
 
-- mây tính  và rourter có 1 đường kết nới  vào hệ thống qua đó IP sẽ sử dụng khi gửi  datagram. nắm giữa máy tính và đường liên kết có một giao diện ghép nối( interface).
-router có nhiều giao diện mõi giao diện  ứng vơi một kết nối.
-Tất cacr máy tính và router dderu phải có khả năng gủi và nhận  IP dadtataa gram neen mỗi giao diện phải có 1 địa chỉ ip. do đó đia chỉ IP dúng vơi giao diện chứ không phải với  máy tính hayy router
+Máy tính  và router có 1 đường kết nối vào hệ thống qua đó IP sẽ sử dụng khi gửi  datagram. nắm giữa máy tính và đường liên kết có một giao diện ghép nối( interface).
 
-- Đia chỉ ip có độ dài là 32 bit (4 byte) do đó có 2^32 dịa chỉ, viết theo ký  pháp  dáu chấm  thập phân( dotted  decimal notation), 32 bit nhị phân chia thành 4 cụm 8bit gọi là các octet. Địa chỉ IP có cấu trúc 192.168.106.132.
+Router có nhiều giao diện mõi giao diện  ứng vơi một kết nối.
+
+Tất cả các máy tính và router đều phải có khả năng gửi  và nhận  IP dadtataa gram neen mỗi giao diện phải có 1 địa chỉ ip. do đó đia chỉ IP dúng vơi giao diện chứ không phải với  máy tính hayy router
+
+- Đia chỉ ip có độ dài là 32 bit (4 byte) do đó có 2^32 dịa chỉ, viết theo ký  pháp  dáu chấm  thập phân( dotted  decimal notation), 32 bit nhị phân chia thành 4 cụm 8 bit gọi là các octet. Địa chỉ IP có cấu trúc 192.168.106.132.
 - Địa  IP chia làm 2 phần : 
     - phần netwwork  và phần host:
 - Các lớp địa chỉ IPv4 
@@ -30,6 +32,3 @@ NAT (network address translation) được sử dụng để chuyển đổi gi�
 
 # chia địa chỉ IP 
 - Kỹ thuật chia mạng con với phương pháp (VLSM-Variable Lengh Subnet Mask)
-
-# giao thức  cấu hình địa chỉ động( dynamic host configuartion protocol - DHCP)
-- cách thức hoạt động:

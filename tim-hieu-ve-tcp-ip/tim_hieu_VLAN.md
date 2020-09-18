@@ -38,7 +38,7 @@
 - Chỉ quảng cáo VLAN 1 đến 1005
 - Tin cập nhật chỉ được trao đổi qua các liên kết trung kế.
 - Một số swicth hoạt động trong một chế độ VTP được cấu hình để xác định cách cập nhập gủi và nhân thông tin VLAN.
-## cổng truy cập trên switch.
+## Cổng truy cập trên switch.
 - Cổng truy cập- access:   
     - Cổng truy cập chỉ thuộc một VLAN. tất cả các máy tính kết nối với cổng này đểu thuộc VLAN đó
     - Frame được gửi trên cổng truy cập sẽ tuân theo chuẩn định dạng khung ethernet(802.3).
