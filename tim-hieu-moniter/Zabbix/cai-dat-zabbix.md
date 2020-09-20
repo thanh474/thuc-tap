@@ -175,7 +175,7 @@ Vào trình duyệt web nhập: **http://ipserver/zabbix**
 
 Do địa chỉ server của tôi ở đây là 192.168.122.44 nên tôi sẽ nhập link sau vào trình duyệt.
 
-http://192.168.122.44/zabbix
+http://192.168.122.43/zabbix
 
 Giao diện cài đặt ban đầu zabbix. Click Next step
 
