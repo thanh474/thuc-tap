@@ -213,7 +213,7 @@ Sử dụng tài khoản default để login zabbix server Admin\zabbix
 
 Login thành công.
 
-![](zabimg/dashbroad.png)
+![](zabimg/addhost.png)
 
 Hy vọng những hướng dẫn trên giúp bạn triển khai zabbix server thành công!
 
