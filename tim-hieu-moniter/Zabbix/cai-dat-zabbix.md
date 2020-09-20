@@ -22,7 +22,7 @@ Mô hình triển khai một node zabbix-server, một hoặc nhiều các host 
 <a name="2"></a>
 ## 2. IP Planning
 
-![](zabimg/planning.png)
+![](zabimg/planning1.png)
 Lưu ý: Bạn có thể tùy chỉnh cấu hình theo số lượng host bạn muốn giám sát.
 
 <a name="3"></a>
@@ -53,27 +53,29 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 ```
 
-
-Restart lại server để cập nhật cấu hình mới.
-
-![](zabimg/reset.png)
-
 Update các gói cài đặt
+
 ```
 yum install epel-release
 yum update -y
 ```
 
+Restart lại server để cập nhật cấu hình mới.
+```
+init 6
+```
+
+
 <a name="4"></a>
 
 ## 4. Các bước cài đặt
 
-Bước 1: Download repo zabbix và cài đặt một số package: zabbix-server, mariadb, php, http
+**Bước 1**: Download repo zabbix và cài đặt một số package: zabbix-server, mariadb, php, http
 ```
 rpm -ivh https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-1.el7.noarch.rpm
 yum -y install zabbix-server-mysql zabbix-web-mysql mysql mariadb-server httpd php
 ```
-Bước 2: Create Database
+**Bước 2**: Create Database
 Start service mariadb và tự động start khi khởi động lại server.
 ```
 systemctl start mariadb
@@ -136,20 +138,20 @@ Bye
 [root@zabbix ~]#
 ```
 
-Bước 3: Import database zabbix
+**Bước 3**: Import database zabbix
 ```
 cd /usr/share/doc/zabbix-server-mysql-4.0.3
 gunzip create.sql.gz
 mysql -u root -p zabbix_db < create.sql
 ```
-Bước 4: Config Database
+**Bước 4**: Config Database
 ```
 sed -i 's/# DBHost=localhost/DBHost=localhost/g' /etc/zabbix/zabbix_server.conf
 sed -i "s/DBName=zabbix/DBName=zabbix_db/g" /etc/zabbix/zabbix_server.conf
 sed -i "s/DBUser=zabbix/DBUser=zabbix_user/g" /etc/zabbix/zabbix_server.conf
 sed -i "s/# DBPassword=/DBPassword=password/g" /etc/zabbix/zabbix_server.conf
 ```
-Bước 5: Configure PHP Setting
+**Bước 5**: Configure PHP Setting
 ```
 sed -i 's/max_execution_time = 30/max_execution_time = 600/g' /etc/php.ini
 sed -i 's/max_input_time = 60/max_input_time = 600/g' /etc/php.ini
@@ -158,7 +160,7 @@ sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php.ini
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/g' /etc/php.ini
 echo "date.timezone = Asia/Ho_Chi_Minh" >> /etc/php.ini
 ```
-Bước 7: Restart service zabbix-server, http, mariadb
+**Bước 6**: Restart service zabbix-server, http, mariadb
 ```
 systemctl start zabbix-server
 systemctl enable zabbix-server
@@ -169,11 +171,11 @@ systemctl restart httpd
 systemctl restart mariadb
 ```
 
-Bước 8: Cấu hình web dashboard zabbix
+**Bước 7**: Cấu hình web dashboard zabbix
 
 Vào trình duyệt web nhập: **http://ipserver/zabbix**
 
-Do địa chỉ server của tôi ở đây là 192.168.122.44 nên tôi sẽ nhập link sau vào trình duyệt.
+Do địa chỉ server của tôi ở đây là 192.168.122.43 nên tôi sẽ nhập link sau vào trình duyệt.
 
 http://192.168.122.43/zabbix
 
@@ -202,7 +204,7 @@ Kết thúc cài đặt. Click Finish
 
 ![](zabimg/setup-6.png)
 
-Bước 9: Login dashboard zabbix server
+**Bước 8**: Login dashboard zabbix server
 Truy cập địa chỉ trên trình duyệt: http://ip_zabbix_server
 
 Sử dụng tài khoản default để login zabbix server Admin\zabbix
