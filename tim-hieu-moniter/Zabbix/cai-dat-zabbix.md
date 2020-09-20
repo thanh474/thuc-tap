@@ -13,19 +13,19 @@ Zabbix là một giải pháp monitor các thiết bị mạng, mã nguồn mở
 
 ---
 
-
+<a name="1"></a>
 ## 1. Mô hình triển khai
 Mô hình triển khai một node zabbix-server, một hoặc nhiều các host zabbix client.
 
 ![](zabimg/mohinh.png)
 
-
+<a name="2"></a>
 ## 2. IP Planning
 
 ![](zabimg/planning.png)
 Lưu ý: Bạn có thể tùy chỉnh cấu hình theo số lượng host bạn muốn giám sát.
 
-
+<a name="3"></a>
 ## 3. Thiết lập ban đầu
 
 Cài đặt chuẩn bị server ban đầu bao gồm các thao tác: Đặt địa chỉ IP tĩnh cho server, đặt host-name, thiết lập firewalld, selinux.
@@ -63,6 +63,9 @@ Update các gói cài đặt
 yum install epel-release
 yum update -y
 ```
+
+<a name="4"></a>
+
 ## 4. Các bước cài đặt
 
 Bước 1: Download repo zabbix và cài đặt một số package: zabbix-server, mariadb, php, http
