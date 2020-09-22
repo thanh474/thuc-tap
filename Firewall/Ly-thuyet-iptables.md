@@ -2,7 +2,7 @@
 
 ## Mục lục
 
-[1. iptables là gì và để làm gì?](#1)
+[1. Iptables là gì và để làm gì?](#1)
 
 [2. Sự khác biệt với Firewalld](#2)
 
@@ -17,14 +17,13 @@
 
 -----------
 
-<a name="1"></a>
-## 1. iptables là gì và để làm gì?
+## <a name="1"> 1. Iptables là gì và để làm gì?</a>
 
-iptables là firewall software cơ bản được dùng nhiều nhất trong Linux, được dùng để tạo tường lửa cho máy linux của bạn, nó có các chức năng lọc gói tin, nat gói tin qua đó để giúp làm nhiệm vụ bảo mật thông tin cá nhân tránh mất mát thông tin và áp dụng nhưng chính sách đổi với người sử dụng. Iptables hoạt động bằng cách giao tiếp với packet filtering hooks trong Linux kernel's networking stack. Các hooks này là netfilter framework.
+Iptables là firewall software cơ bản được dùng nhiều nhất trong Linux, được dùng để tạo tường lửa cho máy linux của bạn, nó có các chức năng lọc gói tin, nat gói tin qua đó để giúp làm nhiệm vụ bảo mật thông tin cá nhân tránh mất mát thông tin và áp dụng nhưng chính sách đổi với người sử dụng. Iptables hoạt động bằng cách giao tiếp với packet filtering hooks trong Linux kernel's networking stack. Các hooks này là netfilter framework.
 
 Netfilter là packet filtering framework bên trong Linux kernel 2.4.x và các phiên bản tiếp theo. Đây là phiên bản nâng cấp của  ipchains cũng như ipfwadm trong những phiên bản linux kernel 2.0.x và 2.2.x. netfilter là một danh sách các hooks nằm bên trong Linux kernel, nó cho phép kernel modules thực hiện các tác vụ đối với network stack.
 
-iptables đơn giản chỉ là một danh sách các rules được tổ chức theo dạng bảng. Mỗi một rule chứa một loạt các classifiers (iptables matches) và một connected action (iptables target).
+Iptables đơn giản chỉ là một danh sách các rules được tổ chức theo dạng bảng. Mỗi một rule chứa một loạt các classifiers (iptables matches) và một connected action (iptables target).
 
 Các firewall software khác chỉ đơn giản là sử dụng lại cơ chế hoặc cung cấp GUI interface để người dùng thao tác với iptables.
 
@@ -63,7 +62,7 @@ Tuy vậy, trong khi iptables service lưu cấu hình tại `/etc/sysconfig/ipt
 
 Đối với iptables, mỗi một thay đổi đồng nghĩa với việc hủy bỏ toàn bộ các rules cũ và load lại một loạt các rules mới trong file `/etc/sysconfig/iptables`. Trong khi đó với firewalld, chỉ những thay đổi mới được applied. Vì thế firewalld có thể thay đổi cài đặt trong thời gian runtim mà không làm mât bất cứ kết nối nào.
 
-Để em các iptables rules mà firewalld tạo ra, sử dụng câu lệnh sau:
+Để xem các iptables rules mà firewalld tạo ra, sử dụng câu lệnh sau:
 
 `iptables-save`
 
@@ -133,7 +132,7 @@ Iptables có 3 bảng chính: filter, mangle, và nat.
 
 **Chains**
 
-Mặc định thì mỗi table đều có chains trống. Bạn cũng có thể tự tạo chain cho mình. Mỗi chain sẽ có policy, policy này sẽ quyết định trạng thái của gói tin truong trường hợp nó không match với bất cứ rules nào. Policy chỉ cso 2 target là ACCEPT và DROP, mặc định là ACCEPT. Các chain được tạo bởi user sẽ có policy mặc định và không thay đổi được có target là RETURN.
+Mặc định thì mỗi table đều có chains trống. Bạn cũng có thể tự tạo chain cho mình. Mỗi chain sẽ có policy, policy này sẽ quyết định trạng thái của gói tin truong trường hợp nó không match với bất cứ rules nào. Policy chỉ có 2 target là ACCEPT và DROP, mặc định là ACCEPT. Các chain được tạo bởi user sẽ có policy mặc định và không thay đổi được có target là RETURN.
 
 **Rules**
 

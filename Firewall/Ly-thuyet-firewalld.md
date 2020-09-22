@@ -2,7 +2,7 @@
 
 ## Mục lục
 
-[1.  firewalld là gì và để làm gì?](#1)
+[1. Firewalld là gì và để làm gì?](#1)
 
 [2. Lợi ích khi sử dụng firewalld](#2)
 
@@ -15,9 +15,9 @@
 ------------------
 
 <a name="1"></a>
-## 1. firewalld là gì và để làm gì?
+## 1. Firewalld là gì và để làm gì?
 
-firewalld là userland interface mới dành cho các phiên bản distro linux gần đây, nó thay thế cho iptables interface và cũng kết nối tới netfilter kernel code. Mục đích chính của nó là cải thiện việc quản lý rules bằng cách cho phép thay đổi các cấu hình mà các kết nối hiện tại không bị ngắt.
+Firewalld là userland interface mới dành cho các phiên bản distro linux gần đây, nó thay thế cho iptables interface và cũng kết nối tới netfilter kernel code. Mục đích chính của nó là cải thiện việc quản lý rules bằng cách cho phép thay đổi các cấu hình mà các kết nối hiện tại không bị ngắt.
 
 Firewalld cung cấp cơ chế quản lí dynamically với sự hỗ trợ dành cho network/firewall zones cho phép người dùng định nghĩa mức độ "tin tưởng" đối với các kết nối.
 
@@ -68,7 +68,7 @@ Firewalld cung cấp cơ chế quản lí dynamically với sự hỗ trợ dàn
 
 **Concepts**
 
-firewalld có 2 layer đó là core layer và D-Bus:
+Firewalld có 2 layer đó là core layer và D-Bus:
 
 - Core layer chịu trách nhiệm xử lí các cấu hình và các backends như iptables, ip6tables, ebtables, ipset and the module loader.
 
@@ -76,19 +76,19 @@ firewalld có 2 layer đó là core layer và D-Bus:
 
 <img src="https://i.imgur.com/CEkTaXC.png">
 
-- firewall-offline-cmd không nói chuyện trực tiếp với firewall nhưng nó có thể thực hiện thay đổi cấu hình bằng các file config kết nối trực tiếp với firewalld core thông qua IO handlers. Công cụ này không được khuyến khích sử dụng khi firewalld đang chạy.
+- Firewall-offline-cmd không nói chuyện trực tiếp với firewall nhưng nó có thể thực hiện thay đổi cấu hình bằng các file config kết nối trực tiếp với firewalld core thông qua IO handlers. Công cụ này không được khuyến khích sử dụng khi firewalld đang chạy.
 
-- firewalld thường đi kèm với NetworkManager. Tất nhiên nó không phụ thuộc vào nhau nhưng nếu không có NetworkManager thì firewalld sẽ bị hạn chế một số tính năng ví dụ như nếu có sự thay đổi về tên của network device thì firewalld sẽ không thể nhận biết được, khi đó thì interface sẽ không thể được add vào zone một cách tự động.
+- Firewalld thường đi kèm với NetworkManager. Tất nhiên nó không phụ thuộc vào nhau nhưng nếu không có NetworkManager thì firewalld sẽ bị hạn chế một số tính năng ví dụ như nếu có sự thay đổi về tên của network device thì firewalld sẽ không thể nhận biết được, khi đó thì interface sẽ không thể được add vào zone một cách tự động.
 
 **Thư mục chứa cấu hình**
 
-firewalld có 2 thư mục chứa cấu hình:
+Firewalld có 2 thư mục chứa cấu hình:
 
 - `/usr/lib/firewalld` là thư mục chứa cấu hình mặc định
 - `/etc/firewalld` là thư mục chứa các cấu hình của hệ thống cũng như người dùng. File này sẽ overload các file cấu hình mặc định
 
 - Các cấu hình của firewalld được lưu dưới dạng file xml
-- File `firewalld.conf` được lưu trong `/etc/firewalld` cung cấp cấu hình cơ bản cho firewalld. Sau đâu là các giá trị mặc định của firewalld:
+- File `firewalld.conf` được lưu trong `/etc/firewalld` cung cấp cấu hình cơ bản cho firewalld. Sau đây là các giá trị mặc định của firewalld:
   - DefaultZone=public
   - MinimalMark=100
   - CleanupOnExit=yes
