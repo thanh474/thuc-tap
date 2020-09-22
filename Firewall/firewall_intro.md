@@ -2,18 +2,22 @@
 
 ## Mục lục
 
-[1. firewall là gì và tại sao cần có firewall?](#1)
+[1. Firewall là gì và tại sao cần có firewall?](#1)
 
 [2. Tính năng của firewall](#2)
 
 [3. Các loại firewall](#3)
+- [3.1 Packet Filtering Firewall](#3.1)
+- [3.2 Stateful Inspection Firewalls](#3.2)
+- [3.3 Application-Level Gateway](#3.3)
+- [3.4 Circuit-Level Gateway](#3.4)
 
-[4. firewall topo](#4)
+[4. Firewall topo](#4)
 
 ---------
 
 <a name="1"></a>
-## 1. firewall là gì và tại sao cần có firewall?
+## 1. Firewall là gì và tại sao cần có firewall?
 
 Firewall là access control device, nó tập trung phân tích ip packet, so sánh nó với các rules và quyết định xem packet đó có được phép đi qua hay không hoặc thực hiện một số hành động khác.
 
@@ -21,10 +25,10 @@ Tại sao cần firewall?
 
 Giờ đây kết nối internet là gần như bắt buộc đối với mọi tổ chức. Tuy nhiên việc kết nối internet cũng mang lại những mối nguy hại bởi nó cho phép bên ngoài có thể kết nối tới mạng local của bạn. Việc trang bị cho mỗi server những tính năng bảo mật cũng là một giải pháp tuy nhiên nó không thực sự tối ưu đối với những hệ thống có nhiều máy với những hệ điều hành khác nhau. Firewall được sinh ra để giải quyết vấn đề này, nó sẽ được đặt ở giữa internet và mạng local của bạn để control network vào và ra.
 
-<a name="2"></a>
-## 2. Tính năng của firewall
+## <a name="2">2. Tính năng của firewall</a>
 
-**những mục tiêu khi firewall ra đời**
+
+**Mục tiêu của firewall**
 
 - Tất cả các traffic vào và ra đều phải đi qua firewall.
 
@@ -42,7 +46,7 @@ Khi mới ra đời, firewall chủ yếu tập trung vào quản lí service, g
 
 - Behavior control: Điều khiển cách sử dụng các dịch vụ đặc biệt. Ví dụ firewall sẽ filter e-mail để giảm spam.
 
-**khả năng của firewall**
+**Khả năng của firewall**
 
 - Firewall định nghĩa ra single choke point giữ các users chưa được xác thực khỏi network được bảo vệ, chặn những dịch vụ có khả năng gây hại tới hệ thống và cung cấp sự bảo vệ đối với IP spoofing và routing attacks.
 
@@ -62,45 +66,50 @@ Khi mới ra đời, firewall chủ yếu tập trung vào quản lí service, g
 
 -  Các thiết bị cầm tay, laptop có thể bị lây nhiễm từ bên ngoài và thâm nhập vào mạng nội bộ.
 
-<a name="3"></a>
-## 3. Các loại firewall
+## <a name="3">3. Các loại firewall</a>
+ 
 
-### 3.1 Packet Filtering Firewall
-
-Packet filtering firewall áp dụng một loạt các rules đối với incoming và outgoing IP packet rồi sau đó forward hoặc discard packet. Firewall thường được cấu hình để filter ở cả hai chiều. Filter rules bao gồm: source/destination ip address, source/destination port number, ip protocol field, interface.
-
-Nếu packet không match với rule nào thì policy sẽ được thực thi. Có 2 policy chính đó là forward và discard. policy discard được khuyến cáo sử dụng và thường nó được áp dụng đối với các doanh nghiệp và tổ chức. Ngược lại, policy forward lại thường được sử dụng bởi các tổ chức mở hơn ví dụ như các trường đại học.
 
 Mô hình phổ biến nhất của firewall
 
-<img src="https://i.imgur.com/A2gGBpb.png">
+![](fireimg/firewall-1.png)
 
 Các loại firewall và layer mà nó sử dụng tới
 
-<img src="https://i.imgur.com/k5con7D.png">
+![](fireimg/firewall-2.png)
 
-## 3.2 Stateful Inspection Firewalls
 
-Như chúng ta đã biết, hầu hết các ứng dụng ngày nay chạy trên sử dụng giao thức TCP với mô hình client-server. Khi mà ứng dụng sử dụng TCP để tạo ra session, nó tạo ra 1 kết nối TCP với 2 port number, một cho server (0-1024) và 1 cho local (1024-65535).
 
-Packet filtering bình thường sẽ buộc phải cho phép inbound network traffic đối với tất cả các port xuất phát từ local (1024-65535). Điều này có thể dẫn tới một số nguy cơ về bảo mật.
+### <a name="3.1"> 3.1 Packet Filtering Firewall </a>
 
-Stateful inspection packet firewall sẽ thiết chặt lại rules đối với tcp traffic bằng việc tạo ra directory cho outbound tcp connections. Nôm na ta có thể hiểu là nó sẽ giám sát trạng thái kết nối và ghi vào bảng. Sau đó sẽ chỉ những kết nối có trạng thái "Established" phù hợp mới được thông qua.
+- Packet filtering firewall áp dụng một loạt các rules đối với incoming và outgoing IP packet rồi sau đó forward hoặc discard packet. Firewall thường được cấu hình để filter ở cả hai chiều. Filter rules bao gồm: source/destination ip address, source/destination port number, ip protocol field, interface.
 
-### 3.3 Application-Level Gateway
+- Nếu packet không match với rule nào thì policy sẽ được thực thi. Có 2 policy chính đó là forward và discard. policy discard được khuyến cáo sử dụng và thường nó được áp dụng đối với các doanh nghiệp và tổ chức. Ngược lại, policy forward lại thường được sử dụng bởi các tổ chức mở hơn ví dụ như các trường đại học.
 
-Application-Level Gateway hay còn được gọi là application proxy hoạt động như một chiếc công tắc đối với các traffic trên tầng application. Khi người dùng liên lạc với Gateway thông qua các ứng dụng tcp/ip như telnet, ftp thì Gateway sẽ là nơi tiếp nhận và liên lạc với remote host để truyền tín hiệu. Vì vậy nó phải được implement proxy code đối với từng dịch vụ cụ thể. Cũng do vậy nên nó cũng có thể chặn một số dịch vụ không mong muốn.
 
-Tuy vậy, một trong những hạn chế của firewall này đó là việc có quá nhiều kết nối mà Gateway phải xử lí. Với 2 chiều kết nối thì Gateway phải phân tích và xử lí ở cả hai chiều mỗi bên.
 
-### 3.4 Circuit-Level Gateway
+### <a name="3.2"> 3.2 Stateful Inspection Firewalls </a>
+
+- Như chúng ta đã biết, hầu hết các ứng dụng ngày nay chạy trên sử dụng giao thức TCP với mô hình client-server. Khi mà ứng dụng sử dụng TCP để tạo ra session, nó tạo ra 1 kết nối TCP với 2 port number, một cho server (0-1024) và 1 cho local (1024-65535).
+
+- Packet filtering bình thường sẽ buộc phải cho phép inbound network traffic đối với tất cả các port xuất phát từ local (1024-65535). Điều này có thể dẫn tới một số nguy cơ về bảo mật.
+
+- Stateful inspection packet firewall sẽ thiết chặt lại rules đối với tcp traffic bằng việc tạo ra directory cho outbound tcp connections. Nôm na ta có thể hiểu là nó sẽ giám sát trạng thái kết nối và ghi vào bảng. Sau đó sẽ chỉ những kết nối có trạng thái "Established" phù hợp mới được thông qua.
+
+### <a name="3.3"> 3.3 Application-Level Gateway </a>
+
+- Application-Level Gateway hay còn được gọi là application proxy hoạt động như một chiếc công tắc đối với các traffic trên tầng application. Khi người dùng liên lạc với Gateway thông qua các ứng dụng tcp/ip như telnet, ftp thì Gateway sẽ là nơi tiếp nhận và liên lạc với remote host để truyền tín hiệu. Vì vậy nó phải được implement proxy code đối với từng dịch vụ cụ thể. Cũng do vậy nên nó cũng có thể chặn một số dịch vụ không mong muốn.
+
+- Tuy vậy, một trong những hạn chế của firewall này đó là việc có quá nhiều kết nối mà Gateway phải xử lí. Với 2 chiều kết nối thì Gateway phải phân tích và xử lí ở cả hai chiều mỗi bên.
+
+### <a name="3.4"> 3.4 Circuit-Level Gateway </a>
 
 Circuit-Level Gateway hay còn được gọi là circuit-level proxy. Có thể đứng một mình hoặc kết hợp với Application-Level Gateway. Khi kết hợp, nó sẽ không cho phép kết nối TCP end-to-end. Mặt khác Gateway sẽ setup 2 kết nối TCP, một giữa nó với TCP user trên inner host và 1 giữa nó với TCP user trên outside host.
 
 Thông thường, circuit-level gateways được sử dụng cho outbound connections còn application-level được cấu hình để dùng cho inbound connections.
 
-<a name="4"></a>
-## 4. firewall topo
+
+## <a name="4"> 4. Firewall topo </a>
 
 **DMZ**
 
@@ -124,14 +133,12 @@ application proxies. Thường dùng cho doanh nghiệp vừa và lớn.
 - Single bastion T: Giống với Single bastion inline nhưng có một interface thứ 3 nữa cho DMZ.
 
 - Double bastion inline: Vùng DMZ nằm giữa 2 firewall. Thường dùng cho doanh nghiệp lớn và các tổ chức chính phủ.
-
-<img src="https://i.imgur.com/jZbytJC.png">
+![](fireimg/firewall-3.png)
 
 - Double bastion T: Vùng DMZ sẽ nằm riêng trên một card mạng của bastion firewall.
 
 - Distributed firewall configuration: DMZ được chia làm 2 vùng internal và external
-
-<img src="https://i.imgur.com/UPvhWKU.png">
+![](fireimg/firewall-4.png)
 
 **Link tham khảo:**
 
