@@ -48,7 +48,7 @@ Khi mới ra đời, firewall chủ yếu tập trung vào quản lí service, g
 
 **Khả năng của firewall**
 
-- Firewall định nghĩa ra single choke point giữ các users chưa được xác thực khỏi network được bảo vệ, chặn những dịch vụ có khả năng gây hại tới hệ thống và cung cấp sự bảo vệ đối với IP spoofing và routing attacks.
+- Firewall định nghĩa ra single check  point giữ các users chưa được xác thực khỏi network được bảo vệ, chặn những dịch vụ có khả năng gây hại tới hệ thống và cung cấp sự bảo vệ đối với IP spoofing và routing attacks.
 
 - Firewall cũng cung cấp nơi để giám sát security-related events, thử nghiệm và đưa ra những cảnh báo.
 
@@ -66,13 +66,8 @@ Khi mới ra đời, firewall chủ yếu tập trung vào quản lí service, g
 
 -  Các thiết bị cầm tay, laptop có thể bị lây nhiễm từ bên ngoài và thâm nhập vào mạng nội bộ.
 
-## <a name="3">3. Các loại firewall</a>
+## <a name="3">3. Các loại firewall và layer sử dụng </a>
  
-
-
-Mô hình phổ biến nhất của firewall
-
-![](fireimg/firewall-1.png)
 
 Các loại firewall và layer mà nó sử dụng tới
 
@@ -104,12 +99,15 @@ Các loại firewall và layer mà nó sử dụng tới
 
 ### <a name="3.4"> 3.4 Circuit-Level Gateway </a>
 
-Circuit-Level Gateway hay còn được gọi là circuit-level proxy. Có thể đứng một mình hoặc kết hợp với Application-Level Gateway. Khi kết hợp, nó sẽ không cho phép kết nối TCP end-to-end. Mặt khác Gateway sẽ setup 2 kết nối TCP, một giữa nó với TCP user trên inner host và 1 giữa nó với TCP user trên outside host.
+- Circuit-Level Gateway hay còn được gọi là circuit-level proxy. Có thể đứng một mình hoặc kết hợp với Application-Level Gateway. Khi kết hợp, nó sẽ không cho phép kết nối TCP end-to-end. Mặt khác Gateway sẽ setup 2 kết nối TCP, một giữa nó với TCP user trên inner host và 1 giữa nó với TCP user trên outside host.
 
-Thông thường, circuit-level gateways được sử dụng cho outbound connections còn application-level được cấu hình để dùng cho inbound connections.
+- Thông thường, circuit-level gateways được sử dụng cho outbound connections còn application-level được cấu hình để dùng cho inbound connections.
 
 
-## <a name="4"> 4. Firewall topo </a>
+## <a name="4"> 4. Firewall topologies </a>
+Mô hình phổ biến nhất của firewall
+
+![](fireimg/firewall-1.png)
 
 **DMZ**
 
@@ -119,6 +117,11 @@ Thông thường, circuit-level gateways được sử dụng cho outbound conne
 - Có hai cách thiết lập vùng DMZ:
 + Đặt DMZ giữa 2 firewall, một để lọc các thông tin từ internet vào và một để kiểm tra các luồng thông tin vào mạng cục bộ.
 + Sử dụng Router có nhiều cổng để đặt vùng DMZ vào một nhánh riêng tách rời với mạng cục bộ
+
+**Internal**
+
+**External**
+
 
 Nhìn chung ta có thể phân ra các topologies như sau:
 
