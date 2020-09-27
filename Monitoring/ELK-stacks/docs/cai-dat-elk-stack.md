@@ -19,14 +19,14 @@
 1 máy CentOS 7 làm ELK (aio) server : RAM 6GB, 100GB HDD.
 
 Các máy client có OS là windows, ubuntu hoặc CentOS.
-## <a name="1">2. Mô hình</a>
+## <a name="2">2. Mô hình</a>
 
 
 
-## <a name="1">3. Phân hoặc địa chỉ IP</a>
+## <a name="3">3. Phân hoặc địa chỉ IP</a>
 
 
-## <a name="1">4. Cài đặt trên máy chủ ELK.</a>
+## <a name="4">4. Cài đặt trên máy chủ ELK.</a>
 
 ### Cài đặt Elasticsearch.
 

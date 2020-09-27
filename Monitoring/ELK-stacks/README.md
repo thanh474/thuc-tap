@@ -6,7 +6,7 @@
 
 [2. Tìm hiểu về logstash](./docs/tim-hieu-Logstach.md)
 
-[3. Tìm hiểu về Elasticsearch](./docs/tim-hieu-Elastichsearch.md)
+[3. Tìm hiểu về Elasticsearch](./docs/tim-hieu-Elasticsearch.md)
 
 [4. Tìm hiểu về Kibana](./docs/tim-hieu-Kibana.md)
 
