@@ -2,7 +2,7 @@
 
 ## Mục lục
 
-[1. Tổng qua về ELK stack](./docs/tong-quan-ve-elk-stack.md)
+[1. Tổng quan về ELK stack](./docs/tong-quan-ve-elk-stack.md)
 
 [2. Tìm hiểu về logstash](./docs/tim-hieu-Logstach.md)
 
