@@ -40,16 +40,15 @@ nmcli con modify ens160 ipv4.method manual
 nmcli con modify ens160 connection.autoconnect yes
 
 
-sudo systemctl disable firewalld
-sudo systemctl stop firewalld
-sudo systemctl disable NetworkManager
-sudo systemctl stop NetworkManager
-sudo systemctl enable network
-sudo systemctl start network
+systemctl disable firewalld
+systemctl stop firewalld
+systemctl disable NetworkManager
+systemctl stop NetworkManager
+systemctl enable network
+systemctl start network
 
 hostnamectl set-hostname zabbix
 
-sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 ```
 
@@ -73,7 +72,7 @@ init 6
 **Bước 1**: Download repo zabbix và cài đặt một số package: zabbix-server, mariadb, php, http
 ```
 rpm -ivh https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-1.el7.noarch.rpm
-yum -y install zabbix-server-mysql zabbix-web-mysql mysql mariadb-server httpd php
+yum -y install zabbix-server-mysql zabbix-web-mysql mysql mariadb-server httpd php zabbix-server
 ```
 **Bước 2**: Create Database
 Start service mariadb và tự động start khi khởi động lại server.
