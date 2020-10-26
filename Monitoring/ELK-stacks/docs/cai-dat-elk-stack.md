@@ -28,7 +28,13 @@ Các máy client có OS là windows, ubuntu hoặc CentOS.
 
 ## <a name="4">4. Cài đặt trên máy chủ ELK.</a>
 
+
+
 ### Cài đặt Elasticsearch.
+Cài đặt java:
+```
+yum -y install java-openjdk-devel java-openjdk
+```
 
 Import key elastic:
 ```
