@@ -37,9 +37,9 @@ rpm --import http://packages.elastic.co/GPG-KEY-elasticsearch
 Thêm repo elastic :
 ```
 cat <<EOF > /etc/yum.repos.d/elasticsearch.repo
-[elasticsearch-6.x]
-name=Elasticsearch repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[elasticsearch-7.x]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -51,14 +51,10 @@ Cài đặt Elasticsearch :
 ```
 yum install elasticsearch -y
 ```
-Mở file `/etc/elasticsearch/elasticsearch.yml`:
+sửa file /etc/elasticsearch/jvm.options
 ```
-vi /etc/elasticsearch/elasticsearch.yml
-```
-Tìm đến dòng `network.host` và sửa lại như sau :
-
-```
-network.host: localhost
+-Xms256m
+-Xmx512m
 ```
 
 Khởi động lại Elasticsearch và cho phép dịch vụ khởi động cùng hệ thống :
@@ -99,8 +95,8 @@ Kết quả trả về như sau :
 Thêm repo logstash:
 ```
 cat << EOF > /etc/yum.repos.d/logstash.repo
-[logstash-6.x]
-name=Elastic repository for 6.x packages
+[logstash-7.x]
+name=Elastic repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
@@ -113,6 +109,12 @@ Cài đặt logstash:
 ```
 yum install logstash -y
 ```
+Chỉnh sửa file cấu hình
+```
+-Xms256m
+-Xmx512m
+```
+
 Khởi động và cho phép dịch vụ khởi động cùng hệ thống.
 ```
 systemctl daemon-reload
@@ -124,9 +126,9 @@ systemctl enable logstash
 Tạo repo cài đặt Kibana:
 ```
 cat <<EOF > /etc/yum.repos.d/kibana.repo
-[kibana-6.x]
-name=Kibana repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[kibana-7.x]
+name=Kibana repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -140,7 +142,10 @@ yum install kibana -y
 ```
 Sửa đổi cấu hình kibana
 ```
-sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/'g /etc/kibana/kibana.yml
+server port :5601
+server.host: "0.0.0.0"
+elasticsearch.hosts: "http://localhost:9200"
+
 ```
 Khởi động và cho phép dịch vụ khởi động cùng hệ thống:
 ```
