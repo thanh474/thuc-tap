@@ -8,7 +8,7 @@
 
 [2. Dynamic NAT](#2)
 
-- [2.1 Định dạng của file /etc/group](#2.1)
+- [2.1 Cấu hình dynamic nat](#2.1)
 
 [3. NAT Overload](#3)
 
