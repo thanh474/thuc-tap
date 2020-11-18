@@ -13,9 +13,12 @@
 - [4.3 ANYCAST](#4.3)
 
 ---
+
+<a name="1"> </a>
 ## 1. IPv6 là gì?
 IPv6 (internet protocol version 6) sử dụng 128 bit  là giao thức truyền thông cung cấp hệ thống đánh giá vị trí và định tuyến luu lượng các trên internet.
 
+<a name="2"> </a>
 ## 2. Ưu điểm so với IPv4
 - Không gian địac chỉ lớn 2^128 địa chỉ.
 - Header được cải  thiện.
@@ -27,6 +30,8 @@ IPv6 (internet protocol version 6) sử dụng 128 bit  là giao thức truyền
 - Anycast. dịch vụ dự phòng có cấu truc đặc biệt.
 - Tính di dộng dễ dàng xử lý vói thiết bị di đông hay chuyển vùng.
 
+
+<a name="3"> </a>
 ## 3. Cấu trúc, phân chia bộ phận
 ![](../tcpimg/ipv6.png)
 
@@ -80,6 +85,8 @@ http://[ địa chỉ IPv6 ] :  "port" /
 
     - 4 octet cuối :0000:0000:1986:69af : là phần interface ID nhận dạng  host riêng duy nhất trong mạng, được cấu hình dựa vào địa chỉ MAC của giao diện mạng  có thể cấu hình định dạng EUI-64
 
+
+<a name="4"> </a>
 # 4. Các loại địa chỉ IPv6
 MULTICAST, UNICAST VÀ ANYCAST.
 
