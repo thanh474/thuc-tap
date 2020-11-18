@@ -28,17 +28,47 @@ IPv6 (internet protocol version 6) sử dụng 128 bit  là giao thức truyền
 - Tính di dộng dễ dàng xử lý vói thiết bị di đông hay chuyển vùng.
 
 ## 3. Cấu trúc, phân chia bộ phận
+![](../tcpimg/ipv6.png)
 
-Địa chỉ IPv6 bao gồm 8 octet có dang: xxxx.xxxx.xxxx.xxxx.xxxx.xxxx.xxxx.xxxx
+Cấu trúc IPv6 gồm 2 phần:
+
+- Payload: là sự kết hợp của Extension và PDU.Thông thường có thể lên tới 65535 byte. PDU thường bao gồm header của giao thức tầng cao và độ dài của nó, còn Extension là những thông tin liên quan đến dịch vụ kèm theo trong IPv6 được chuyển tới một trường khác và nó có thể có hoặc không.
+
+- IPv6 Header: là thành phần luôn phải có trong một gói tin.IPv6 và cố định 40 bytes
+
+    - Version: 4 bits giúp xác định phiên bản của giao thức.
+
+    - Traffic class: 8 bits giúp xác định loại lưu lượng.
+
+    - Flow label: 20 bits giá mỗi luồng dữ liệu.
+
+    - Payload length: 16 bits (số dương).Giúp xác định kích thước phần tải theo sau IPv6 Header.
+
+    - Next-Header: 8 bits giúp xác định Header tiếp theo trong gói  tin.
+
+    - Hop Limit: 8 bits (số dương). Qua mỗi node, giá trị này giảm 1 đơn vị ( giảm đến 0 thì gói bị loại bỏ).
+
+    - Source address: 128 bits mang địa chỉ IPv6 nguồn của gói tin.
+
+
+Địa chỉ IPv6 bao gồm 8 hextet có dang: xxxx.xxxx.xxxx.xxxx.xxxx.xxxx.xxxx.xxxx
 
 Ví dụ: 2001:0j68:0000:0000:0000:0000:1986:69af
 
 Quy ước viết tắt địa chỉ IPv6:
 - Dãy 4 chữ số 0 liên tục sẽ viết tắt với nhau bằng ": :".
-- Các sô 0 trong nhóm, được bỏ qua nếu khối đó bắt đầu bằng 4 sô 0 thì bỏ 1 số 0 mỗi khối, nếu khối có 3 sô 0 thì bỏ 1 số 0 mỗi khối, nếu khối có 2 sô 0 thì bỏ 1 số ko mỗi khối nếu khối có 1 số 0 thì bỏ số 0 viết lại là ": :".
+- Các số 0 trong một nhóm có thể được bỏ qua. Nếu một khối 4 số bắt đầu của nó là số 0 thì số 0 này có thể được lược bỏ bớt để lại là 3 số 0 trong khối. Nếu khối ba số đó cũng lại bắt đầu với một số 0 đứng đầu thì ta có thể tiếp tục loại bỏ.
+ví dụ:
+    ```
+    2001:0f68:0000:0000:0000:0000:1986:69af
+    2001:f68:000:000:000:000:1986:69af
+    2001:f68:00:00:00:00:1986:69af
+    2001:f68:0:0:0:0:1986:69af
+    2001:f68::1986:69af
+    ```
 
 Theo quy ước trên ta sẽ viết lại địa chỉ IPV6 như sau
-2001:0j68: :1986:69af
+`2001:j68::1986:69af`
 
 - Truy cấp địa chỉ IPv6 qua web port 80 ta nhập sau 
 http://[ địa chỉ IPv6 ] :  "port" /
@@ -59,12 +89,23 @@ MULTICAST, UNICAST VÀ ANYCAST.
     - site prexit chiếm 48 bit
     - subnet ID chiếm 16 bit
 - unicast liên kết cục bộ chỉ có thể truy cập tói các máy tính khác mà đã chia sẻ liên kết.
+    - Site prefix được sử dụng bằng một địa chỉ Unicast liên kết cục bộ là: `fe80`.
     - có 128 byte chiều dài
         - site prexit chiếm 10 bit       
         - subnet ID chiếm 64 bit
         - interface  ID dài 54 bit, bắt nguồn từ 48 bit địa chỉ MAC đã gán vào card mạng để giao thức phân rang giới
 
 ## 4.2 MULTICAST.
+Mỗi một địa chỉ Multicast sử dụng một định dạng tiền tố là 11111111. Khi được biểu diễn trong ký hiệu hex và “:” thì một địa chỉ multicast luôn luôn bắt đầu bằng FF.
+
+Bốn bit tiếp theo của địa chỉ Multicast là các bit cờ (flag). Tại thời điểm hiện tại, ba bit đầu trong nhóm bốn bit là không dùng đến (chính vì vậy chúng được thiết lập là 0). Bit cờ thứ tư được biết đến như một bit nốt đệm. Nhiệm vụ của nó là để biểu thị xem địa chỉ đó là một địa chỉ tạm thời hay thường xuyên. Nếu địa chỉ đó là địa chỉ thường xuyên thì bit này sẽ được gán bằng 0 còn ngược lại nó sẽ được gán bằng 1.
+
+Bốn bit tiếp theo trong địa chỉ Multicast được biết đến như các bit ID Scope. Số lượng của không gian dự trữ cho các bit Scope ID là 4 bit, điều đó có nghĩa là có 16 giá trị khác nhau được biểu thị. Mặc dù không phải tất cả 16 giá trị đều được sử dụng tại thời điểm hiện tại, 7 trong số các giá trị đó được sử dụng để xác định phạm vi của địa chỉ. Ví dụ: nếu một địa chỉ có phạm vi toàn cầu thì địa chỉ là hợp lệ trên toàn bộ Internet. 
+
+Hiện tại đã sử dụng các bit Scope ID như sau:
+![](../tcpimg/multi.png)
+
+112 bit còn lại được sử dụng cho nhóm ID. Kích thước của nhóm ID cho phép các địa chỉ Multicast dùng hết 1/256 phần không gian địa chỉ của IPv6. 
 - dùng nhận dạng một nhóm giao diện mạng. các giao diện mạng điển hình dc định vị trên các máy tính phức hợp nhưng ko phải là thiết bị thuần túy
 - sử dụng gửi thông tin đến bất kỳ các mang giao diện nào
 
