@@ -90,8 +90,7 @@ Sau đó dùng câu lệnh sau để ssh tới server dùng private key đã ph�
 
 **Link tham khảo**
 
-http://cloudinit.readthedocs.io/en/latest/topics/examples.html
+https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
 
-https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup
 
-https://www.digitalocean.com/community/tutorials/an-introduction-to-cloud-config-scripting
+https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-2
