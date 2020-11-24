@@ -16,13 +16,11 @@
 ---
 
 <a name="1"> </a>
-
 ## 1. IPv6 là gì?
 
 IPv6 (internet protocol version 6) sử dụng 128 bit  là giao thức truyền thông cung cấp hệ thống đánh giá vị trí và định tuyến luu lượng các trên internet.
 
 <a name="2"> </a>
-
 ## 2. Ưu điểm so với IPv4
 - Không gian địac chỉ lớn 2^128 địa chỉ.
 - Header được cải  thiện.
@@ -102,11 +100,12 @@ MULTICAST, UNICAST VÀ ANYCAST.
 - unicast liên kết cục bộ chỉ có thể truy cập tói các máy tính khác mà đã chia sẻ liên kết.
     - Site prefix được sử dụng bằng một địa chỉ Unicast liên kết cục bộ là: `fe80`.
     - có 128 byte chiều dài
-        - site prexit chiếm 10 bit       
+        - site prexit chiếm 10 bit
         - subnet ID chiếm 64 bit
         - interface  ID dài 54 bit, bắt nguồn từ 48 bit địa chỉ MAC đã gán vào card mạng để giao thức phân rang giới
 
 ## 4.2 MULTICAST.
+
 Mỗi một địa chỉ Multicast sử dụng một định dạng tiền tố là 11111111. Khi được biểu diễn trong ký hiệu hex và “:” thì một địa chỉ multicast luôn luôn bắt đầu bằng FF.
 
 Bốn bit tiếp theo của địa chỉ Multicast là các bit cờ (flag). Tại thời điểm hiện tại, ba bit đầu trong nhóm bốn bit là không dùng đến (chính vì vậy chúng được thiết lập là 0). Bit cờ thứ tư được biết đến như một bit nốt đệm. Nhiệm vụ của nó là để biểu thị xem địa chỉ đó là một địa chỉ tạm thời hay thường xuyên. Nếu địa chỉ đó là địa chỉ thường xuyên thì bit này sẽ được gán bằng 0 còn ngược lại nó sẽ được gán bằng 1.
