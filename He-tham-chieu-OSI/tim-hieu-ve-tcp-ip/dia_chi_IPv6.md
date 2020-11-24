@@ -8,6 +8,7 @@
 [3. Cấu trúc, phân chia bộ phận](#3)
 
 [4. Các loại địa chỉ IPv6.](#4)
+
 - [4.1 UNICAST](#4.1)
 - [4.2 MULTICAST](#4.2)
 - [4.3 ANYCAST](#4.3)
@@ -15,10 +16,13 @@
 ---
 
 <a name="1"> </a>
+
 ## 1. IPv6 là gì?
+
 IPv6 (internet protocol version 6) sử dụng 128 bit  là giao thức truyền thông cung cấp hệ thống đánh giá vị trí và định tuyến luu lượng các trên internet.
 
 <a name="2"> </a>
+
 ## 2. Ưu điểm so với IPv4
 - Không gian địac chỉ lớn 2^128 địa chỉ.
 - Header được cải  thiện.
