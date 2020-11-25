@@ -32,20 +32,22 @@ Cài đặt chuẩn bị server ban đầu bao gồm các thao tác: Đặt đ�
 
 Ở màn command line của server bạn thực hiện các câu lệnh dưới.
 
+Cấu hình địa chỉ ip tĩnh cho zabbix server
+
 ```
 nmcli con modify ens160 ipv4.addresses 10.10.10.115/24
 nmcli con modify ens160 ipv4.gateway 10.10.10.1
 nmcli con modify ens160 ipv4.dns 8.8.8.8
 nmcli con modify ens160 ipv4.method manual
 nmcli con modify ens160 connection.autoconnect yes
+```
 
+Tắt firewalld và selinux.
+```
 
 sudo systemctl disable firewalld
 sudo systemctl stop firewalld
-sudo systemctl disable NetworkManager
-sudo systemctl stop NetworkManager
-sudo systemctl enable network
-sudo systemctl start network
+
 
 hostnamectl set-hostname zabbix
 
@@ -56,7 +58,7 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 Update các gói cài đặt
 
 ```
-yum install epel-release
+yum install epel-release -y
 yum update -y
 ```
 
