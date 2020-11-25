@@ -1,6 +1,6 @@
 # Tim hiểu công nghệ Unicast, Anycast, Multicast, Broadcast.
 
-## Công nghệ Anycast.
+## Công nghệ Unicast.
 Unicast là một khái niệm thông tin truyền định hướng, chỉ sự trao đổi thông tin trong đó thông tin được gửi từ một điểm này đến một điểm khác, nghĩa là chỉ có một người gửi và một người nhận. Trong mô hình Unicast thì một host sẽ nhận tất cả các dữ liệu truyền từ một host nào đó.
 
 ![](anhdhcp/anh3.png)

@@ -1,4 +1,4 @@
-# Thư mục tìm hiểu về HAProxy và keepalived của ThaoNV
+# Thư mục tìm hiểu về HAProxy và keepalived
 
 ## Mục lục
 
